@@ -61,7 +61,8 @@ class RestaurantSeeder extends Seeder
         $restaurant->types()->save($type);
 
         $dish = new Dish;
-        $dish->name = "Pizza Kebab (non è una pizza)";
+        $dish->name = "Pizza Kebab";
+        $dish->description = "non è una pizza";
         $dish->in_stock = 5;
         $dish->save();
 

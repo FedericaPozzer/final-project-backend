@@ -19,8 +19,7 @@ class RestaurantController extends Controller
             ->with('types')
             ->with('dishes')
             ->get();
-        return response()
-            ->json($restaurants);
+        return response()->json($restaurants);
     }
 
     /**
