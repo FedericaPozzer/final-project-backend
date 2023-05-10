@@ -11,7 +11,7 @@ class RestaurantController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -19,7 +19,10 @@ class RestaurantController extends Controller
             ->with('types')
             ->with('dishes')
             ->get();
-        return response()->json($restaurants);
+        return response()->json(
+            ['data' => $restaurants],
+            200
+        );
     }
 
     /**
