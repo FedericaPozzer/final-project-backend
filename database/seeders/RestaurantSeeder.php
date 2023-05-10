@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\Dish;
 use App\Models\Restaurant;
 use App\Models\Type;
+use App\Models\Order;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class RestaurantSeeder extends Seeder
@@ -77,5 +77,17 @@ class RestaurantSeeder extends Seeder
 
         $restaurant->dishes()->first()->stock(10);
 
+        $order = new Order;
+        $order->save();
+
+        $order->dishes()->save($dish);
+
+        $dish = new Dish;
+        $dish->name = "Pizza Patatine e Wurstel";
+        $dish->in_stock = 3;
+        $dish->save();
+
+        $order->dishes()->save($dish);
+        $order->dishes()->save($dish);
     }
 }
