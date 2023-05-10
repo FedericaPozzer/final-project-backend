@@ -18,76 +18,32 @@ class RestaurantSeeder extends Seeder
      */
     public function run()
     {
-        $user = new User;
-        $user->name = "Alessandro";
-        $user->password = "password";
-        $user->email = "root@root.it";
-        $user->save();
 
-        $type = new Type;
-        $type->name = 'Italiano';
-        $type->save();
+        $faker = \Faker\Factory::create();
 
-        $restaurant = new Restaurant;
-        $restaurant->name = 'Da Gennaro';
-        $restaurant->owner()->associate($user);
-        $restaurant->save();
-        $restaurant->types()->save($type);
+        for($i=0; $i<5; $i++) {
 
-        $dish = new Dish;
-        $dish->name = "Pizza Margherita";
-        $dish->in_stock = 5;
-        $dish->save();
+            $restaurant = new Restaurant;
+            $restaurant->name = $faker->company();
+            $restaurant->address = $faker->address();
+            $restaurant->p_iva = $faker->randomNumber(9, true);
 
-        $restaurant->dishes()->save($dish);
 
-        $dish = new Dish;
-        $dish->name = "Pizza Diavola";
-        $dish->in_stock = 3;
-        $dish->save();
+            $restaurant->owner()->associate(User::first());
+            $restaurant->save();
+            $restaurant->types()->save(Type::all()->random(1)->first());
 
-        $restaurant->dishes()->save($dish);
+        }
 
-        $restaurant->dishes()->first()->stock(10);
 
-        $type = new Type;
-        $type->name = 'Turco';
-        $type->save();
 
-        $restaurant = new Restaurant;
-        $restaurant->name = 'Da Abdul';
-        $restaurant->owner()->associate($user);
-        $restaurant->save();
-        $restaurant->types()->save($type);
+        // $order = new Order;
+        // $order->save();
 
-        $dish = new Dish;
-        $dish->name = "Pizza Kebab";
-        $dish->description = "non è una pizza";
-        $dish->in_stock = 5;
-        $dish->save();
+        // $order->dishes()->save($dish);
 
-        $restaurant->dishes()->save($dish);
 
-        $dish = new Dish;
-        $dish->name = "Falafel";
-        $dish->in_stock = 3;
-        $dish->save();
-
-        $restaurant->dishes()->save($dish);
-
-        $restaurant->dishes()->first()->stock(10);
-
-        $order = new Order;
-        $order->save();
-
-        $order->dishes()->save($dish);
-
-        $dish = new Dish;
-        $dish->name = "Pizza Patatine e Wurstel";
-        $dish->in_stock = 3;
-        $dish->save();
-
-        $order->dishes()->save($dish);
-        $order->dishes()->save($dish);
+        // $order->dishes()->save($dish);
+        // $order->dishes()->save($dish);
     }
 }
