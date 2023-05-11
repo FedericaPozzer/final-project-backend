@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        /* Creo un nuovo utente */
         $user = new User;
         $user->name = "Alessandro";
         $user->password = "password";

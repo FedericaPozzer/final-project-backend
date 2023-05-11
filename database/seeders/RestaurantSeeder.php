@@ -19,31 +19,38 @@ class RestaurantSeeder extends Seeder
     public function run()
     {
 
+        /* Importo Faker */
         $faker = \Faker\Factory::create();
 
-        // for($i=0; $i<5; $i++) {
+        /* Array di indirizzi */
+        $prefixes = ['Via', 'Piazza', 'Corso'];
+        $streets = ['Donatello', 'Michelangelo', 'Leonardo', 'Raffaello', 'Splinter'];
 
+        $prefix = $prefixes[$faker->numberBetween(0, 2)];
+        $street = $streets[$faker->numberBetween(0, 4)];
+        $number = $faker->numberBetween(1, 50);
+
+        if($faker->boolean(50)){
+            $name = $faker->company();
+        }
+        else{
+            $name =  'Da ' . $faker->firstName() ;
+        }
+        
+
+            /* Creo un nuovo ristorante */
             $restaurant = new Restaurant;
-            $restaurant->name = $faker->company();
-            $restaurant->address = $faker->address();
-            $restaurant->p_iva = $faker->randomNumber(9, true);
+            $restaurant->name = $name;
+            $restaurant->address = $prefix . ' ' . $street . ' ' . $number;
+            $restaurant->vat = $faker->randomNumber(9, true);
+            $restaurant->phone_number = $faker->phoneNumber();
 
+            /* Se l'utente non ha ristoranti gliene associo uno */
+            if (!(User::first()->restaurant)){
+                $restaurant->owner()->associate(User::first());
+                $restaurant->save();
+                $restaurant->types()->save(Type::all()->random(1)->first());
+            }
 
-            $restaurant->owner()->associate(User::first());
-            $restaurant->save();
-            $restaurant->types()->save(Type::all()->random(1)->first());
-
-        // }
-
-
-
-        // $order = new Order;
-        // $order->save();
-
-        // $order->dishes()->save($dish);
-
-
-        // $order->dishes()->save($dish);
-        // $order->dishes()->save($dish);
     }
 }

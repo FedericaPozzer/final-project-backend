@@ -20,27 +20,5 @@ class Dish extends Model
     {
         return $this->belongsToMany(Order::class);
     }
-
-    public function sell($quantity)
-    {
-        if ($this->in_stock > $quantity) {
-            $this->in_stock -= $quantity;
-            $this->save();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public function add($quantity)
-    {
-        $this->in_stock += $quantity;
-        $this->save();
-    }
-
-    public function stock($quantity)
-    {
-        $this->in_stock = $quantity;
-        $this->save();
-    }
+    
 }

@@ -16,8 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->string("name");
             $table->string("address")->nullable();
-            $table->string('p_iva')->nullable();
-            $table->string('img_path')->nullable();
+            $table->string('vat')->nullable();
+            $table->string('phone_number');
+            $table->string('img')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
         });

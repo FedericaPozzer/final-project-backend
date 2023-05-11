@@ -16,9 +16,9 @@ return new class extends Migration {
             $table->id();
             $table->string("name");
             $table->string("description")->nullable();
-            $table->string('img_path')->nullable();
+            $table->string('img')->nullable();
             $table->float("price")->nullable();
-            $table->integer("in_stock")->nullable();
+            $table->boolean("available");
             $table->foreignId('restaurant_id')->nullable();
 
             $table->timestamps();

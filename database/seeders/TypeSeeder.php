@@ -15,11 +15,14 @@ class TypeSeeder extends Seeder
      */
     public function run()
     {
+        /* Array di tipi di cucina */
         $names=["Italiano", "Cinese", "Messicano", "Giapponese", "Indiano"];
 
+        /* Creo un nuovo oggetto Tipo per ogni elemento nell'array */
         foreach($names as $name) {
             $type = new Type;
             $type->name = $name;
+            $type->img = 'prova';
             $type->save();
         }
     }
