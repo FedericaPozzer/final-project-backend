@@ -21,7 +21,7 @@ class RestaurantSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        for($i=0; $i<5; $i++) {
+        // for($i=0; $i<5; $i++) {
 
             $restaurant = new Restaurant;
             $restaurant->name = $faker->company();
@@ -33,7 +33,7 @@ class RestaurantSeeder extends Seeder
             $restaurant->save();
             $restaurant->types()->save(Type::all()->random(1)->first());
 
-        }
+        // }
 
 
 
