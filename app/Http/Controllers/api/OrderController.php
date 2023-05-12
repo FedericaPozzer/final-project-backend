@@ -14,7 +14,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+        return response()->json($orders);
     }
 
     /**
@@ -46,7 +47,6 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $order = Order::where('id', '=', $order->id)->with('dishes')->get();
         return response()->json($order);
     }
 
@@ -76,7 +76,7 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Order  $orders
      * @return \Illuminate\Http\Response
      */
     public function destroy(Order $order)

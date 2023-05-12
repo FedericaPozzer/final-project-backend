@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('guest_mail')->nullable();
             $table->string('payment_id')->nullable();
             $table->string('success')->nullable();
-            $table->string('value')->nullable();
+            $table->string('amount')->nullable();
             $table->timestamps();
         });
     }
