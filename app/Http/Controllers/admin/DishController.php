@@ -55,7 +55,7 @@ class DishController extends Controller
      */
     public function show(Dish $dish)
     {
-        //
+        return view('dishes.show', compact('dish'));
     }
 
     /**
@@ -66,7 +66,7 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        //
+        return view('dishes.form', compact('dish'));
     }
 
     /**
@@ -78,7 +78,9 @@ class DishController extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
-        //
+        $data = $request->all();
+        $dish->update($data);
+        return view('dishes.show', compact('dish'));
     }
 
     /**
