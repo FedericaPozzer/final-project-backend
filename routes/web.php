@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\DishController;
 use App\Http\Controllers\admin\RestaurantController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::resource('restaurants', RestaurantController::class);
+
+Route::resource('dishes', DishController::class);
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Dish;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 
 class DishController extends Controller
 {
@@ -25,18 +26,25 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        $dish = new Dish;
+        return view('dishes.form', compact("dish"));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->all();
+        $dish = new Dish;
+        $dish->restaurant()->associate($data['restaurant_id']);
+        $data["available"] = $request->has("available") ? 1 : 0;
+        $dish->fill($data);
+        $dish->save();
+
+        return view('dishes.show', compact('dish'));
     }
 
     /**
