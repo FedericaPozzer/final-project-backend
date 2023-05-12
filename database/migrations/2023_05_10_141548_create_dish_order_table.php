@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('order_id');
             $table->integer('quantity')->nullable();
             $table->timestamps();
+            
         });
     }
 
