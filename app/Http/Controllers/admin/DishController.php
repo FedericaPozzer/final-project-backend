@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Models\Order;
+use App\Models\Dish;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class OrderController extends Controller
+class DishController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,22 +42,21 @@ class OrderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Models\Dish  $dish
+     * @return \Illuminate\Http\Response
      */
-    public function show(Order $order)
+    public function show(Dish $dish)
     {
-        $order = Order::where('id', '=', $order->id)->with('dishes')->get();
-        return response()->json($order);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function edit(Order $order)
+    public function edit(Dish $dish)
     {
         //
     }
@@ -65,10 +65,10 @@ class OrderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Order $order)
+    public function update(Request $request, Dish $dish)
     {
         //
     }
@@ -76,10 +76,10 @@ class OrderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Dish  $dish
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Order $order)
+    public function destroy(Dish $dish)
     {
         //
     }

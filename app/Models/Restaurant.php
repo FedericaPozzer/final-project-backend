@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Restaurant extends Model
 {
     use HasFactory;
+
+    protected $fillable = ["name", "address", "vat", "phone_number", "img"];
+
     public function dishes(): HasMany
     {
         return $this->hasMany(Dish::class);

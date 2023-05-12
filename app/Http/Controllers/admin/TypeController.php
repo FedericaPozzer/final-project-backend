@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Models\Dish;
+use App\Models\Type;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class DishController extends Controller
+class TypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +42,10 @@ class DishController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Dish  $dish
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function show(Dish $dish)
+    public function show(Type $type)
     {
         //
     }
@@ -52,10 +53,10 @@ class DishController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Dish  $dish
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function edit(Dish $dish)
+    public function edit(Type $type)
     {
         //
     }
@@ -64,10 +65,10 @@ class DishController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dish  $dish
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Dish $dish)
+    public function update(Request $request, Type $type)
     {
         //
     }
@@ -75,10 +76,10 @@ class DishController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Dish  $dish
+     * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dish $dish)
+    public function destroy(Type $type)
     {
         //
     }

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RestaurantController extends Controller
 {
@@ -25,8 +26,8 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        
-        return view('restaurant.form');
+        $restaurant = new Restaurant;
+        return view('restaurant.form', compact("restaurant"));
     }
 
     /**
@@ -37,6 +38,13 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
+        $data=$request->all();
+        $restaurant = new Restaurant;
+        $restaurant->user_id = $request->user()->id;
+        $restaurant->fill($data);
+        $restaurant->save();
+
+        return view('restaurant.show', compact("restaurant"));
         
     }
 
@@ -59,7 +67,7 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        return view('restaurant.form');
+        return view('restaurant.form', compact("restaurant"));
     }
 
     /**
@@ -71,7 +79,9 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, Restaurant $restaurant)
     {
-        //
+        $data = $request->all();
+        $restaurant->update($data);
+        return view('restaurant.show', compact("restaurant"));
     }
 
     /**
