@@ -14,7 +14,8 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        //
+        // $restaurant = Restaurant::orderBy('updated_at', 'DESC')->paginate(5);
+        // return view('restaurant.index',compact('restaurant'));
     }
 
     /**
@@ -24,7 +25,8 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('restaurant.form');
     }
 
     /**
@@ -35,7 +37,7 @@ class RestaurantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
     }
 
     /**
