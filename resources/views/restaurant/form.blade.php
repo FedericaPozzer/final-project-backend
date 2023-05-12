@@ -1,6 +1,12 @@
 Creazione e modifica ristorante
 @extends('layouts.app')
 @section('content')
+
+{{-- @if (auth()->user()->restaurant != null)
+    ho un ristorante
+@else
+    non ho un ristorante sono povero
+@endif --}}
     
 @if ($restaurant->id)
     <h2>modifica il ristorante</h2>
