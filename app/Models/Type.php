@@ -12,6 +12,7 @@ class Type extends Model
 {
     use HasFactory;
 
+    // relations - types/restaurants
     public function restaurants(): BelongsToMany
     {
         return $this->belongsToMany(Restaurant::class);

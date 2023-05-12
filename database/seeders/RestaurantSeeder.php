@@ -30,6 +30,7 @@ class RestaurantSeeder extends Seeder
         $street = $streets[$faker->numberBetween(0, 4)];
         $number = $faker->numberBetween(1, 50);
 
+        // nome ristorante (company o "Da" + nome proprio)
         if($faker->boolean(50)){
             $name = $faker->company();
         }

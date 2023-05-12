@@ -17,16 +17,20 @@ class Restaurant extends Model
 
     protected $fillable = ["name", "address", "vat", "phone_number", "img"];
 
+
+    // relations - restaurants/dishes
     public function dishes(): HasMany
     {
         return $this->hasMany(Dish::class);
     }
 
+    // relations - restaurants/types
     public function types(): BelongsToMany
     {
         return $this->belongsToMany(Type::class);
     }
 
+    // relations - restaurants/owner(user)
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');

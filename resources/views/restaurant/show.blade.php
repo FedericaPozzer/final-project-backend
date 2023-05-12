@@ -1,6 +1,9 @@
 show del ristorante
 @extends('layouts.app')
+
 @section('content')
 
-    dettaglio ristorante
+    <h3>Dettaglio ristorante - show</h3>  
+
+
 @endsection

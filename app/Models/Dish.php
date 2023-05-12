@@ -13,11 +13,15 @@ class Dish extends Model
     use HasFactory;
     
     protected $fillable = ["name", "description", "price", "available", "image"];
+
+
+    // relations - dishes/restaurants
     public function restaurant(): BelongsTo
     {
         return $this->belongsTo(Restaurant::class);
     }
 
+    // relations - dishes/orders
     public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class);

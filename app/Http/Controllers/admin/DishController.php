@@ -40,6 +40,7 @@ class DishController extends Controller
         $data=$request->all();
         $dish = new Dish;
         $dish->restaurant()->associate($data['restaurant_id']);
+            // se la richiesta contiene available metti 1 (true), altrimenti 0 (false)
         $data["available"] = $request->has("available") ? 1 : 0;
         $dish->fill($data);
         $dish->save();

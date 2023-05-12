@@ -15,8 +15,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+// * Restaurants
 Route::resource('restaurants', RestaurantController::class);
 
+// * Dishes
 Route::resource('dishes', DishController::class);
 
 
@@ -25,10 +28,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 
 Route::middleware('auth')->group(function () {

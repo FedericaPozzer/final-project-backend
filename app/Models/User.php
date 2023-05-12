@@ -44,6 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
+    // relations - owner(user)/restaurants
     public function restaurant(): HasOne
     {
         return $this->hasOne(Restaurant::class);

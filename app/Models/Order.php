@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Order extends Model
 {
     use HasFactory;
+    
+
+    // relations - orders/dishes
     public function dishes(): BelongsToMany
     {
         return $this->belongsToMany(Dish::class)->withPivot('quantity');
