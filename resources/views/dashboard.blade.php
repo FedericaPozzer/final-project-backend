@@ -64,12 +64,27 @@
                 <tbody class="">
                     @foreach (auth()->user()->restaurant->dishesSortedByName(auth()->user()->restaurant->id) as $dish)    
                     <tr>
-                        <th scope="row">{{$dish->name}}</th>
+                        {{-- * nome piatto --}}
+                        <th scope="row" class="d-none d-md-table-cell">{{$dish->name}}</th>
+                            {{-- fino a MD, se il piatto è disponibile il name è blu, se non è disponibile il name è nero --}}
+                        @if(($dish->available) == 1)
+                        <th scope="row" class="text-primary d-md-none">{{$dish->name}}</th>
+                        @else
+    	                <th scope="row" class="d-md-none">{{$dish->name}}</th>
+                        @endif
+
+                        {{-- * descrizione (abstract) --}}
                         <td class="d-none d-lg-table-cell">
                             {{$dish->getAbstract()}}
                         </td>
+
+                        {{-- * prezzo --}}
                         <td>{{$dish->price}}</td>
+
+                        {{-- * disponibilità --}}
                         <td class="d-none d-md-table-cell">{{$dish->available}}</td>
+
+                        {{-- * azioni - vedi, modifica, elimina --}}
                         <td class="d-flex justify-content-between align-items-center">
                             <a href="{{route('dishes.show', $dish)}}" rel="tooltip" title="Visualizza"><i class="bi bi-eye"></i></a>
                             <a href="{{route('dishes.edit', $dish)}}" rel="tooltip" title="Modifica"><i class="bi bi-pencil"></i></a>
