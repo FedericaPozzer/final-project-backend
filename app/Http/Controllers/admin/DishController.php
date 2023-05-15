@@ -48,7 +48,7 @@ class DishController extends Controller
         $dish->fill($data);
         $dish->save();
 
-        return view('dishes.show', compact('dish'));
+        return view('dashboard');
     }
 
     /**
@@ -96,7 +96,7 @@ class DishController extends Controller
     public function destroy(Dish $dish)
     {
         $dish->delete();
-        return redirect()->back();
+        return to_route('dashboard');
     }
 
     public function restore($id)
