@@ -28,32 +28,44 @@ Creazione e modifica ristorante
     {{-- * nome piatto --}}
     <div class="col-8 my-4">
         <label class="form-label" for="name">Nome Piatto</label>
-        <input type="text" name="name" id="name" class="form-control">
+        <input type="text" name="name" id="name" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $dish->name }}">
+        @error("name")
+            <div class="invalid-feedback"> {{ $message }} </div>
+        @enderror
     </div>
     
     {{-- * descrizione --}}
     <div class="col-8 my-4">
         <label class="form-label" for="description">Descrizione</label>
-        <input type="text" name="description" id="description" class="form-control">
+        <input type="text" name="description" id="description" class="form-control @error("description") is-invalid @enderror" value="{{ old("description") ?? $dish->description }}">
+        @error("description")
+            <div class="invalid-feedback"> {{ $message }} </div>
+        @enderror
     </div>
   
     {{-- * prezzo --}}
     <div class="col-8 my-4">
         <label class="form-label" for="price">Prezzo</label>
-        <input type="float" name="price" id="price" class="form-control">
+        <input type="float" name="price" id="price" class="form-control @error("price") is-invalid @enderror" value="{{ old("price") ?? $dish->price }}">
+        @error("price")
+            <div class="invalid-feedback"> {{ $message }} </div>
+        @enderror
     </div>
   
     {{-- * immagine --}} 
         {{-- TODO: image! --}}
     <div class="col-8 my-4">
         <label class="form-label" for="phone_number">Immagine</label>
-        <input type="text" name="image" id="image" class="form-control">
+        <input type="text" name="image" id="image" class="form-control @error("image") is-invalid @enderror" value="{{ old("image") ?? $dish->image }}">
+        @error("image")
+            <div class="invalid-feedback"> {{ $message }} </div>
+        @enderror
     </div>
 
     {{-- * disponibilità --}}
     <div class="col-8 my-4">
         <label class="form-label" for="available">Disponibilità</label>
-        <input type="checkbox" id="available" name="available" value="0">
+        <input type="checkbox" id="available" name="available" @checked(old("available", $dish->available)) value="0">
     </div>
 
     {{-- * input invisibile per inviare l'id del ristorante insieme alle info inserite --}}
