@@ -35,4 +35,10 @@ class Restaurant extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    // funzione per ordinare i piatti by name
+    public function dishesSortedByName($restaurant_id) {
+        return Dish::where()
+    }
+
 }
