@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
 {
@@ -39,6 +40,7 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
         $data=$request->all();
+        $this->validation($data);
         $restaurant = new Restaurant;
         $restaurant->user_id = $request->user()->id;
         $restaurant->fill($data);
@@ -80,6 +82,7 @@ class RestaurantController extends Controller
     public function update(Request $request, Restaurant $restaurant)
     {
         $data = $request->all();
+        $this->validation($data);
         $restaurant->update($data);
         return view('restaurant.show', compact("restaurant"));
     }
@@ -94,4 +97,37 @@ class RestaurantController extends Controller
     {
         //
     }
+
+    private function validation($data)
+    {
+        return  Validator::make(
+            $data,
+            [
+                "name" => "required|string|max:100",
+                "address" => "required|string",
+                "vat" => "required|string|max:30",
+                "phone_number" => "required|string",
+                "image" => "string",
+                
+            ],
+            [
+                "name.required" => "Inserisci il nome.",
+                "name.string" => "Il nome inserito non è corretto.",
+                "name.max:100" => "Il nome è troppo lungo (max 100 caratteri).",
+
+                "address.required" => "Inserisci l'indirizzo.",
+                "address.string" => "L'indirizzo inserito non è corretto.",
+
+                "vat.required" => "Inserisci partita IVA.",
+                "vat.string" => "La partita IVA non è corretta.",
+                "vat.max:30" => "La partita IVA è troppo lunga (max 30 caratteri).",
+
+                "phone_number.required" => "Inserisci il numero di telefono",
+                "phone_number.string" => "Il numero inserito non è corretto.",
+
+                "image.string" => "STRING", // TODO: CHANGE THIS
+            ]
+        )->validate();
+    }
+    
 }

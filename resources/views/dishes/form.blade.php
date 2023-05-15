@@ -57,7 +57,7 @@ Creazione e modifica ristorante
     {{-- * immagine --}} 
         {{-- TODO: image! --}}
     <div class="col-8 my-4">
-        <label class="form-label" for="phone_number">Immagine</label>
+        <label class="form-label" for="image">Immagine</label>
         <input type="text" name="image" id="image" class="form-control @error("image") is-invalid @enderror" value="{{ old("image") ?? $dish->image }}">
         @error("image")
             <div class="invalid-feedback"> {{ $message }} </div>
