@@ -8,20 +8,33 @@
     {{-- * IF 2 - se hai già un ristorante --}}
     @if (auth()->user()->restaurant)
 
-        {{-- * nome ristorante --}}
-        <h1>{{auth()->user()->restaurant->name}}</h1>
-        @foreach (auth()->user()->restaurant->types as $type)
-            {{$type->name}}
-        @endforeach
-        <h2></h2>
+        <div class="row">
+            <div class="col-5 mt-5">
+                {{-- * nome ristorante --}}
+                <h1>{{auth()->user()->restaurant->name}}</h1>
+                @foreach (auth()->user()->restaurant->types as $type)
+                    <div class="text-secondary">{{$type->name}}</div>
+                @endforeach
+            </div>
 
-        {{-- * Modifica il tuo ristorante --}}
-        <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.edit', auth()->user()->restaurant)}}">Modifica il tuo ristorante</a>
-        {{-- Elimina il tuo ristorante --}}
-        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal">
-            Elimina ristorante  
-        </button>
-        @include('layouts.partials.deleteRestaurant')
+            <div class="col-7 mt-5">
+                {{-- * Modifica il tuo ristorante --}}
+                <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.edit', auth()->user()->restaurant)}}">Modifica il tuo ristorante</a>
+                
+                {{-- * Elimina il tuo ristorante --}}
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                    Elimina ristorante  
+                </button>
+                @include('layouts.partials.deleteRestaurant')   
+            </div>
+        </div>
+        
+
+        
+
+        <h2 class="mt-5">Menu:</h2>    
+        <br>
+
         {{-- * Crea un piatto --}}
         <a href="{{route('dishes.create')}}">Crea Piatto</a>
         {{-- Cestino Piatti --}}
