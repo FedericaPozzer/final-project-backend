@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-8 mt-5">
                 {{-- * nome ristorante --}}
-                <h1>{{auth()->user()->restaurant->name}}</h1>
+                <h1 class="fw-bold">{{auth()->user()->restaurant->name}}</h1>
                 @foreach (auth()->user()->restaurant->types as $type)
                     <div class="text-secondary">{{$type->name}}</div>
                 @endforeach
@@ -22,7 +22,7 @@
                 <a type="button" class="btn btn-success border" href="{{route('restaurants.edit', auth()->user()->restaurant)}}"title="Modifica"><i class="bi bi-pencil"></i></a>
                 
                 {{-- * Elimina il tuo ristorante --}}
-                <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#delete-modal"rel="tooltip" title="Elimina">
+                <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#delete-modal" rel="tooltip" title="Elimina">
                     <i class="bi bi-trash"></i>            
                 </button>
                 {{-- * delete modal --}}
@@ -79,7 +79,7 @@
                         </td>
 
                         {{-- * prezzo --}}
-                        <td>{{$dish->price}}</td>
+                        <td>&euro; {{$dish->price}}</td>
 
                         {{-- * disponibilità --}}
                         <td class="d-none d-md-table-cell">{{$dish->available}}</td>
@@ -103,9 +103,9 @@
 
         <div class="mt-4 d-flex justify-content-end align-items-center">
             {{-- * Crea un piatto --}}
-            <a href="{{route('dishes.create')}}" class="btn btn-success border">Crea Piatto</a>
+            <a href="{{route('dishes.create')}}" class="btn btn-success border" rel="tooltip" title="Crea">Crea Piatto</a>
             {{-- * Cestino Piatti --}}
-            <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
+            <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}" rel="tooltip" title="Cestino">Cestino piatti</a>
         </div>
 
         @include('layouts.partials.deleteDishes')
