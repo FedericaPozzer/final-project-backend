@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Dish;
 use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
@@ -95,7 +96,8 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
-        //
+        $restaurant->delete();
+        return redirect('dashboard');
     }
 
     private function validation($data)
@@ -128,6 +130,11 @@ class RestaurantController extends Controller
                 "image.string" => "STRING", // TODO: CHANGE THIS
             ]
         )->validate();
+    }
+
+    public function trash(){
+        $dishes = Dish::onlyTrashed()->where('restaurant_id', '=', auth()->user()->restaurant->id)->get();
+        return view('restaurant.trash', compact('dishes'));
     }
     
 }

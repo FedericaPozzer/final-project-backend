@@ -92,11 +92,23 @@ class DishController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Dish  $dish
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Dish $dish)
     {
-        //
+        $dish->delete();
+        return redirect()->back();
+    }
+
+    public function restore($id)
+    {
+        Dish::withTrashed()->find($id)->restore();
+        return to_route('dashboard');
+    }
+
+    public function delete($id)
+    {
+        Dish::withTrashed()->find($id)->forceDelete();
+        return redirect()->back();
     }
 
     private function validation($data)

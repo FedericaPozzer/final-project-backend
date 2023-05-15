@@ -13,9 +13,16 @@
 
         {{-- * Modifica il tuo ristorante --}}
         <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.edit', auth()->user()->restaurant)}}">Modifica il tuo ristorante</a>
+        {{-- Elimina il tuo ristorante --}}
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal">
+            Elimina ristorante  
+        </button>
+        @include('layouts.partials.deleteRestaurant')
         {{-- * Crea un piatto --}}
         <a href="{{route('dishes.create')}}">Crea Piatto</a>
-
+        {{-- Cestino Piatti --}}
+        <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
+        
         {{-- * Tabella menù --}}
         <div class="col-12">
             <table class="table table-striped">
@@ -40,6 +47,9 @@
                         <td>
                             <a href="{{route('dishes.show', $dish)}}">Dettaglio</a>
                             <a href="{{route('dishes.edit', $dish)}}">Modifica</a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $dish->id }}">
+                                Elimina              
+                              </button>
                         </td>
                     </tr>
                     @endforeach
@@ -47,6 +57,8 @@
 
             </table>
         </div>
+
+        @include('layouts.partials.deleteDishes')
 
     {{-- * ELSE 2 - se non hai già un ristorante --}}
     @else

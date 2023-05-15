@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->float("price")->nullable();
             $table->boolean("available");
             $table->foreignId("restaurant_id")->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
