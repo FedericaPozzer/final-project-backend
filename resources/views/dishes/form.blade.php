@@ -16,6 +16,8 @@ Creazione e modifica ristorante
     <h2>crea il tuo piatto</h2>
 @endif
 
+@include('layouts.partials.errors')
+
 {{-- * se il piatto esiste già form edit / se il piatto non esiste già form create --}}
 @if ($dish->id)
     <form action="{{route('dishes.update', $dish)}}" method="POST" class="row">
