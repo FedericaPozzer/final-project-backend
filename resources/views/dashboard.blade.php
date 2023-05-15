@@ -37,12 +37,12 @@
                 <h2 class="my-3">Menu:</h2>
             </div>
 
-            <div class="col-9 d-flex justify-content-end align-items-center">
+            {{-- <div class="col-9 d-flex justify-content-end align-items-center"> --}}
                 {{-- * Crea un piatto --}}
-                <a href="{{route('dishes.create')}}" class="btn btn-success border">Crea Piatto</a>
+                {{-- <a href="{{route('dishes.create')}}" class="btn btn-success border">Crea Piatto</a> --}}
                 {{-- * Cestino Piatti --}}
-                <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
-            </div>
+                {{-- <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
+            </div> --}}
         </div>
 
         
@@ -66,7 +66,7 @@
                     <tr>
                         {{-- * nome piatto --}}
                         <th scope="row" class="d-none d-md-table-cell">{{$dish->name}}</th>
-                            {{-- fino a MD, se il piatto è disponibile il name è blu, se non è disponibile il name è nero --}}
+                            {{-- fino a MD, se il piatto è disponibile il nome è blu, se non è disponibile il nome è nero --}}
                         @if(($dish->available) == 1)
                         <th scope="row" class="text-primary d-md-none">{{$dish->name}}</th>
                         @else
@@ -99,6 +99,13 @@
             </table>
 
             {{-- {{ $dishes->links() }} --}}
+        </div>
+
+        <div class="mt-4 d-flex justify-content-end align-items-center">
+            {{-- * Crea un piatto --}}
+            <a href="{{route('dishes.create')}}" class="btn btn-success border">Crea Piatto</a>
+            {{-- * Cestino Piatti --}}
+            <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
         </div>
 
         @include('layouts.partials.deleteDishes')
