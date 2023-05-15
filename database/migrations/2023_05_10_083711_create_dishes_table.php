@@ -16,10 +16,10 @@ return new class extends Migration {
             $table->id();
             $table->string("name");
             $table->string("description")->nullable();
-            $table->string('image')->nullable();
+            $table->string("image")->nullable();
             $table->float("price")->nullable();
             $table->boolean("available");
-            $table->foreignId('restaurant_id')->nullable();
+            $table->foreignId("restaurant_id")->nullable();
             $table->timestamps();
         });
     }
