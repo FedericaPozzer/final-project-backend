@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\api\RestaurantController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\api\OrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BraintreeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('restaurants', RestaurantController::class);
 
 Route::resource('orders', OrderController::class);
+
+Route::any('/payment', [BraintreeController::class, 'token'])->name('token');
