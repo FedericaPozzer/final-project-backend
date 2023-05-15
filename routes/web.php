@@ -23,7 +23,6 @@ Route::resource('restaurants', RestaurantController::class);
 Route::resource('dishes', DishController::class);
 
 
-
 Route::get('/', function () {
     return view('welcome');
 });
