@@ -74,6 +74,21 @@ Creazione e modifica ristorante
           @enderror
       </div>
 
+      <div class="col-8 my-4">
+        <label class="form-label" for="image">Tipo</label>
+        @foreach ($types as $type)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="{{$type->id}}" id="check-{{$type->id}}" name="check-{{$type->id}}" 
+                @if ($restaurant->containsType($type->id))
+                    checked    
+                @endif>
+                <label class="form-check-label" for="check-{{$type->id}}">
+                  {{$type->name}}
+                </label>
+              </div>
+        @endforeach
+    </div>
+
     {{-- * EDIT / CREATE submit --}}
     @if ($restaurant->id)
         <button type="submit" class="btn btn-primary">Modifica il tuo ristorante</button>

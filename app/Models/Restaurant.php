@@ -15,7 +15,7 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["name", "address", "vat", "phone_number", "img"];
+    protected $fillable = ["name", "address", "vat", "phone_number", "image"];
 
 
     // relations - restaurants/dishes
@@ -39,6 +39,19 @@ class Restaurant extends Model
     // funzione per ordinare i piatti by name
     public function dishesSortedByName($restaurant_id) {
         return Dish::all()->where('restaurant_id', '=', $restaurant_id)->sortBy('name');
+    }
+
+    /* Funzione per sapere se un tipo appartiene al ristorante in base al suo id*/
+    public function containsType($type_id) {
+        /* richiamo il tipo con il suo id */
+        $type = Type::all()->where('id', '=', $type_id)->first();
+        /* Controllo se il tipo appartiene al ristorante */
+        foreach ($this->types as $restaurantType){
+            if($restaurantType->id == $type->id){
+                return true;
+            }
+        }
+        return  false;
     }
 
 }

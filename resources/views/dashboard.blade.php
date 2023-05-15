@@ -10,6 +10,10 @@
 
         {{-- * nome ristorante --}}
         <h1>{{auth()->user()->restaurant->name}}</h1>
+        @foreach (auth()->user()->restaurant->types as $type)
+            {{$type->name}}
+        @endforeach
+        <h2></h2>
 
         {{-- * Modifica il tuo ristorante --}}
         <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.edit', auth()->user()->restaurant)}}">Modifica il tuo ristorante</a>

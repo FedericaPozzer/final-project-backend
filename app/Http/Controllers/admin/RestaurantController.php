@@ -6,6 +6,7 @@ use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Dish;
+use App\Models\Type;
 use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
@@ -29,7 +30,8 @@ class RestaurantController extends Controller
     public function create()
     {
         $restaurant = new Restaurant;
-        return view('restaurant.form', compact("restaurant"));
+        $types = Type::all();
+        return view('restaurant.form', compact("restaurant", 'types'));
     }
 
     /**
@@ -46,6 +48,18 @@ class RestaurantController extends Controller
         $restaurant->user_id = $request->user()->id;
         $restaurant->fill($data);
         $restaurant->save();
+        
+        /* Per ogni campo della richiesta inviata */
+        foreach ($data as $key => $value){
+            /* Controllo se contiene la parola 'check' */
+            if (str_contains($key, 'check')){
+                /* Nel caso recupera il tipo con l'id corrispondente */
+                $type = Type::all()->where('id', '=', $value)->first();
+                /* Salvo il tipo nel ristorante */
+                $restaurant->types()->save($type);
+
+            }
+        }
 
         return view('restaurant.show', compact("restaurant"));
         
@@ -70,7 +84,8 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        return view('restaurant.form', compact("restaurant"));
+        $types = Type::all();
+        return view('restaurant.form', compact("restaurant", 'types'));
     }
 
     /**
@@ -84,8 +99,18 @@ class RestaurantController extends Controller
     {
         $data = $request->all();
         $this->validation($data);
+        /* Dissocio tutti i tipi */
+        $restaurant->types()->detach();
+        /* Riassocio tutti i nuovi tipi */
+        foreach ($data as $key => $value){
+            if (str_contains($key, 'check')){
+                $type = Type::all()->where('id', '=', $value)->first();
+                $restaurant->types()->save($type);
+
+            }
+        }
         $restaurant->update($data);
-        return view('restaurant.show', compact("restaurant"));
+        return view('dashboard');
     }
 
     /**
