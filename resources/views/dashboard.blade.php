@@ -31,7 +31,7 @@
                 </thead>
 
                 <tbody>
-                    @foreach (auth()->user()->restaurant->dishes as $dish)    
+                    @foreach (auth()->user()->restaurant->dishesSortedByName(auth()->user()->restaurant->id) as $dish)    
                     <tr>
                         <th scope="row">{{$dish->name}}</th>
                         <td>{{$dish->description}}</td>

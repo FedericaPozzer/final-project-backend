@@ -38,7 +38,7 @@ class Restaurant extends Model
 
     // funzione per ordinare i piatti by name
     public function dishesSortedByName($restaurant_id) {
-        return Dish::where()
+        return Dish::all()->where('restaurant_id', '=', $restaurant_id)->sortByDesc('name');
     }
 
 }
