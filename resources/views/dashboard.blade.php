@@ -9,7 +9,7 @@
     @if (auth()->user()->restaurant)
 
         <div class="row">
-            <div class="col-5 mt-5">
+            <div class="col-8 mt-5">
                 {{-- * nome ristorante --}}
                 <h1>{{auth()->user()->restaurant->name}}</h1>
                 @foreach (auth()->user()->restaurant->types as $type)
@@ -17,62 +17,73 @@
                 @endforeach
             </div>
 
-            <div class="col-7 mt-5">
+            <div class="col-4 mt-5 d-flex align-items-center justify-content-end">
                 {{-- * Modifica il tuo ristorante --}}
-                <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.edit', auth()->user()->restaurant)}}">Modifica il tuo ristorante</a>
+                <a type="button" class="btn btn-success border" href="{{route('restaurants.edit', auth()->user()->restaurant)}}"title="Modifica"><i class="bi bi-pencil"></i></a>
                 
                 {{-- * Elimina il tuo ristorante --}}
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal">
-                    Elimina ristorante  
+                <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal" data-bs-target="#delete-modal"rel="tooltip" title="Elimina">
+                    <i class="bi bi-trash"></i>            
                 </button>
+                {{-- * delete modal --}}
                 @include('layouts.partials.deleteRestaurant')   
             </div>
         </div>
         
+        <hr>
+
+        <div class="row">
+            <div class="col-3">
+                <h2 class="my-3">Menu:</h2>
+            </div>
+
+            <div class="col-9 d-flex justify-content-end align-items-center">
+                {{-- * Crea un piatto --}}
+                <a href="{{route('dishes.create')}}" class="btn btn-success border">Crea Piatto</a>
+                {{-- * Cestino Piatti --}}
+                <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
+            </div>
+        </div>
 
         
-
-        <h2 class="mt-5">Menu:</h2>    
-        <br>
-
-        {{-- * Crea un piatto --}}
-        <a href="{{route('dishes.create')}}">Crea Piatto</a>
-        {{-- Cestino Piatti --}}
-        <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
         
         {{-- * Tabella menù --}}
-        <div class="col-12">
+        <div class="dashboard-menu-height">
             <table class="table table-striped">
 
-                <thead>
+                <thead class=" fs-4">
                     <tr>
                         <th scope="col">Nome Piatto</th>
-                        <th scope="col">Descrizione</th>
+                        <th scope="col" class="d-none d-lg-table-cell">Descrizione</th>
                         <th scope="col">Prezzo</th>
-                        <th scope="col">Disponibilità</th>
+                        <th scope="col" class="d-none d-md-table-cell">Disponibilità</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
 
-                <tbody>
+                <tbody class="">
                     @foreach (auth()->user()->restaurant->dishesSortedByName(auth()->user()->restaurant->id) as $dish)    
                     <tr>
                         <th scope="row">{{$dish->name}}</th>
-                        <td>{{$dish->description}}</td>
+                        <td class="d-none d-lg-table-cell">
+                            {{$dish->getAbstract()}}
+                        </td>
                         <td>{{$dish->price}}</td>
-                        <td>{{$dish->available}}</td>
-                        <td>
-                            <a href="{{route('dishes.show', $dish)}}">Dettaglio</a>
-                            <a href="{{route('dishes.edit', $dish)}}">Modifica</a>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $dish->id }}">
-                                Elimina              
-                              </button>
+                        <td class="d-none d-md-table-cell">{{$dish->available}}</td>
+                        <td class="d-flex justify-content-between align-items-center">
+                            <a href="{{route('dishes.show', $dish)}}" rel="tooltip" title="Visualizza"><i class="bi bi-eye"></i></a>
+                            <a href="{{route('dishes.edit', $dish)}}" rel="tooltip" title="Modifica"><i class="bi bi-pencil"></i></a>
+                            <button type="button" class="text-danger border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $dish->id }}" rel="tooltip" title="Elimina">
+                                <i class="bi bi-trash"></i>            
+                            </button>
                         </td>
                     </tr>
                     @endforeach
                 </tbody>
 
             </table>
+
+            {{-- {{ $dishes->links() }} --}}
         </div>
 
         @include('layouts.partials.deleteDishes')

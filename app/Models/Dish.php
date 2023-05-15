@@ -29,5 +29,10 @@ class Dish extends Model
     {
         return $this->belongsToMany(Order::class);
     }
-    
+
+    // abstract dashboard
+    public function getAbstract($max = 40)
+    {
+        return substr($this->description, 0, $max) . "...";
+    }
 }
