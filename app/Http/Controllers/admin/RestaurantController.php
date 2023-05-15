@@ -61,7 +61,7 @@ class RestaurantController extends Controller
             }
         }
 
-        return view('restaurant.show', compact("restaurant"));
+        return view('dashboard');
         
     }
 
