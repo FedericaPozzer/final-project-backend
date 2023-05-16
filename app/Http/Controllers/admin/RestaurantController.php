@@ -8,25 +8,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Dish;
 use App\Models\Order;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RestaurantController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        // $restaurant = Restaurant::orderBy('updated_at', 'DESC')->paginate(5);
-        // return view('restaurant.index',compact('restaurant'));
-    }
+
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Crea una nuova risorsa 'ristorante'.
      */
     public function create()
     {
@@ -36,53 +26,56 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+     * Salva una nuova risorsa 'ristorantes'.
+    */
     public function store(Request $request)
     {
         $data=$request->all();
+
+        if(isset($data['image'])){
+            $img_path = Storage::disk('public')->put('uploads', $data['image']);
+            $data['image'] = asset('storage/' . $img_path);
+        }
+        else if(isset($data['defaultImage'])) {
+            $data['image'] = $data['defaultImage'];
+        }
+        else{
+            $data['image'] = '';
+        }
+        /* Valido i dati inseriti*/
         $this->validation($data);
         $restaurant = new Restaurant;
+
+        /* Associo il ristorante all'utente loggato */
         $restaurant->user_id = $request->user()->id;
+
+        /* Salvo i dati  */
         $restaurant->fill($data);
         $restaurant->save();
         
+        /** 
+         * FUNZIONE PER ESTRARRE LE CATEGORIE CHECKATE DALL'UTENTE DALLA RICHIESTA
+        */
+
         /* Per ogni campo della richiesta inviata */
         foreach ($data as $key => $value){
             /* Controllo se contiene la parola 'check' */
             if (str_contains($key, 'check')){
-                /* Nel caso recupera il tipo con l'id corrispondente */
+                /* Nel caso recupera al risorsa 'tipo' con l'id corrispondente */
                 $type = Type::all()->where('id', '=', $value)->first();
-                /* Salvo il tipo nel ristorante */
+                /* Salvo la risorsa 'tipo' nel ristorante */
                 $restaurant->types()->save($type);
 
             }
         }
-        /* Return alla view dashboard con il messaggio di avvenuta creazione */
+        /* Ritorno alla rotta 'dashboard' con il messaggio di avvenuta creazione */
 
         return to_route('dashboard', $restaurant)->with('message', "Hai creato la tua attività! Diamo il benvenuto a $restaurant->name e al suo staff.");
         
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Restaurant $restaurant)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
+     * Mostro il form per modificare il ristorante.
      */
     public function edit(Restaurant $restaurant)
     {
@@ -91,17 +84,26 @@ class RestaurantController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Restaurant  $restaurant
-     * @return \Illuminate\Http\Response
+     * Aggiorno i dati della risorsa 'ristorante'.
      */
     public function update(Request $request, Restaurant $restaurant)
     {
         $data = $request->all();
+
+        if(isset($data['image'])){
+            $img_path = Storage::disk('public')->put('uploads', $data['image']);
+            $data['image'] = asset('storage/' . $img_path);
+        }
+        else if(isset($data['defaultImage'])) {
+            $data['image'] = $data['defaultImage'];
+        }
+        else{
+            $data['image'] = '';
+        }
+        /* Valido */
         $this->validation($data);
-        /* Dissocio tutti i tipi */
+
+        /* Dissocio tutti i 'tipi' della risorsa 'ristorante' */
         $restaurant->types()->detach();
         /* Riassocio tutti i nuovi tipi */
         foreach ($data as $key => $value){
@@ -143,7 +145,7 @@ class RestaurantController extends Controller
                 "address" => "required|string",
                 "vat" => "required|string|max:30",
                 "phone_number" => "required|string",
-                "image" => "string",
+                "image" => "required|string",
                 
             ],
             [
@@ -161,7 +163,7 @@ class RestaurantController extends Controller
                 "phone_number.required" => "Inserisci il numero di telefono",
                 "phone_number.string" => "Il numero inserito non è corretto.",
 
-                "image.string" => "STRING", // TODO: CHANGE THIS
+                "image.required" => "Seleziona un'immagine.", 
             ]
         )->validate();
     }

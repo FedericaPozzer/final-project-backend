@@ -11,20 +11,9 @@ use Illuminate\Support\Facades\Validator; // validazione
 class DishController extends Controller
 
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Mostra il form per creare un nuovo piatto.
      */
     public function create()
     {
@@ -33,9 +22,7 @@ class DishController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * Salva la nuova risorsa 'piatto' dal form.
      */
     public function store(Request $request, Dish $dish)
     {
@@ -52,10 +39,7 @@ class DishController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Dish  $dish
-     * @return \Illuminate\Http\Response
+     * Mostra la risorsa 'piatto'.
      */
     public function show(Dish $dish)
     {
@@ -63,10 +47,7 @@ class DishController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Dish  $dish
-     * @return \Illuminate\Http\Response
+     * Mostra il form per modificare la risorsa 'piatto'.
      */
     public function edit(Dish $dish)
     {
@@ -74,11 +55,8 @@ class DishController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Dish  $dish
-     * @return \Illuminate\Http\Response
+     * Stai veramente leggendo tutti questi commenti? Comunque, salva le modifiche
+     * alla risorsa 'piatto'.
      */
     public function update(Request $request, Dish $dish)
     {
@@ -90,9 +68,7 @@ class DishController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Dish  $dish
+     * Rimuove la risorsa 'piatto'.
      */
     public function destroy(Dish $dish)
     {   
@@ -101,6 +77,9 @@ class DishController extends Controller
         return to_route('dashboard')->with('message', "Piatto $name_dish inserito nel cestino");
     }
 
+    /* 
+    * Ripristina la risorsa 'piatto' cestinata.
+    */
     public function restore(Int $id)
     {
         Dish::withTrashed()->find($id)->restore();
@@ -108,12 +87,18 @@ class DishController extends Controller
         return to_route('dashboard')->with('message',"Piatto $id reinserito nella lista");
     }
 
+    /* 
+    * Rimuove definitivamente la risorsa 'piatto'.
+    */
     public function delete($id)
     {
         Dish::withTrashed()->find($id)->forceDelete();
         return redirect()->back();
     }
 
+    /* 
+    * Validazione dati TOP!!
+    */
     private function validation($data)
     {
         return  Validator::make(
