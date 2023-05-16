@@ -14,18 +14,34 @@
     {{-- * IF 2 - se hai già un ristorante --}}
     @if (auth()->user()->restaurant)
 
-        <img src="{{auth()->user()->restaurant->image}}" alt="img">
-
         <div class="row">
-            <div class="col-8 mt-5">
+            <div class="col-6 col-md-4 mt-5">
                 {{-- * nome ristorante --}}
                 <h1 class="fw-bold">{{auth()->user()->restaurant->name}}</h1>
+                {{-- * owner --}}
+                <h3>di {{auth()->user()->restaurant->owner->name}}</h3>
+                {{-- * tipo ristorante --}}
                 @foreach (auth()->user()->restaurant->types as $type)
                     <div class="text-secondary">{{$type->name}}</div>
                 @endforeach
             </div>
 
-            <div class="col-4 mt-5 d-flex align-items-center justify-content-end">
+            <div class="col-6 col-md-5 mt-5">
+                {{-- * indirizzo --}}
+                <p class="mt-5">{{auth()->user()->restaurant->address}}</p>
+                {{-- * p.iva --}}
+                <p>Partita Iva {{auth()->user()->restaurant->vat}}</p>
+                {{-- * telefono --}}
+                <p>Tel. {{auth()->user()->restaurant->phone_number}}</p>
+            </div>
+
+            <div class="col-12 col-md-3 mt-5 restaurant-img-cage">
+                <img src="{{auth()->user()->restaurant->image}}" alt="img">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-4 mt-3">
                 {{-- * Modifica il tuo ristorante --}}
                 <a type="button" class="btn btn-success border" href="{{route('restaurants.edit', auth()->user()->restaurant)}}"title="Modifica"><i class="bi bi-pencil"></i></a>
                 
@@ -37,7 +53,7 @@
                 @include('layouts.partials.deleteRestaurant')   
             </div>
         </div>
-        
+
         <hr>
 
         <div class="row">
