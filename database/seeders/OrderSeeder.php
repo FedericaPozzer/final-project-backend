@@ -21,18 +21,21 @@ class OrderSeeder extends Seeder
         {
             $faker = \Faker\Factory::create();
 
-            $order = new Order;
-            $order->shipped = 0;
-            $order->guest_name = $faker->name();
-            $order->guest_address = $faker->address();
-            $order->guest_mail = $faker->email();
-            $order->save();
-            $restaurant = Restaurant::all()->first();
-            $restaurant->orders()->save($order);
-    
-            for ($y= 0; $y < $faker->randomDigit(); $y++)
+            $restaurants = Restaurant::all();
+            foreach($restaurants as $restaurant)
             {
-                $order->dishes()->save(Dish::all()->random(1)->first(), ['quantity' => $faker->numberBetween(1, 5)]);
+                $order = new Order;
+                $order->shipped = 0;
+                $order->guest_name = $faker->name();
+                $order->guest_address = $faker->address();
+                $order->guest_mail = $faker->email();
+                $order->save();
+                $restaurant->orders()->save($order);
+        
+                for ($y= 0; $y < $faker->randomDigit(); $y++)
+                {
+                    $order->dishes()->save(Dish::all()->where('restaurant_id', '=', $restaurant->id)->random(1)->first(), ['quantity' => $faker->numberBetween(1, 5)]);
+                }
             }
         }
 
