@@ -6,9 +6,8 @@
     // Tabella con scroll con intestazione fixed
 
     .dashboard-menu-height {
-        height: 55vh;
+        height: 45vh;
         overflow: scroll;
-        // overflow: auto;
     }
 
     .thead {
@@ -17,6 +16,15 @@
         z-index: 2;
         background-color: #ffffff;
     }
+
+    .restaurant-img-cage img {
+        max-width: 100%;
+    }
+
+
+// ******* Restaurant Form ******* //
+    
+    // Immagini Restaurant form
 
     .object-fit-cover {
         object-fit: cover;
@@ -44,6 +52,5 @@
         &.choosen, &:hover {
             border: 5px solid #0d6efd;
         }
-
     }
 
