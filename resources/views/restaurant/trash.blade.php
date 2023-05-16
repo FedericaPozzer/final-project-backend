@@ -9,9 +9,10 @@
         </div>
     </div>
 
+    <div class="dashboard-menu-height">
     <table class="table table-striped">
 
-        <thead>
+        <thead class="fs-4 thead">
             <tr>
                 <th scope="col">Nome Piatto</th>
                 <th scope="col" class="d-none d-lg-table-cell">Descrizione</th>
@@ -41,6 +42,7 @@
         </tbody>
 
     </table>
+    </div>
 </div>
 
 
