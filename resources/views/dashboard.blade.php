@@ -107,7 +107,14 @@
 
     {{-- * ELSE 2 - se non hai già un ristorante --}}
     @else
-        <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.create')}}">Registra il tuo ristorante</a>
+        <div class="container my-5">
+
+            <h1>Diventa nostro Partner!</h1>
+            <p>Registrati e diventa un partner. Vendi di più, aumenta le tue entrate e gestisci la tua attività online insieme a noi. Il tuo percorso di digitalizzazione inizia qui.</p>
+            <p>Prepara i documenti della tua attività e clicca il pulsante qui sotto:</p>
+            <a type="button" class="btn btn-success border fw-bold" href="{{route('restaurants.create')}}">Registra il tuo ristorante</a>
+
+        </div>
     @endif  
 
 {{-- * ELSE 1 - se non sei registrato --}}
