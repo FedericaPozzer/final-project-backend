@@ -82,6 +82,8 @@ class RestaurantSeeder extends Seeder
                 $restaurant->phone_number = $faker->phoneNumber();
 
                 $restaurant->owner()->associate($user);
+                $images = ['http://127.0.0.1:8000/restaurant_images/1.jpg', 'http://127.0.0.1:8000/restaurant_images/2.jpg', 'http://127.0.0.1:8000/restaurant_images/3.jpg', 'http://127.0.0.1:8000/restaurant_images/4.jpg', 'http://127.0.0.1:8000/restaurant_images/5.jpg']
+                $restaurant->image = array_rand($images, 1);
                 $restaurant->save();
                 $numbOfTypes = $faker->numberBetween(1, 3);
                 $types = Type::all()->random($numbOfTypes);
