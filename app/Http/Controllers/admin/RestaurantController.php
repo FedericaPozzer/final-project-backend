@@ -63,7 +63,7 @@ class RestaurantController extends Controller
         }
         /* Return alla view dashboard con il messaggio di avvenuta creazione */
 
-        return to_route('dashboard', $restaurant)->with('message', "Hai creato la tua attività!!Diamo il benvenuto a $restaurant->name e al suo staff.");
+        return to_route('dashboard', $restaurant)->with('message', "Hai creato la tua attività! Diamo il benvenuto a $restaurant->name e al suo staff.");
         
     }
 
@@ -131,7 +131,7 @@ class RestaurantController extends Controller
 
         /* Return alla view dashboard con il messaggio di avvenuta cancellazione */
 
-        return to_route('dashboard')->with('message', "La tua attività $name_restaurant è stata cancellata. ");
+        return to_route('dashboard')->with('message', "La tua attività $name_restaurant è stata cancellata.");
     }
 
     private function validation($data)
