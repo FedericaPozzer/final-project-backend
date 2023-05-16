@@ -47,9 +47,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
+                        @if (auth()->user()->restaurant != null)     
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/orders') }}">{{ __('Ordini') }}</a>
                         </li>
+                        @endif
                         @endguest
                     </ul>
 

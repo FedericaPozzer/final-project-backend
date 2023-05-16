@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if (auth()->user()->restaurant->orders->first())
+
 <br>
 <h2>Ordini da fare</h2> <br><br>
     @foreach (auth()->user()->restaurant->orders as $order)
@@ -147,6 +150,11 @@
       </table>
       @endif
     @endforeach
+
+@else
+      Non ci sono ordini.
+@endif
+
       
   
 

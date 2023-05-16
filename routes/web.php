@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 // * Restaurants
 Route::resource('restaurants', RestaurantController::class);
 Route::get('restaurant/trash', [RestaurantController::class, 'trash'])->name('restaurants.trash');
-Route::get('orders', [RestaurantController::class, 'orders'])->name('restaurants.orders');
 
 
 // * Dishes
@@ -28,7 +27,9 @@ Route::resource('dishes', DishController::class);
 Route::get("dishes/restore/{id}", [DishController::class, "restore"])->name("dishes.restore");
 Route::get("dishes/delete/{id}", [DishController::class, "delete"])->name("dishes.delete");
 
-Route::get("orders/shipped/{id}", [OrderController::class, "shipped"])->name("order.shipped");
+/* Orders */
+Route::get('orders', [RestaurantController::class, 'orders'])->name('restaurants.orders')->middleware(['auth', 'verified']);
+Route::get("orders/shipped/{id}", [OrderController::class, "shipped"])->name("order.shipped")->middleware(['auth', 'verified']);
 
 
 
