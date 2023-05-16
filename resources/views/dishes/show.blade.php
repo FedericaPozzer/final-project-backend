@@ -3,11 +3,6 @@
 
 @section('content')
 
-@if (session('message'))
-<div class="alert alert-info">
-    {{ session('message') }}
-</div>
-@endif
     <div class="row">
         <div class="col-10">
             <div class="card">

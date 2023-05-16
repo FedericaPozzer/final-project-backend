@@ -2,11 +2,6 @@
 
 @section('content')
 
-@if (session('message'))
-<div class="alert alert-info">
-    {{ session('message') }}
-</div>
-@endif
 
 {{-- * IF 1 - se sei registrato --}}
 @if (auth()->user())
