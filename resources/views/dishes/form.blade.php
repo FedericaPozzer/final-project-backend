@@ -2,12 +2,12 @@
 
 @section('content')
 
-@php 
+{{-- @php 
 $restaurant = auth()->user()->restaurant;
-@endphp
+@endphp --}}
 
 {{-- * if che controlla che il ristoratore possa vedere solo le sue cose --}}
-@if(auth()->user()->owner->id == auth()->user()->id)
+{{-- @if(auth()->user()->owner->id == auth()->user()->id) --}}
 
 
 
@@ -88,9 +88,9 @@ $restaurant = auth()->user()->restaurant;
 
 
 
-@else
+{{-- @else
 <h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>
-@endif
+@endif --}}
 
 @endsection
   
