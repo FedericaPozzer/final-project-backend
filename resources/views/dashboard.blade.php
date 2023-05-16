@@ -36,15 +36,7 @@
             <div class="col-3">
                 <h2 class="my-3">Menu:</h2>
             </div>
-
-            {{-- <div class="col-9 d-flex justify-content-end align-items-center"> --}}
-                {{-- * Crea un piatto --}}
-                {{-- <a href="{{route('dishes.create')}}" class="btn btn-success border">Crea Piatto</a> --}}
-                {{-- * Cestino Piatti --}}
-                {{-- <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}">Cestino piatti</a>
-            </div> --}}
         </div>
-
         
         
         {{-- * Tabella menù --}}

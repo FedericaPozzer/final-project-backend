@@ -1,17 +1,20 @@
 @import '~bootstrap/scss/bootstrap';
 
 
-// ******* BACKEND - dashboard ******* //
+// ******* Dashboard ******* //
 
-.dashboard-menu-height {
-    height: 55vh;
-    overflow: scroll;
-    // overflow: auto;
-}
+    // Tabella con scroll con intestazione fixed
 
-.thead {
-    position: sticky;
-    top: 0px;
-    z-index: 2;
-    background-color: #ffffff;
-}
+    .dashboard-menu-height {
+        height: 55vh;
+        overflow: scroll;
+        // overflow: auto;
+    }
+
+    .thead {
+        position: sticky;
+        top: 0px;
+        z-index: 2;
+        background-color: #ffffff;
+    }
+
