@@ -29,7 +29,7 @@
     {{-- * nome ristorante --}}
     <div class="col-12 my-2">
         <label class="form-label" for="name">Nome Ristorante</label>
-        <input type="text" name="name" id="name" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $restaurant->name }}">
+        <input type="text" name="name" id="name" placeholder="Da Mario" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $restaurant->name }}">
         @error("name")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
@@ -39,7 +39,7 @@
     {{-- * indirizzo --}}
     <div class="col-12 my-2">
         <label class="form-label" for="address">Indirizzo</label>
-        <input type="text" name="address" id="address" class="form-control @error("address") is-invalid @enderror" value="{{ old("address") ?? $restaurant->address }}">
+        <input type="text" name="address" id="address" placeholder="Via/Piazza/Corso xxxx, N. YY" class="form-control @error("address") is-invalid @enderror" value="{{ old("address") ?? $restaurant->address }}">
         @error("address")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
@@ -49,7 +49,7 @@
             {{-- * partita iva --}}
         <div class="col-6 col-md-4 my-2">
             <label class="form-label" for="vat">P. IVA</label>
-            <input type="text" name="vat" id="vat" class="form-control @error("vat") is-invalid @enderror" value="{{ old("vat") ?? $restaurant->vat }}">
+            <input type="number" name="vat" id="vat" placeholder="es. 86334519757" class="form-control @error("vat") is-invalid @enderror" value="{{ old("vat") ?? $restaurant->vat }}">
             @error("vat")
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
@@ -58,7 +58,7 @@
         {{-- * numero di telefono --}}
         <div class="col-6 col-md-4 my-2">
             <label class="form-label" for="phone_number">Numero di Tel.</label>
-            <input type="text" name="phone_number" id="phone_number" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
+            <input type="tel" name="phone_number" id="phone_number" pattern="[0-9]{10}" placeholder="0123456789" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
             @error("phone_number")
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror

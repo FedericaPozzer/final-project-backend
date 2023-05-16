@@ -29,7 +29,7 @@
     {{-- * nome piatto --}}
     <div class="col-8 my-4">
         <label class="form-label" for="name">Nome Piatto</label>
-        <input type="text" name="name" id="name" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $dish->name }}">
+        <input type="text" name="name" id="name" placeholder="Pizza" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $dish->name }}">
         @error("name")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
@@ -38,7 +38,7 @@
     {{-- * descrizione --}}
     <div class="col-8 my-4">
         <label class="form-label" for="description">Descrizione</label>
-        <textarea type="text" name="description" id="description" class="form-control @error("description") is-invalid @enderror" rows="5">{{ old("description") ?? $dish->description }} </textarea>
+        <textarea type="text" name="description" id="description" placeholder="Ingredienti: ..." class="form-control @error("description") is-invalid @enderror" rows="5">{{ old("description") ?? $dish->description }} </textarea>
         @error("description")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
@@ -47,7 +47,7 @@
     {{-- * prezzo --}}
     <div class="col-8 my-4">
         <label class="form-label" for="price">Prezzo</label>
-        <input type="float" name="price" id="price" class="form-control @error("price") is-invalid @enderror" value="{{ old("price") ?? $dish->price }}">
+        <input type=number step=0.01 name="price" id="price" placeholder="quanto costa?" class="form-control @error("price") is-invalid @enderror" value="{{ old("price") ?? $dish->price }}">
         @error("price")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
@@ -57,7 +57,7 @@
         {{-- TODO: image! --}}
     <div class="col-8 my-4">
         <label class="form-label" for="image">Immagine</label>
-        <input type="text" name="image" id="image" class="form-control @error("image") is-invalid @enderror" value="{{ old("image") ?? $dish->image }}">
+        <input type="text" name="image" id="image" placeholder="immagine" class="form-control @error("image") is-invalid @enderror" value="{{ old("image") ?? $dish->image }}">
         @error("image")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
