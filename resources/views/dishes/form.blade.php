@@ -1,4 +1,3 @@
-Creazione e modifica ristorante
 @extends('layouts.app')
 
 @section('content')
@@ -11,9 +10,9 @@ Creazione e modifica ristorante
 
 {{-- * UPDATE / EDIT title --}}
 @if ($dish->id)
-    <h2>modifica il piatto</h2>
+    <h2 class="mt-5 mb-3">Modifica il piatto</h2>
 @else
-    <h2>crea il tuo piatto</h2>
+    <h2 class="mt-5 mb-3">Crea il tuo piatto</h2>
 @endif
 
 @include('layouts.partials.errors')
@@ -39,7 +38,7 @@ Creazione e modifica ristorante
     {{-- * descrizione --}}
     <div class="col-8 my-4">
         <label class="form-label" for="description">Descrizione</label>
-        <input type="text" name="description" id="description" class="form-control @error("description") is-invalid @enderror" value="{{ old("description") ?? $dish->description }}">
+        <textarea type="text" name="description" id="description" class="form-control @error("description") is-invalid @enderror" rows="5">{{ old("description") ?? $dish->description }} </textarea>
         @error("description")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
@@ -73,12 +72,14 @@ Creazione e modifica ristorante
     {{-- * input invisibile per inviare l'id del ristorante insieme alle info inserite --}}
     <input class="d-none" type="text" value="{{auth()->user()->restaurant->id}}" name="restaurant_id" id="restaurant_id">
 
-    {{-- * EDIT / CREATE submit --}}
-    @if ($dish->id)
-        <button type="submit" class="btn btn-primary">Modifica il tuo piatto</button>
-    @else
-        <button type="submit" class="btn btn-primary">Crea il tuo piatto</button>
-    @endif
+    <div class="col-12 mt-3">
+        {{-- * EDIT / CREATE submit --}}
+        @if ($dish->id)
+            <button type="submit" class="btn btn-primary">Modifica il tuo piatto</button>
+        @else
+            <button type="submit" class="btn btn-primary">Crea il tuo piatto</button>
+        @endif
+    </div>
 
 </form>
 
