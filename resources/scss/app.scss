@@ -1,6 +1,17 @@
 @import '~bootstrap/scss/bootstrap';
 
+
+// ******* BACKEND - dashboard ******* //
+
 .dashboard-menu-height {
     height: 55vh;
     overflow: scroll;
+    // overflow: auto;
+}
+
+.thead {
+    position: sticky;
+    top: 0px;
+    z-index: 2;
+    background-color: #ffffff;
 }

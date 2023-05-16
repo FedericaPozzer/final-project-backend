@@ -51,7 +51,7 @@
         <div class="dashboard-menu-height">
             <table class="table table-striped">
 
-                <thead class=" fs-4">
+                <thead class="fs-4 thead">
                     <tr>
                         <th scope="col">Nome Piatto</th>
                         <th scope="col" class="d-none d-lg-table-cell">Descrizione</th>
@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
 
-                <tbody class="">
+                <tbody class="tbody">
                     @foreach (auth()->user()->restaurant->dishesSortedByName(auth()->user()->restaurant->id) as $dish)    
                     <tr>
                         {{-- * nome piatto --}}
