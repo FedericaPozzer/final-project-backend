@@ -84,4 +84,11 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function shipped($order_id){
+        $order = Order::all()->where('id', '=', $order_id)->first();
+        $order->shipped = 1;
+        $order->save();
+        return view('restaurant.orders');
+    }
 }

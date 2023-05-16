@@ -6,6 +6,7 @@ use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Dish;
+use App\Models\Order;
 use App\Models\Type;
 use Illuminate\Support\Facades\Validator;
 
@@ -160,6 +161,11 @@ class RestaurantController extends Controller
     public function trash(){
         $dishes = Dish::onlyTrashed()->where('restaurant_id', '=', auth()->user()->restaurant->id)->get();
         return view('restaurant.trash', compact('dishes'));
+    }
+
+    public function orders(){
+        $orders = Order::all();
+        return view('restaurant.orders', compact('orders'));
     }
     
 }

@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('restaurant_id')->nullable();
             $table->string('guest_name')->nullable();
             $table->string('guest_address')->nullable();
             $table->string('guest_mail')->nullable();
             $table->string('payment_id')->nullable();
             $table->string('success')->nullable();
+            $table->boolean('shipped')->nullable();
             $table->string('amount')->nullable();
             $table->timestamps();
         });

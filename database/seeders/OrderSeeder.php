@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Dish;
 use App\Models\Order;
+use App\Models\Restaurant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,9 +17,24 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        $order = new Order;
-        $order->save();
+        for ($i = 0; $i < 5; $i++)
+        {
+            $faker = \Faker\Factory::create();
 
-        $order->dishes()->save(Dish::all()->first(), ['quantity' => 2]);
+            $order = new Order;
+            $order->shipped = 0;
+            $order->guest_name = $faker->name();
+            $order->guest_address = $faker->address();
+            $order->guest_mail = $faker->email();
+            $order->save();
+            $restaurant = Restaurant::all()->first();
+            $restaurant->orders()->save($order);
+    
+            for ($y= 0; $y < $faker->randomDigit(); $y++)
+            {
+                $order->dishes()->save(Dish::all()->random(1)->first(), ['quantity' => $faker->numberBetween(1, 5)]);
+            }
+        }
+
     }
 }

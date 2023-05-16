@@ -27,7 +27,7 @@ class Dish extends Model
     // relations - dishes/orders
     public function orders(): BelongsToMany
     {
-        return $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
     
 }
