@@ -48,7 +48,7 @@ class DishController extends Controller
         $dish->fill($data);
         $dish->save();
 
-        return to_route('dishes.show', compact('dish'))->with('message', "Creato Piatto $dish->name");
+        return to_route('dishes.show', compact('dish'))->with('message_content', "Creato Piatto $dish->name");
     }
 
     /**
@@ -86,7 +86,7 @@ class DishController extends Controller
         $this->validation($data);
         $dish->update($data);
 
-        return to_route('dishes.show', compact('dish'))->with('message', "Modificato Piatto $dish->name");
+        return to_route('dishes.show', compact('dish'))->with('message_content', "Modificato Piatto $dish->name");
     }
 
     /**
@@ -98,14 +98,16 @@ class DishController extends Controller
     {   
         $name_dish = $dish->name;
         $dish->delete();
-        return to_route('dashboard')->with('message', "Piatto $name_dish inserito nel cestino");
+        return to_route('dashboard')
+        ->with('message_type', "danger")
+        ->with('message_content', "Piatto $name_dish inserito nel cestino");
     }
 
     public function restore(Int $id)
     {
         Dish::withTrashed()->find($id)->restore();
 
-        return to_route('dashboard')->with('message',"Piatto $id reinserito nella lista");
+        return to_route('dashboard')->with('message_content',"Piatto ripristinato");
     }
 
     public function delete($id)
