@@ -42,6 +42,13 @@
             <div class="col-3">
                 <h2 class="my-3">Menu:</h2>
             </div>
+
+            <div class="col-9 d-flex justify-content-end align-items-center">
+                {{-- * Crea un piatto --}}
+                <a href="{{route('dishes.create')}}" class="btn btn-success border" rel="tooltip" title="Crea">Crea Piatto</a>
+                {{-- * Cestino Piatti --}}
+                <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}" rel="tooltip" title="Cestino">Cestino piatti</a>
+            </div>
         </div>
         
         
@@ -97,13 +104,6 @@
             </table>
 
             {{-- {{ $dishes->links() }} --}}
-        </div>
-
-        <div class="mt-4 d-flex justify-content-end align-items-center">
-            {{-- * Crea un piatto --}}
-            <a href="{{route('dishes.create')}}" class="btn btn-success border" rel="tooltip" title="Crea">Crea Piatto</a>
-            {{-- * Cestino Piatti --}}
-            <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}" rel="tooltip" title="Cestino">Cestino piatti</a>
         </div>
 
         @include('layouts.partials.deleteDishes')
