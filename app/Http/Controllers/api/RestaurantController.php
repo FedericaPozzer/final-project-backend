@@ -16,7 +16,6 @@ class RestaurantController extends Controller
     public function index()
     {
         $restaurants = Restaurant::where('name', '<>', '')
-            ->with('owner')
             ->with('types')
             ->with('dishes')
             ->get();
