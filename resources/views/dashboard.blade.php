@@ -14,6 +14,8 @@
     {{-- * IF 2 - se hai già un ristorante --}}
     @if (auth()->user()->restaurant)
 
+        <img src="{{auth()->user()->restaurant->image}}" alt="">
+
         <div class="row">
             <div class="col-8 mt-5">
                 {{-- * nome ristorante --}}
