@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Dish;
 use App\Models\Order;
 use App\Models\Type;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,9 +21,14 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        $restaurant = new Restaurant;
-        $types = Type::all();
-        return view('restaurant.form', compact("restaurant", 'types'));
+        if(!Auth::id()) {
+            return view('welcome');
+        } else {
+            
+            $restaurant = new Restaurant;
+            $types = Type::all();
+            return view('restaurant.form', compact("restaurant", 'types'));
+        }
     }
 
     /**
@@ -42,6 +48,22 @@ class RestaurantController extends Controller
         else{
             $data['image'] = '';
         }
+
+        $arrOfTypes = [];
+        foreach ($data as $key => $value){
+            /* Controllo se contiene la parola 'check' */
+            if (str_contains($key, 'check')){
+                array_push($arrOfTypes, $value);
+            }
+        }
+
+        if(count($arrOfTypes) == 0){
+            $data['types'] = null;
+        }
+        else{
+            $data['types'] = 'ealloradai';
+        }
+
         /* Valido i dati inseriti*/
         $this->validation($data);
         $restaurant = new Restaurant;
@@ -79,8 +101,12 @@ class RestaurantController extends Controller
      */
     public function edit(Restaurant $restaurant)
     {
-        $types = Type::all();
-        return view('restaurant.form', compact("restaurant", 'types'));
+        if(Auth::id() !== $restaurant->owner->id) {
+            return view('dashboard');
+        } else {
+            $types = Type::all();
+            return view('restaurant.form', compact("restaurant", 'types'));
+        }
     }
 
     /**
@@ -148,6 +174,7 @@ class RestaurantController extends Controller
                 "vat" => "required|string|max:30",
                 "phone_number" => "required|string",
                 "image" => "required|string",
+                "types" => "required"
                 
             ],
             [
@@ -166,6 +193,8 @@ class RestaurantController extends Controller
                 "phone_number.string" => "Il numero inserito non è corretto.",
 
                 "image.required" => "Seleziona un'immagine.", 
+
+                "types.required" => "Scegli almeno un tipo.",
             ]
         )->validate();
     }

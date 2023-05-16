@@ -3,8 +3,8 @@
 @section('content')
  
 {{-- * if che controlla che il ristoratore possa vedere solo le sue cose --}}
-@if(isset($restaurant) && $restaurant->owner->id == auth()->user()->id)
-
+{{-- @if(isset($restaurant) && $restaurant->owner->id == auth()->user()->id)
+ --}}
 
 
 {{-- * UPDATE / EDIT title --}}
@@ -160,19 +160,22 @@
 
     {{-- * tipi di ristorante - checkboxes --}}
     <div class="col-12 col-md-8 mt-4">
-        <label class="form-label" for="image">Tipo</label>
+        <label class="form-label  @error('types') is-invalid @enderror" for="image">Tipo</label>
+        @error("types")
+            <div class="invalid-feedback"> {{ $message }} </div>
+        @enderror
         <div class="row row-cols-4 ms-1">
         @foreach ($types as $type)
             <div class="form-check col me-4">
-                <input class="form-check-input" type="checkbox" value="{{$type->id}}" id="check-{{$type->id}}" name="check-{{$type->id}}" 
+                <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="check-{{$type->id}}" name="check-{{$type->id}}" 
                 @if ($restaurant->containsType($type->id))
                     checked    
                 @endif>
                 <label class="form-check-label" for="check-{{$type->id}}">
                     {{$type->name}}
                 </label>
-              </div>
-        @endforeach
+            </div>
+            @endforeach
         </div>
     </div>
 
@@ -189,9 +192,9 @@
 
 
 
-@else
+{{-- @else
 <h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>
-@endif
+@endif --}}
 
 @endsection
   

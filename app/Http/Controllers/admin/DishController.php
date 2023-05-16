@@ -6,6 +6,7 @@ use App\Models\Dish;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator; // validazione
 
 class DishController extends Controller
@@ -17,9 +18,14 @@ class DishController extends Controller
      */
     public function create()
     {
-        $dish = new Dish;
-        // $dish->owner->id;
-        return view('dishes.form', compact("dish"));
+        if(!Auth::id()) {
+            return view('welcome');
+        } else {
+            
+            $dish = new Dish;
+            // $dish->owner->id;
+            return view('dishes.form', compact("dish"));
+        }
     }
 
     /**
@@ -28,8 +34,6 @@ class DishController extends Controller
     public function store(Request $request, Dish $dish)
     {
         $data=$request->all();
-            // prendi il prezzo e sostituisci i punti con le virgole
-        // $data["price"] = str_replace(",", ".", $data["price"]);
         $this->validation($data);
         $dish = new Dish;
         $dish->restaurant()->associate($data['restaurant_id']);
@@ -54,7 +58,11 @@ class DishController extends Controller
      */
     public function edit(Dish $dish)
     {
-        return view('dishes.form', compact('dish'));
+        if(Auth::id() !== $dish->restaurant->owner->id) {
+            return view('dashboard');
+        } else {
+            return view('dishes.form', compact('dish'));
+        }
     }
 
     /**
