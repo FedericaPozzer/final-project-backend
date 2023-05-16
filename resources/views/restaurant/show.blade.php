@@ -1,4 +1,4 @@
-show del ristorante
+Show del ristorante
 @extends('layouts.app')
 
 @section('content')

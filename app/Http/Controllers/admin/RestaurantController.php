@@ -61,8 +61,9 @@ class RestaurantController extends Controller
 
             }
         }
+        /* Return alla view dashboard con il messaggio di avvenuta creazione */
 
-        return view('dashboard');
+        return to_route('dashboard', $restaurant)->with('message', "Hai creato la tua attività!!Diamo il benvenuto a $restaurant->name e al suo staff.");
         
     }
 
@@ -111,7 +112,10 @@ class RestaurantController extends Controller
             }
         }
         $restaurant->update($data);
-        return view('dashboard');
+
+        /* Return alla view dashboard con il messaggio di avvenuta modifica */
+
+        return to_route('dashboard', $restaurant)->with('message', "Hai modificato i dati della tua attività $restaurant->name.");
     }
 
     /**
@@ -122,8 +126,12 @@ class RestaurantController extends Controller
      */
     public function destroy(Restaurant $restaurant)
     {
+        $name_restaurant = $restaurant->name;
         $restaurant->delete();
-        return redirect('dashboard');
+
+        /* Return alla view dashboard con il messaggio di avvenuta cancellazione */
+
+        return to_route('dashboard')->with('message', "La tua attività $name_restaurant è stata cancellata. ");
     }
 
     private function validation($data)
