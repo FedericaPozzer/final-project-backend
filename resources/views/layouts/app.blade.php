@@ -41,6 +41,9 @@
                     <ul class="navbar-nav me-auto">
                         @guest
                         <li class="nav-item">
+                            <img src="logo.png" alt="logo" style="width: 150px">
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
                         @else
