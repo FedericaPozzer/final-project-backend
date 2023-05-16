@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+ 
+{{-- * if che controlla che il ristoratore possa vedere solo le sue cose --}}
+@if(isset($restaurant) && $restaurant->owner->id == auth()->user()->id)
 
-{{-- @if (auth()->user()->restaurant != null)
-    ho un ristorante
-@else
-    non ho un ristorante sono povero
-@endif --}}
-    
+
+
 {{-- * UPDATE / EDIT title --}}
 @if ($restaurant->id)
     <h2 class="mt-3 mb-3">Modifica il ristorante</h2>
@@ -188,6 +187,11 @@
 
 </form>
 
+
+
+@else
+<h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>
+@endif
 
 @endsection
   

@@ -2,11 +2,14 @@
 
 @section('content')
 
-{{-- @if (auth()->user()->restaurant != null)
-    ho un ristorante
-@else
-    non ho un ristorante sono povero
-@endif --}}
+{{-- @php 
+$restaurant = auth()->user()->restaurant;
+@endphp --}}
+
+{{-- * if che controlla che il ristoratore possa vedere solo le sue cose --}}
+{{-- @if(auth()->user()->owner->id == auth()->user()->id) --}}
+
+
 
 {{-- * UPDATE / EDIT title --}}
 @if ($dish->id)
@@ -82,6 +85,12 @@
     </div>
 
 </form>
+
+
+
+{{-- @else
+<h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>
+@endif --}}
 
 @endsection
   

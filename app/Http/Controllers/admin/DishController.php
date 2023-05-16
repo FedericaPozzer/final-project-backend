@@ -18,6 +18,7 @@ class DishController extends Controller
     public function create()
     {
         $dish = new Dish;
+        // $dish->owner->id;
         return view('dishes.form', compact("dish"));
     }
 
@@ -27,6 +28,8 @@ class DishController extends Controller
     public function store(Request $request, Dish $dish)
     {
         $data=$request->all();
+            // prendi il prezzo e sostituisci i punti con le virgole
+        // $data["price"] = str_replace(",", ".", $data["price"]);
         $this->validation($data);
         $dish = new Dish;
         $dish->restaurant()->associate($data['restaurant_id']);
