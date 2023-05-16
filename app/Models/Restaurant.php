@@ -61,4 +61,10 @@ class Restaurant extends Model
         return  false;
     }
 
+    public function unshippedOrders() {
+        $orders = Order::all()->where('restaurant_id', '=', $this->id)->where('shipped', '=', 0);
+        $number = count($orders);
+        return $number;
+    }
+
 }

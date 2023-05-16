@@ -38,7 +38,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                    <ul class="navbar-nav me-auto align-items-center">
                         @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
@@ -48,8 +48,15 @@
                             <a class="nav-link" href="{{url('/dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
                         @if (auth()->user()->restaurant != null)     
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{url('/orders') }}">{{ __('Ordini') }}</a>
+                        <li class=" nav-item">
+                            <button type="button" class=" btn position-relative">
+                                <a class="nav-link" href="{{url('/orders') }}">{{ __('Ordini') }}</a>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger p-1 m-1">
+                                  {{auth()->user()->restaurant->unshippedOrders()}}
+                                  <span class="visually-hidden">unread messages</span>
+                                </span>
+                              </button>
+                            
                         </li>
                         @endif
                         @endguest
