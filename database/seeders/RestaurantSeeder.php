@@ -83,7 +83,11 @@ class RestaurantSeeder extends Seeder
 
                 $restaurant->owner()->associate($user);
                 $restaurant->save();
-                $restaurant->types()->save(Type::all()->random(1)->first());
+                $numbOfTypes = $faker->numberBetween(1, 3);
+                $types = Type::all()->random($numbOfTypes);
+                foreach($types as $type){
+                    $restaurant->types()->save($type);
+                }
             }
 
     }
