@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator; // validazione
 
 class DishController extends Controller
@@ -34,6 +35,18 @@ class DishController extends Controller
     public function store(Request $request, Dish $dish)
     {
         $data=$request->all();
+
+        if(isset($data['image'])){
+            $img_path = Storage::disk('public')->put('uploads', $data['image']);
+            $data['image'] = asset('storage/' . $img_path);
+        }
+        else if(isset($data['defaultImage'])) {
+            $data['image'] = $data['defaultImage'];
+        }
+        else{
+            $data['image'] = '';
+        }
+        
         $this->validation($data);
         $dish = new Dish;
         $dish->restaurant()->associate($data['restaurant_id']);
@@ -72,6 +85,18 @@ class DishController extends Controller
     public function update(Request $request, Dish $dish)
     {
         $data = $request->all();
+
+        if(isset($data['image'])){
+            $img_path = Storage::disk('public')->put('uploads', $data['image']);
+            $data['image'] = asset('storage/' . $img_path);
+        }
+        else if(isset($data['defaultImage'])) {
+            $data['image'] = $data['defaultImage'];
+        }
+        else{
+            $data['image'] = '';
+        }
+
         $this->validation($data);
         $dish->update($data);
 
