@@ -5,7 +5,7 @@
 
     <div class="row mt-5">
         <div class="col-8 offset-2">
-            <div class="card p-4">
+            <div class="card dish-card p-4">
                 <div class="row basic-card-row">
                     <h1 class="card-title my-4">I dettagli del tuo piatto "{{$dish->name}}"</h1>
                     <div class="col-sm-12 col-md-6">
