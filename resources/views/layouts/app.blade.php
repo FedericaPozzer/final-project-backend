@@ -52,7 +52,7 @@
                             <a class="nav-link" href="{{url('/') }}">{{ __('Home') }}</a>
                         </li>
                         @else
-                        <li class="nav-item">
+                        <li class="nav-item d-flex align-items-center">
                             <a class="nav-link" href="{{url('/dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
                         @if (auth()->user()->restaurant != null)     
