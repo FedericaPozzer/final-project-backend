@@ -59,12 +59,11 @@
                         <li class=" nav-item">
                             <button type="button" class=" btn position-relative">
                                 <a class="nav-link" href="{{url('/orders') }}">{{ __('Ordini') }}</a>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger p-1 m-1">
+                                <span class="orders-badge rounded-pill px-2">
                                   {{auth()->user()->restaurant->unshippedOrders()}}
                                   <span class="visually-hidden">unread messages</span>
                                 </span>
-                              </button>
-                            
+                            </button>
                         </li>
                         @endif
                         @endguest

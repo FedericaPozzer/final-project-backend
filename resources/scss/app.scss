@@ -2,6 +2,20 @@
 
 $primary: white;
 
+// ******* Navbar ******* //
+
+    // Badge ordini
+
+    .orders-badge {
+        position: absolute;
+        transform: translate(100%, 0);
+        top: 0;
+        left: 100;  
+        background-color: rgb(205, 45, 45);
+        color: white;
+        border-radius: 50%;
+    }
+
 
 
 // ******* Dashboard ******* //
@@ -64,7 +78,9 @@ $primary: white;
     background-color: antiquewhite;
     
 }
-    // ******* Alerts ******* //
+    
+
+// ******* Alerts ******* //
 
     .alert{
        padding:7px;
