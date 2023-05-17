@@ -167,11 +167,11 @@
         <div class="row row-cols-4 ms-1">
         @foreach ($types as $type)
             <div class="form-check col me-4">
-                <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="check-{{$type->id}}" name="check-{{$type->id}}" 
+                <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" 
                 @if ($restaurant->containsType($type->id))
                     checked    
                 @endif>
-                <label class="form-check-label" for="check-{{$type->id}}">
+                <label class="form-check-label" for="types[]">
                     {{$type->name}}
                 </label>
             </div>

@@ -11,6 +11,7 @@ use App\Models\Type;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Termwind\Components\Dd;
 
 class RestaurantController extends Controller
 {
@@ -49,21 +50,6 @@ class RestaurantController extends Controller
             $data['image'] = '';
         }
 
-        $arrOfTypes = [];
-        foreach ($data as $key => $value){
-            /* Controllo se contiene la parola 'check' */
-            if (str_contains($key, 'check')){
-                array_push($arrOfTypes, $value);
-            }
-        }
-
-        if(count($arrOfTypes) == 0){
-            $data['types'] = null;
-        }
-        else{
-            $data['types'] = 'ealloradai';
-        }
-
         /* Valido i dati inseriti*/
         $this->validation($data);
         $restaurant = new Restaurant;
@@ -80,15 +66,10 @@ class RestaurantController extends Controller
         */
 
         /* Per ogni campo della richiesta inviata */
-        foreach ($data as $key => $value){
-            /* Controllo se contiene la parola 'check' */
-            if (str_contains($key, 'check')){
-                /* Nel caso recupera al risorsa 'tipo' con l'id corrispondente */
-                $type = Type::all()->where('id', '=', $value)->first();
-                /* Salvo la risorsa 'tipo' nel ristorante */
+        foreach ($data['types'] as $typeID){
+                $type = Type::all()->where('id', '=', $typeID)->first();
                 $restaurant->types()->save($type);
 
-            }
         }
         /* Ritorno alla rotta 'dashboard' con il messaggio di avvenuta creazione */
 
@@ -132,12 +113,10 @@ class RestaurantController extends Controller
         /* Dissocio tutti i 'tipi' della risorsa 'ristorante' */
         $restaurant->types()->detach();
         /* Riassocio tutti i nuovi tipi */
-        foreach ($data as $key => $value){
-            if (str_contains($key, 'check')){
-                $type = Type::all()->where('id', '=', $value)->first();
-                $restaurant->types()->save($type);
+        foreach ($data['types'] as $typeID){
+            $type = Type::all()->where('id', '=', $typeID)->first();
+            $restaurant->types()->save($type);
 
-            }
         }
         $restaurant->update($data);
 
@@ -174,7 +153,7 @@ class RestaurantController extends Controller
                 "vat" => "required|string|max:30",
                 "phone_number" => "required|string",
                 "image" => "required|string",
-                "types" => "required"
+                "types" => "required|min:1"
                 
             ],
             [
@@ -195,6 +174,7 @@ class RestaurantController extends Controller
                 "image.required" => "Seleziona un'immagine.", 
 
                 "types.required" => "Scegli almeno un tipo.",
+                "types.min" => "Scegli almeno un tipo.",
             ]
         )->validate();
     }
