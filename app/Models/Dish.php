@@ -31,7 +31,7 @@ class Dish extends Model
     }
 
     // abstract dashboard
-    public function getAbstract($max = 40)
+    public function getAbstract($max = 20)
     {
         return substr($this->description, 0, $max) . "...";
     }
