@@ -1,15 +1,18 @@
 @import '~bootstrap/scss/bootstrap';
 
+<<<<<<< HEAD
 $primary: white;
 
 
 
+=======
+>>>>>>> origin/dashboard
 // ******* Dashboard ******* //
 
     // Tabella con scroll con intestazione fixed
 
     .dashboard-menu-height {
-        height: 45vh;
+        height: 65vh;
         overflow: scroll;
     }
 
@@ -56,8 +59,11 @@ $primary: white;
             border: 5px solid #0d6efd;
         }
     }
+
+
 // ******* Card-Dish ******* //
 
+<<<<<<< HEAD
 .card{
     background-color: antiquewhite;
     
@@ -69,3 +75,20 @@ $primary: white;
        margin-bottom: 0;
        font-weight: bold;
     }
+=======
+    .card{
+        background-color: antiquewhite;   
+    }
+    
+
+
+
+
+
+
+// SCHIFEZZE DI PROVA
+
+.bg-prova {
+    background-color: #faebd7;
+}
+>>>>>>> origin/dashboard

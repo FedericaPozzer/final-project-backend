@@ -24,11 +24,11 @@ class DishSeeder extends Seeder
         foreach($restaurants as $restaurant)
         {
 
-            for($i=0; $i<$faker->numberBetween(6,12); $i++) {
+            for($i=0; $i<$faker->numberBetween(50,60); $i++) {
     
                 /* Creo una descrizione con degli ingredienti */
                 $ingredients = [$faker->vegetableName(), $faker->fruitName(), $faker->meatName(),  $faker->sauceName(), $faker->dairyName()];
-                $description = 'Ingredienti: ' . $faker->dairyName() . ', ';
+                $description = $faker->dairyName() . ', ';
                 foreach ($ingredients as $ingredient){
                     if ($faker->boolean(50)){
                         $description .= $ingredient . ', '; 
