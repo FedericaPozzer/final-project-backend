@@ -8,8 +8,8 @@
         <section class="welcome my-5">
 
             <div class="row">
-                <div class="col-5">
-                    <img src="logo.png" alt="ciao" style="width: 500px">
+                <div class="col-12 col-md-5 mb-5">
+                    <img src="logo.png" alt="logo" style="width: 100%">
                 </div>
 
                 <div class="col-7">
