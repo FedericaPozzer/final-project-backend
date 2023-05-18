@@ -35,4 +35,7 @@ class Dish extends Model
     {
         return substr($this->description, 0, $max) . "...";
     }
+    public function getImageUri() {
+        return $this->image ? url('storage/restaurant_images' . $this->image) : 'https://livingstonbagel.com/wp-content/uploads/2016/11/food-placeholder.jpg';
+    }
 }

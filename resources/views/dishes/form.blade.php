@@ -22,10 +22,10 @@ $restaurant = auth()->user()->restaurant;
 
 {{-- * se il piatto esiste già form edit / se il piatto non esiste già form create --}}
 @if ($dish->id)
-    <form action="{{route('dishes.update', $dish)}}" method="POST" class="row">
+    <form action="{{route('dishes.update', $dish)}}" method="POST" enctype="multipart/form-data" class="row">
     @method('PUT')
 @else
-    <form action="{{route('dishes.store')}}" method="POST" class="row">
+    <form action="{{route('dishes.store')}}" method="POST" enctype="multipart/form-data" class="row">
 @endif
     @csrf
 
@@ -59,7 +59,7 @@ $restaurant = auth()->user()->restaurant;
     {{-- * immagine --}} 
         {{-- TODO: image! --}}
         <div class="col-12 my-2">
-            <label class="form-label" for="image">Immagine</label>
+            <label class="form-label" for="image" >Immagine</label>
         </div>
         {{-- @error("image")
             <div class="invalid-feedback"> {{ $message }} </div>
@@ -100,7 +100,7 @@ $restaurant = auth()->user()->restaurant;
 
 
         <input type="file" class="d-none" name="image" @error('image') is-invalid @enderror id="selectImage" autocomplete="false">
-        <input type="text" name="defaultImage" id="selectDefaultImage" autocomplete="false" class="d-none" value="{{ old("image") ?? $dish->image }}">
+        <input type="file" name="defaultImage" id="selectDefaultImage" autocomplete="false" class="d-none" value="{{ old("image") ?? $dish->image }}">
     
         <script>
             let selectedImage = 0;
