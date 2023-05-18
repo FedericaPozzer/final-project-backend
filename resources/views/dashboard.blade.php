@@ -101,7 +101,12 @@
                                     <td>&euro; {{$dish->price}}</td>
 
                                     {{-- * disponibilità --}}
-                                    <td class="d-none d-xl-table-cell">{{$dish->available}}</td>
+                                    {{-- <td class="d-none d-xl-table-cell">{{$dish->available}}</td> --}}
+                                    @if($dish->available == 1) 
+                                        <td class="d-none d-xl-table-cell">Si</td>
+                                    @else
+                                        <td class="d-none d-xl-table-cell">No</td>
+                                    @endif
 
                                     {{-- * azioni - vedi, modifica, elimina --}}
                                     <td class="d-flex justify-content-between align-items-center">
