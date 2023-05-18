@@ -28,16 +28,15 @@ class OrderApiController extends Controller
     public function store(Request $request)
     {
         $data = request()->all();
-
         /* Creo un nuovo ordine */
         $order = new Order;
-        $restaurant = Restaurant::all()->where('id', '=', $data['cart'][1]['restaurant_id'])->first();
-        $order->save();
+        $restaurant = Restaurant::all()->where('id', '=', $data['cart'][0]['restaurant_id'])->first();
         $restaurant->orders()->save($order);
+        $order->save();
         foreach($data['cart'] as $dish_info)
         {
             $dish = Dish::all()->where('id', '=', $dish_info['id'])->first();
-            $order->dishes()->save($dish, ['quantity' => '1']);
+            $order->dishes()->save($dish, ['quantity' => $dish_info['quantity']]);
         }
 
         $newOrder = Order::all()->where('id', '=', $order->id)->first();
