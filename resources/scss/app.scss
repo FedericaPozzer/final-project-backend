@@ -55,14 +55,13 @@ $primary: white;
             background-color: rgba($color: black, $alpha: 0);
             transition: all .1s linear;
             font-size: 3rem;
-        }
-        &:hover{
-        .uploadImage{
-                z-index: 2;
-                font-size: 4rem;
-                color: white;
-                background-color: rgba($color: black, $alpha: .3);
+            span{
+                font-size: 1rem;
             }
+            z-index: 2;
+            font-size: 4rem;
+            color: white;
+            background-color: rgba($color: black, $alpha: .3);
         }
         border: 5px solid white;        /* Opera/IE 8+ */
         transition: all .1s linear;

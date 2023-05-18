@@ -89,6 +89,9 @@
             
                 <div class="d-flex h-max w-max justify-content-center align-items-center uploadImage">
                     <i class="bi bi-cloud-upload"></i>
+                    <span>
+                        Carica un'immagine
+                    </span>
                 </div>
             
                 <img id="preview" 
