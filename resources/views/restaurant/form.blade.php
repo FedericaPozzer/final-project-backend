@@ -57,7 +57,7 @@
         {{-- * numero di telefono --}}
         <div class="col-6 col-md-4 my-2">
             <label class="form-label" for="phone_number">Numero di Tel.</label>
-            <input type="tel" name="phone_number" id="phone_number" pattern="[0-9]{10}" placeholder="0123456789" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
+            <input type="tel" name="phone_number" id="phone_number" pattern="+?[0-9]{10}" placeholder="0123456789" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
             @error("phone_number")
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
