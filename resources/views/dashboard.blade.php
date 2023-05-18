@@ -140,9 +140,9 @@
         </div>
     @endif  
 
-{{-- * ELSE 1 - se non sei registrato --}}
-@else  
-    <h2 class="my-5">Registrati!</h2>
-@endif
+    {{-- * ELSE 1 - se non sei registrato --}}
+    @else  
+        <h2 class="my-5">Registrati al sito per usufruire dei servizi!</h2>
+    @endif
 
 @endsection
