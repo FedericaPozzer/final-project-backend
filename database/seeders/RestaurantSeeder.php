@@ -50,7 +50,7 @@ class RestaurantSeeder extends Seeder
             /* Se l'utente non ha ristoranti gliene associo uno */
             if (!(User::first()->restaurant)){
                 $restaurant->owner()->associate(User::first());
-                $images = ['http://127.0.0.1:8000/restaurant_images/1.jpg', 'http://127.0.0.1:8000/restaurant_images/2.jpg', 'http://127.0.0.1:8000/restaurant_images/3.jpg', 'http://127.0.0.1:8000/restaurant_images/4.jpg', 'http://127.0.0.1:8000/restaurant_images/5.jpg'];
+                $images = ['restaurant_images/1.jpg', 'restaurant_images/2.jpg', 'restaurant_images/3.jpg', 'restaurant_images/4.jpg', 'restaurant_images/5.jpg'];
                 $restaurant->image = $images[$faker->numberBetween(0,4)];
                 $restaurant->save();
                 $restaurant->types()->save(Type::all()->random(1)->first());
@@ -84,7 +84,7 @@ class RestaurantSeeder extends Seeder
                 $restaurant->phone_number = $faker->phoneNumber();
 
                 $restaurant->owner()->associate($user);
-                $images = ['http://127.0.0.1:8000/restaurant_images/1.jpg', 'http://127.0.0.1:8000/restaurant_images/2.jpg', 'http://127.0.0.1:8000/restaurant_images/3.jpg', 'http://127.0.0.1:8000/restaurant_images/4.jpg', 'http://127.0.0.1:8000/restaurant_images/5.jpg'];
+                $images = ['restaurant_images/1.jpg', 'restaurant_images/2.jpg', 'restaurant_images/3.jpg', 'restaurant_images/4.jpg', 'restaurant_images/5.jpg'];
                 $restaurant->image = $images[$faker->numberBetween(0,4)];
                 $restaurant->save();
                 $numbOfTypes = $faker->numberBetween(1, 3);

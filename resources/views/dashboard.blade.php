@@ -15,7 +15,7 @@
             <div class="col-12 col-md-4 mt-5 pt-3 bg-prova">
                 {{-- * immagine --}}
                 <div class="restaurant-img-cage">
-                    <img src="{{auth()->user()->restaurant->image}}" alt="img">
+                    <img src="{{'http://127.0.0.1:8000/' . auth()->user()->restaurant->image}}" alt="img">
                 </div>
                 {{-- * nome ristorante --}}
                 <h1 class="fw-bold mt-3">{{auth()->user()->restaurant->name}}</h1>

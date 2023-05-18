@@ -93,7 +93,7 @@
             
                 <img id="preview" 
                 @if ($restaurant->image != null)
-                src = '{{$restaurant->image}}'
+                src = '{{'http://127.0.0.1:8000/' . $restaurant->image}}'
                 @else
                 src = '#' style = 'display:none;'
                 @endif 
@@ -101,7 +101,7 @@
             </div>
         
             @foreach ($default_images as $key=>$default_image)
-            <div class="col ratio ratio-4x3 imageBox" onclick="chooseImage( {{$key + 1}}, '{{asset($default_image)}}')" id="image_{{$key + 1}}">
+            <div class="col ratio ratio-4x3 imageBox" onclick="chooseImage( {{$key + 1}}, '{{$default_image}}')" id="image_{{$key + 1}}">
                 <img class="" src="{{ asset($default_image) }}" alt="description of myimage">
             </div>
             @endforeach
@@ -110,7 +110,7 @@
 
 
         <input type="file" class="d-none" name="image" @error('image') is-invalid @enderror id="selectImage" autocomplete="false">
-        <input type="text" name="defaultImage" id="selectDefaultImage" autocomplete="false" class="d-none" value="{{ old("image") ?? $restaurant->image }}">
+        <input type="text" name="defaultImage" id="selectDefaultImage" autocomplete="false" class="d-none" value="{{ old("image") ??  $restaurant->image }}">
     
         <script>
             let selectedImage = 0;

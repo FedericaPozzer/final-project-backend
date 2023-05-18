@@ -44,7 +44,7 @@ class DishSeeder extends Seeder
 
                 $default_images = ['restaurant_images/1.jpg', 'restaurant_images/3.jpg', 'restaurant_images/4.jpg', 'restaurant_images/5.jpg'];
 
-                $dish->image = 'http://127.0.0.1:8000/' . $default_images[$faker->numberBetween(0, 3)];
+                $dish->image = $default_images[$faker->numberBetween(0, 3)];
 
 
                 $dish->available = $faker->boolean(80);

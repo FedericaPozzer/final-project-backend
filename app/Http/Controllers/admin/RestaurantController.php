@@ -99,7 +99,7 @@ class RestaurantController extends Controller
 
         if(isset($data['image'])){
             $img_path = Storage::disk('public')->put('uploads', $data['image']);
-            $data['image'] = asset('storage/' . $img_path);
+            $data['image'] = 'storage/' . $img_path;
         }
         else if(isset($data['defaultImage'])) {
             $data['image'] = $data['defaultImage'];

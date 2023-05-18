@@ -38,7 +38,7 @@ class DishController extends Controller
 
         if(isset($data['image'])){
             $img_path = Storage::disk('public')->put('uploads', $data['image']);
-            $data['image'] = asset('storage/' . $img_path);
+            $data['image'] = 'storage/' . $img_path;
         }
         else if(isset($data['defaultImage'])) {
             $data['image'] = $data['defaultImage'];
@@ -88,7 +88,7 @@ class DishController extends Controller
 
         if(isset($data['image'])){
             $img_path = Storage::disk('public')->put('uploads', $data['image']);
-            $data['image'] = asset('storage/' . $img_path);
+            $data['image'] = 'storage/' . $img_path;
         }
         else if(isset($data['defaultImage'])) {
             $data['image'] = $data['defaultImage'];
@@ -152,7 +152,7 @@ class DishController extends Controller
             [
                 "name.required" => "Inserisci il nome.",
                 "name.string" => "Il nome inserito non è corretto.",
-                "name.max" => "Il nome è troppo lungo (max 50 caratteri).",
+                "name.max:50" => "Il nome è troppo lungo (max 50 caratteri).",
 
                 "description.required" => "Inserisci la descrizione.",
                 "description.string" => "La descrizione inserita non è corretta.",
@@ -161,8 +161,8 @@ class DishController extends Controller
 
                 "price.required" => "Inserisci un prezzo.",
                 "price.numeric" => "Il prezzo deve essere un numero",
-                "price.min" => "Il prezzo minimo è 0,50",
-                "price.max" => "Il prezzo massimo è 100",
+                "price.min:0.5" => "Il prezzo minimo è 0,50",
+                "price.max:100" => "Il prezzo massimo è 100",
             ]
         )->validate();
     }
