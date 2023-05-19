@@ -18,11 +18,11 @@
                 
                     <p>Accedi per visualizzare e gestire il tuo ristorante, oppure, se non sei ancora iscritto, iscriviti per registrare il tuo ristorante e iniziare a far decollare la tua attività!</p>
                     <p>Vendi di più, aumenta le tue entrate e gestisci la tua attività online insieme a noi. Il tuo percorso di digitalizzazione inizia qui.</p>
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary btn-secondary-custom">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </button>
 
-                    <button class="btn btn-secondary">
+                    <button class="btn btn-secondary btn-grey-custom">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </button>
                 </div>

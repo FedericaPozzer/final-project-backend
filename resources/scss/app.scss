@@ -90,7 +90,26 @@ $primary: white;
     }
     
 
+// ******* Buttons   ******* //
 
+// welcome page REGISTER button
+    .btn-secondary-custom {
+        background-color: #ee6a33;
+        border: 1px solid #ee6a33;
+    }
+
+    .btn-secondary-custom:hover {
+        background-color: white;
+        border: 1px solid #ee6a33;
+        color: #ee6a33;
+    }
+
+// welcome page LOGIN button
+    .btn-grey-custom:hover {
+        background-color: white;
+        color: grey;
+    }
+    
 
 
 
