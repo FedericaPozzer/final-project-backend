@@ -19,12 +19,41 @@ class TypeSeeder extends Seeder
         $names=["Italiano", "Cinese", "Messicano", "Giapponese", "Indiano", "Americano", "Spagnolo",];
 
         /* Creo un nuovo oggetto Tipo per ogni elemento nell'array */
-        foreach($names as $name) {
-            $type = new Type;
-            $type->name = $name;
-            $type->img = 'prova';
-            $type->save();
-        }
+
+        $type = new Type;
+        $type->name = 'Italiano';
+        $type->image = 'https://img.icons8.com/plasticine/100/pizza.png';
+        $type->save();
+
+        $type = new Type;
+        $type->name = 'Cinese';
+        $type->image = 'https://img.icons8.com/plasticine/100/chinese-noodle.png';
+        $type->save();
+
+        $type = new Type;
+        $type->name = 'Messicano';
+        $type->image = 'https://img.icons8.com/plasticine/100/taco.png';
+        $type->save();
+
+        $type = new Type;
+        $type->name = 'Giapponese';
+        $type->image = 'https://img.icons8.com/plasticine/100/sushi.png';
+        $type->save();
+
+        $type = new Type;
+        $type->name = 'Indiano';
+        $type->image = 'https://img.icons8.com/plasticine/100/curry.png';
+        $type->save();
+
+        $type = new Type;
+        $type->name = 'Americano';
+        $type->image = 'https://img.icons8.com/plasticine/100/hamburger.png';
+        $type->save();
+
+        $type = new Type;
+        $type->name = 'Spagnolo';
+        $type->image = 'https://img.icons8.com/plasticine/100/paella.png';
+        $type->save();
     }
 
 }
