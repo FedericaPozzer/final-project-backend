@@ -26,7 +26,7 @@
     @csrf
     
     {{-- * nome ristorante --}}
-    <div class="col-12 my-2">
+    <div class="col-12 my-2 input-control">
         <label class="form-label" for="name">Nome Ristorante</label>
         <input type="text" name="name" id="name" placeholder="Da Mario" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $restaurant->name }}">
         @error("name")
@@ -36,7 +36,7 @@
 
 
     {{-- * indirizzo --}}
-    <div class="col-12 my-2">
+    <div class="col-12 my-2 input-control">
         <label class="form-label" for="address">Indirizzo</label>
         <input type="text" name="address" id="address" placeholder="Via/Piazza/Corso xxxx, N. YY" class="form-control @error("address") is-invalid @enderror" value="{{ old("address") ?? $restaurant->address }}">
         @error("address")
@@ -46,7 +46,7 @@
 
     <div class="row">
             {{-- * partita iva --}}
-        <div class="col-6 col-md-4 my-2">
+        <div class="col-6 col-md-4 my-2 input-control">
             <label class="form-label" for="vat">P. IVA</label>
             <input type="number" name="vat" id="vat" placeholder="es. 86334519757" class="form-control @error("vat") is-invalid @enderror" value="{{ old("vat") ?? $restaurant->vat }}">
             @error("vat")
@@ -55,7 +55,7 @@
         </div>
     
         {{-- * numero di telefono --}}
-        <div class="col-6 col-md-4 my-2">
+        <div class="col-6 col-md-4 my-2 input-control">
             <label class="form-label" for="phone_number">Numero di Tel.</label>
             <input type="tel" name="phone_number" id="phone_number" pattern="+?[0-9]{10}" placeholder="0123456789" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
             @error("phone_number")
@@ -169,7 +169,7 @@
         @enderror
         <div class="row row-cols-4 ms-1">
         @foreach ($types as $type)
-            <div class="form-check col me-4">
+            <div class="form-check col me-4 input-control">
                 <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" 
                 @if ($restaurant->containsType($type->id))
                     checked    
@@ -193,6 +193,70 @@
 
 </form>
 
+{{-- script per la validazione client-side --}}
+
+{{-- <script>
+    const form = document.getElementById('form');
+    const name = document.getElementById('name');
+    const address = document.getElementById('address');
+    const vat = document.getElementById('vat');
+    const phone_number = document.getElementById('phone_number');
+    const types = document.getElementById('types');
+
+    form.addEventListener('focus', e => {
+        e.preventDefault();
+        validateInputs();
+    });
+
+    const setError = (element,message) =>{
+        const InputControl = element.parentElement;
+        const errorDisplay = inputControl.querySelector('.error');
+        errorDisplay.innerText = message;
+        inputControl.classList.add('is-invalid');
+        inputControl.classList.remove('is-valid');
+    }
+    const setSuccess = element => {
+        const InputControl = element.parentElement;
+        const successDisplay = inputControl.querySelector('.success');
+        errorDisplay.innerText = '';
+        inputControl.classList.add('is-valid');
+        inputControl.classList.remove('is-invalid');
+    }
+        
+    const validateInputs = () => {
+        const nameValue = name.value;
+        const addressValue = address.value;
+        const vatValue = vat.value;
+        const phone_numberValue = phone_number.value;
+        const typesValue = types.value;
+    }
+
+    if(nameValue === ''){
+        setError(name,'stai sbagliando')
+    }else{
+        setSuccess(name);
+    }
+    if(addressValue === ''){
+        setError(address,'Inserisci il nome.')
+    }else{
+        setSuccess(address);
+    }
+    if(vatValue === ''){
+        setError(vat,'Inserisci il nome.')
+    }else{
+        setSuccess(vat);
+    }
+    if(phone_numberValue === ''){
+        setError(phone_number,'Inserisci il nome.')
+    }else{
+        setSuccess(phone_number);
+    }
+    if(typesValue === ''){
+        setError(types,'Inserisci il nome.')
+    }else{
+        setSuccess(types);
+    }
+</script> --}}
 
 
 {{-- @else
