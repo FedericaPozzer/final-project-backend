@@ -50,6 +50,7 @@ $primary: white;
         border-radius: 10px;
         img{
             border-radius: 5px;
+            cursor: pointer;
         };
         .uploadImage{
             background-color: rgba($color: black, $alpha: 0);
@@ -62,6 +63,7 @@ $primary: white;
             font-size: 4rem;
             color: white;
             background-color: rgba($color: black, $alpha: .3);
+            cursor: pointer;
         }
         border: 5px solid white;        /* Opera/IE 8+ */
         transition: all .1s linear;
