@@ -16,7 +16,7 @@ class TypeSeeder extends Seeder
     public function run()
     {
         /* Array di tipi di cucina */
-        $names=["Italiano", "Cinese", "Messicano", "Giapponese", "Indiano"];
+        $names=["Italiano", "Cinese", "Messicano", "Giapponese", "Indiano", "Americano", "Spagnolo",];
 
         /* Creo un nuovo oggetto Tipo per ogni elemento nell'array */
         foreach($names as $name) {
