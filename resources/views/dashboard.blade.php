@@ -22,15 +22,18 @@
                 {{-- * owner --}}
                 <h3>di {{auth()->user()->restaurant->owner->name}}</h3>
                 {{-- * tipo ristorante --}}
-                @foreach (auth()->user()->restaurant->types as $type)
-                    <div class="text-secondary mb-4">{{$type->name}}</div>
-                @endforeach
+                <div class="d-flex flex-wrap">
+                    @foreach (auth()->user()->restaurant->types as $type)
+                        <div class="text-secondary me-2">{{$type->name}}</div>
+                    @endforeach
+                </div>
                 {{-- * indirizzo --}}
                 <p class="mt-2">{{auth()->user()->restaurant->address}}</p>
                 {{-- * p.iva --}}
                 <p>Partita Iva {{auth()->user()->restaurant->vat}}</p>
                 {{-- * telefono --}}
                 <p>Tel. {{auth()->user()->restaurant->phone_number}}</p>
+
             
                 {{-- BUTTONS --}}
                 <div class="mt-5">
