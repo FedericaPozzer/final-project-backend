@@ -3,8 +3,8 @@
 use App\Http\Controllers\api\OrderApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\api\RestaurantApiController;
+use App\Http\Controllers\api\TypeApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('restaurants', RestaurantApiController::class);
 Route::resource('orders', OrderApiController::class);
+Route::resource('types', TypeApiController::class);
 
