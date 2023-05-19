@@ -18,10 +18,10 @@
 
 {{-- * se il ristorante esiste già form edit / se il ristorante non esiste già form create --}}
 @if ($restaurant->id)
-    <form action="{{route('restaurants.update', $restaurant)}}" method="POST" class="row" enctype="multipart/form-data">
+    <form id="restaurant-form" action="{{route('restaurants.update', $restaurant)}}" method="POST" class="row validation-tip" enctype="multipart/form-data">
     @method('PUT')
 @else
-    <form action="{{route('restaurants.store')}}" method="POST" class="row" enctype="multipart/form-data">
+    <form id="restaurant-form" action="{{route('restaurants.store')}}" method="POST" class="row validation-tip" enctype="multipart/form-data">
 @endif
     @csrf
     
@@ -170,7 +170,7 @@
         <div class="row row-cols-4 ms-1">
         @foreach ($types as $type)
             <div class="form-check col me-4 input-control">
-                <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" 
+                <input class="form-check-input @error('types') is-invalid @enderror"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" required
                 @if ($restaurant->containsType($type->id))
                     checked    
                 @endif>
@@ -194,68 +194,58 @@
 </form>
 
 {{-- script per la validazione client-side --}}
+{{-- 
+<script>
+    const nameEl = document.getElementById('name');
+    const addressEl = document.getElementById('address');
+    const vatEl = document.getElementById('vat');
+    const phone_numberEl = document.getElementById('phone_number');
+    const typesEl = document.getElementById('types');
+    const formEl = document.querySelector('#restaurant-form')
+
+    nameEl.addEventListener('blur', () => {
+    searchResultsEl.classList.add('border-danger');
+    searchResultsEl.classList.add('text-danger');
+    nameEl.classList.add('is-invalid');
+    form.classList.remove('was-validated');
+})
+</script> --}}
 
 {{-- <script>
-    const form = document.getElementById('form');
-    const name = document.getElementById('name');
-    const address = document.getElementById('address');
-    const vat = document.getElementById('vat');
-    const phone_number = document.getElementById('phone_number');
-    const types = document.getElementById('types');
 
-    form.addEventListener('focus', e => {
-        e.preventDefault();
-        validateInputs();
-    });
+    // checkbox validation
+    const typeCheckbox = document.querySelectorAll("[id^='type-']");
 
-    const setError = (element,message) =>{
-        const InputControl = element.parentElement;
-        const errorDisplay = inputControl.querySelector('.error');
-        errorDisplay.innerText = message;
-        inputControl.classList.add('is-invalid');
-        inputControl.classList.remove('is-valid');
-    }
-    const setSuccess = element => {
-        const InputControl = element.parentElement;
-        const successDisplay = inputControl.querySelector('.success');
-        errorDisplay.innerText = '';
-        inputControl.classList.add('is-valid');
-        inputControl.classList.remove('is-invalid');
-    }
+    function checkBoxValidation(checkBoxArray) {
+    let checkedBoxes = false;
+    checkBoxArray.forEach(type => {
+      for (let i = 0; i < checkBoxArray.length; i++) {
+          const checkBox = checkBoxArray[i]
+          if (checkBox.checked == true) {
+            checkedBoxes = true;
+            break;
+          } else checkedBoxes = false;
+        }
+          if(checkedBoxes) {
+            checkBoxArray.forEach(type => { 
+              type.required = false;
+            })
+          } else {
+            checkBoxArray.forEach(type =>{
+              type.required = true;
+            })
+          }
         
-    const validateInputs = () => {
-        const nameValue = name.value;
-        const addressValue = address.value;
-        const vatValue = vat.value;
-        const phone_numberValue = phone_number.value;
-        const typesValue = types.value;
-    }
+      })}
 
-    if(nameValue === ''){
-        setError(name,'stai sbagliando')
-    }else{
-        setSuccess(name);
-    }
-    if(addressValue === ''){
-        setError(address,'Inserisci il nome.')
-    }else{
-        setSuccess(address);
-    }
-    if(vatValue === ''){
-        setError(vat,'Inserisci il nome.')
-    }else{
-        setSuccess(vat);
-    }
-    if(phone_numberValue === ''){
-        setError(phone_number,'Inserisci il nome.')
-    }else{
-        setSuccess(phone_number);
-    }
-    if(typesValue === ''){
-        setError(types,'Inserisci il nome.')
-    }else{
-        setSuccess(types);
-    }
+      checkBoxValidation(typeCheckbox);
+
+      typeCheckbox.forEach(type => {
+        type.addEventListener('change', () => {
+            checkBoxValidation(typeCheckbox);
+        })
+      })
+    
 </script> --}}
 
 
