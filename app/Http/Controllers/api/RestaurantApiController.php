@@ -4,7 +4,14 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use App\Models\Type;
 use Illuminate\Http\Request;
+
+use Illuminate\Container\Container;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+
 
 class RestaurantApiController extends Controller
 {
@@ -16,16 +23,44 @@ class RestaurantApiController extends Controller
     {
         $restaurants = Restaurant::where('name', '<>', null)
         ->with('types')
-        ->get();
+        ->paginate(5);
         return response()->json(
             $restaurants
         );
     }
 
-    public function search($query)
+    public function search($type, $query)
     {
-        $restaurants = Restaurant::where('name', 'like', '%'.$query.'%')->get();
-        return response()->json($restaurants);
+        if ($type == 'all'){
+            $restaurants = Restaurant::where('name', 'like', '%'.$query.'%')->with('types')->get();
+            return $this->paginate($restaurants, 5);
+        }
+        else{
+            if($query == 'null'){
+                $type = Type::where('name', '=', $type)->first();
+                $restaurants = $type->restaurants;
+                $response = collect();
+                foreach($restaurants as $restaurant)
+                {
+                    $response->add($restaurant);
+                }
+                return $this->paginate($response, 5);
+            }
+            else{
+                $type = Type::where('name', '=', $type)->first();
+                $restaurants = $type->restaurants;
+                $response = collect();
+                foreach($restaurants as $restaurant)
+                {
+                    if(str_contains(strtolower($restaurant->name), strtolower($query)))
+                    {
+                        $response->add($restaurant);
+                    }
+                }
+                return $this->paginate($response, 5);
+            }
+        }
+        return $this->paginate($restaurants, 5);
     }
 
     public function show($id)
@@ -68,5 +103,35 @@ class RestaurantApiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public static function paginate(Collection $results, $showPerPage)
+    {
+        $pageNumber = Paginator::resolveCurrentPage('page');
+        
+        $totalPageNumber = $results->count();
+
+        return self::paginator($results->forPage($pageNumber, $showPerPage), $totalPageNumber, $showPerPage, $pageNumber, [
+            'path' => Paginator::resolveCurrentPath(),
+            'pageName' => 'page',
+        ]);
+
+    }
+
+    /**
+     * Create a new length-aware paginator instance.
+     *
+     * @param  \Illuminate\Support\Collection  $items
+     * @param  int  $total
+     * @param  int  $perPage
+     * @param  int  $currentPage
+     * @param  array  $options
+     * @return \Illuminate\Pagination\LengthAwarePaginator
+     */
+    protected static function paginator($items, $total, $perPage, $currentPage, $options)
+    {
+        return Container::getInstance()->makeWith(LengthAwarePaginator::class, compact(
+            'items', 'total', 'perPage', 'currentPage', 'options'
+        ));
     }
 }
