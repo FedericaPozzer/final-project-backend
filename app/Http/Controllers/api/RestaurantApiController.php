@@ -22,6 +22,12 @@ class RestaurantApiController extends Controller
         );
     }
 
+    public function search($query)
+    {
+        $restaurants = Restaurant::where('name', 'like', '%'.$query.'%')->get();
+        return response()->json($restaurants);
+    }
+
     public function show($id)
     {
         $restaurant = Restaurant::with('dishes')->where('id', '=', $id)->first();
