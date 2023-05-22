@@ -188,5 +188,7 @@ class RestaurantController extends Controller
         $orders = Order::all();
         return view('restaurant.orders', compact('orders'));
     }
+
+    
     
 }
