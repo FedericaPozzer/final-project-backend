@@ -63,6 +63,17 @@ class RestaurantApiController extends Controller
         return $this->paginate($restaurants, 5);
     }
 
+    public function dishesByName($id, $query){
+        $restaurant = Restaurant::all()->where('id', '==', $id)->first();
+        $response = collect();
+        foreach($restaurant->dishes as $dish){
+            if(str_contains(strtolower($dish->name), strtolower($query))){
+                $response->add($dish);
+            }
+        }
+        return $response;
+    }
+
     public function show($id)
     {
         $restaurant = Restaurant::with('dishes')->where('id', '=', $id)->first();

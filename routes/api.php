@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('restaurants', RestaurantApiController::class);
 Route::get('search/{query}/{type}', [RestaurantApiController::class, 'search']);
+Route::get('restaurants/{id}/search/{query}', [RestaurantApiController::class, 'dishesByName']);
 
 
 Route::resource('orders', OrderApiController::class);
