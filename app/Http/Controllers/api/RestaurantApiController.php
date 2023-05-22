@@ -42,7 +42,8 @@ class RestaurantApiController extends Controller
                 $response = collect();
                 foreach($restaurants as $restaurant)
                 {
-                    $response->add($restaurant);
+                    $dbRestaurant = Restaurant::with('types')->where('name', '=', $restaurant->name)->first();
+                    $response->add($dbRestaurant);
                 }
                 return $this->paginate($response, 5);
             }
@@ -54,7 +55,8 @@ class RestaurantApiController extends Controller
                 {
                     if(str_contains(strtolower($restaurant->name), strtolower($query)))
                     {
-                        $response->add($restaurant);
+                        $dbRestaurant = Restaurant::with('types')->where('name', '=', $restaurant->name)->first();
+                        $response->add($dbRestaurant);
                     }
                 }
                 return $this->paginate($response, 5);

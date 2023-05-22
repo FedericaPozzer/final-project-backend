@@ -24,7 +24,7 @@ class DishSeeder extends Seeder
         foreach($restaurants as $restaurant)
         {
 
-            for($i=0; $i<$faker->numberBetween(50,60); $i++) {
+            for($i=0; $i<$faker->numberBetween(6,10); $i++) {
     
                 /* Creo una descrizione con degli ingredienti */
                 $ingredients = [$faker->vegetableName(), $faker->fruitName(), $faker->meatName(),  $faker->sauceName(), $faker->dairyName()];

@@ -56,7 +56,7 @@ class RestaurantSeeder extends Seeder
                 $restaurant->types()->save(Type::all()->random(1)->first());
             }
 
-            for($i=0; $i<5; $i++)
+            for($i=0; $i<20; $i++)
             {
                 $user = new User;
                 $user->name = $faker->name();
