@@ -67,4 +67,21 @@ class Restaurant extends Model
         return $number;
     }
 
+    public function filter(Request $request, Restaurant $restaurant)
+{
+    $restaurant = $restaurant->newQuery();
+
+    // Search for a user based on their name.
+    if ($request->has('name')) {
+        $user->where('name', $request->input('name'));
+    }
+
+    // Search for a user based on their company.
+    if ($request->has('types')) {
+        $user->where('types', $request->input('types'));
+    }
+
+    return $restaurant->get();
+}
+
 }

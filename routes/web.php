@@ -31,6 +31,9 @@ Route::get("dishes/delete/{id}", [DishController::class, "delete"])->name("dishe
 Route::get('orders', [RestaurantController::class, 'orders'])->name('restaurants.orders')->middleware(['auth', 'verified']);
 Route::get("orders/shipped/{id}", [OrderController::class, "shipped"])->name("order.shipped")->middleware(['auth', 'verified']);
 
+// Search
+Route::post('/search', 'SearchController@filter');
+
 
 
 
