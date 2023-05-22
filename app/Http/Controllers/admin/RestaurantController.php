@@ -148,7 +148,7 @@ class RestaurantController extends Controller
         return  Validator::make(
             $data,
             [
-                "name" => "required|string|max:100",
+                "name" => "required|string|max:20",
                 "address" => "required|string",
                 "vat" => "required|string|max:30",
                 "phone_number" => "required|string",
@@ -159,7 +159,7 @@ class RestaurantController extends Controller
             [
                 "name.required" => "Inserisci il nome.",
                 "name.string" => "Il nome inserito non è corretto.",
-                "name.max:100" => "Il nome è troppo lungo (max 100 caratteri).",
+                "name.max:100" => "Il nome è troppo lungo (max 20 caratteri).",
 
                 "address.required" => "Inserisci l'indirizzo.",
                 "address.string" => "L'indirizzo inserito non è corretto.",
