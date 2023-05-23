@@ -24,7 +24,7 @@ class RestaurantApiController extends Controller
     {
         $restaurants = Restaurant::where('name', '<>', null)
         ->with('types')
-        ->paginate(5);
+        ->paginate(6);
         return response()->json(
             $restaurants
         );
@@ -34,7 +34,7 @@ class RestaurantApiController extends Controller
     {
         if ($type == 'all'){
             $restaurants = Restaurant::where('name', 'like', '%'.$query.'%')->with('types')->get();
-            return $this->paginate($restaurants, 5);
+            return $this->paginate($restaurants, 6);
         }
         else{
             if($query == 'null'){
@@ -46,7 +46,7 @@ class RestaurantApiController extends Controller
                     $dbRestaurant = Restaurant::with('types')->where('name', '=', $restaurant->name)->first();
                     $response->add($dbRestaurant);
                 }
-                return $this->paginate($response, 5);
+                return $this->paginate($response, 6);
             }
             else{
                 $type = Type::where('name', '=', $type)->first();
@@ -60,10 +60,10 @@ class RestaurantApiController extends Controller
                         $response->add($dbRestaurant);
                     }
                 }
-                return $this->paginate($response, 5);
+                return $this->paginate($response, 6);
             }
         }
-        return $this->paginate($restaurants, 5);
+        return $this->paginate($restaurants, 6);
     }
 
     public function dishesByName($id, $query){
