@@ -42,9 +42,9 @@ class DishSeeder extends Seeder
                 $dish = new Dish;
                 $dish->name = $faker->foodName();
 
-                $default_images = ['dish_images/1.png', 'dish_images/2.png', 'dish_images/3.png', 'dish_images/4.png', 'dish_images/5.png', 'dish_images/6.png', 'dish_images/7.png', 'dish_images/8.png', 'dish_images/9.png', 'dish_images/10.png', 'dish_images/11.png',];
+                $default_images = ['dish_images/1.png', 'dish_images/2.png', 'dish_images/3.png', 'dish_images/4.png', 'dish_images/5.png', 'dish_images/6.png', 'dish_images/7.png', 'dish_images/8.png', 'dish_images/9.png', 'dish_images/10.png', 'dish_images/11.png', 'dish_images/12.png', 'dish_images/13.png',];
 
-                $dish->image = $default_images[$faker->numberBetween(0, 10)];
+                $dish->image = $default_images[$faker->numberBetween(0, 12)];
 
 
                 $dish->available = $faker->boolean(80);
