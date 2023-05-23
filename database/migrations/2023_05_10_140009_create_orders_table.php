@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('guest_name')->nullable();
             $table->string('guest_address')->nullable();
             $table->string('guest_mail')->nullable();
+            $table->string('guest_phone_number')->nullable();
             $table->string('payment_id')->nullable();
             $table->string('success')->nullable();
             $table->boolean('shipped')->nullable();
