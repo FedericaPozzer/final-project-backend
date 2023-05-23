@@ -18,15 +18,15 @@
 
 {{-- * se il ristorante esiste già form edit / se il ristorante non esiste già form create --}}
 @if ($restaurant->id)
-    <form action="{{route('restaurants.update', $restaurant)}}" method="POST" class="row" enctype="multipart/form-data">
+    <form id="restaurant-form" name="restaurant-form" action="{{route('restaurants.update', $restaurant)}}" method="POST" class="row validation-tip" enctype="multipart/form-data">
     @method('PUT')
 @else
-    <form action="{{route('restaurants.store')}}" method="POST" class="row" enctype="multipart/form-data">
+    <form id="restaurant-form" name="restaurant-form" action="{{route('restaurants.store')}}" method="POST" class="row validation-tip" enctype="multipart/form-data">
 @endif
     @csrf
     
     {{-- * nome ristorante --}}
-    <div class="col-12 my-2">
+    <div class="col-12 my-2 input-control">
         <label class="form-label" for="name">Nome Ristorante</label>
         <input type="text" name="name" id="name" placeholder="Da Mario" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $restaurant->name }}">
         @error("name")
@@ -36,7 +36,7 @@
 
 
     {{-- * indirizzo --}}
-    <div class="col-12 my-2">
+    <div class="col-12 my-2 input-control">
         <label class="form-label" for="address">Indirizzo</label>
         <input type="text" name="address" id="address" placeholder="Via/Piazza/Corso xxxx, N. YY" class="form-control @error("address") is-invalid @enderror" value="{{ old("address") ?? $restaurant->address }}">
         @error("address")
@@ -46,7 +46,7 @@
 
     <div class="row">
             {{-- * partita iva --}}
-        <div class="col-6 col-md-4 my-2">
+        <div class="col-6 col-md-4 my-2 input-control">
             <label class="form-label" for="vat">P. IVA</label>
             <input type="number" name="vat" id="vat" placeholder="es. 86334519757" class="form-control @error("vat") is-invalid @enderror" value="{{ old("vat") ?? $restaurant->vat }}">
             @error("vat")
@@ -55,9 +55,11 @@
         </div>
     
         {{-- * numero di telefono --}}
-        <div class="col-6 col-md-4 my-2">
+        <div class="col-6 col-md-4 my-2 input-control">
             <label class="form-label" for="phone_number">Numero di Tel.</label>
-            <input type="tel" name="phone_number" id="phone_number" pattern="+?[0-9]{10}" placeholder="0123456789" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
+            <input type="tel" name="phone_number" id="phone_number" 
+            {{-- pattern="+?[0-9]{10}" --}}
+             placeholder="0123456789" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
             @error("phone_number")
                 <div class="invalid-feedback"> {{ $message }} </div>
             @enderror
@@ -169,8 +171,8 @@
         @enderror
         <div class="row row-cols-4 ms-1">
         @foreach ($types as $type)
-            <div class="form-check col me-4">
-                <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" 
+            <div class="form-check col me-4 input-control">
+                <input class="form-check-input @error('types') is-invalid @enderror"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" 
                 @if ($restaurant->containsType($type->id))
                     checked    
                 @endif>
@@ -185,19 +187,41 @@
     {{-- * EDIT / CREATE submit --}}
     <div class="col-4 d-flex mt-5 mt-md-null justify-content-end align-items-end">
         @if ($restaurant->id)
-            <button type="submit" class="btn btn-primary">Modifica il tuo ristorante</button>
+            <button type="submit" class="btn btn-primary" onclick="validazione()">Modifica il tuo ristorante</button>
         @else
-            <button type="submit" class="btn btn-primary">Crea il tuo ristorante</button>
+            <button type="submit" class="btn btn-primary" onclick="validazione()">Crea il tuo ristorante</button>
         @endif
     </div>
 
 </form>
 
+{{-- script per la validazione client-side --}}
 
+<script>
+    function validazione(){
+        var name = document.restaurant.name.value;
 
-{{-- @else
-<h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>
-@endif --}}
+        if ((name == "") || (name.length > 100)) {
+      alert("Devi inserire un nome corretto");
+      console.log(name);
+      document.restaurant.name.focus();
+      return false;
+    }
+    else{
+        document.restaurant.action = "#"; 
+      document.restaurant.submit();
+    }
+}
+    // const addressEl = document.getElementById('address');
+    // const vatEl = document.getElementById('vat');
+    // const phone_numberEl = document.getElementById('phone_number');
+    // const typesEl = document.getElementById('types');
+    // const formEl = document.querySelector('#restaurant-form')
+
+   
+
+</script>
+
 
 @endsection
   

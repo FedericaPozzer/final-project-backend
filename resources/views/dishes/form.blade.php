@@ -154,7 +154,7 @@ $restaurant = auth()->user()->restaurant;
     {{-- * disponibilità --}}
     <div class="col-8 my-4">
         <label class="form-label" for="available">Disponibilità</label>
-        <input type="checkbox" id="available" name="available" @checked(old("available", $dish->available)) value="0">
+        <input type="checkbox" id="available" name="available" value="1"  @checked(old('published',$dish->available))>
     </div>
 
     {{-- * input invisibile per inviare l'id del ristorante insieme alle info inserite --}}
