@@ -22,28 +22,21 @@
 {{-- * se il ristorante esiste già form edit / se il ristorante non esiste già form create --}}
 @if ($restaurant->id)
 {{ Aire::open()
-->route('restaurants.update', $restaurant)
-->rules([
-    'name' => 'required|max:20',
-    'address' => 'required|min:3',
-    'vat' => 'required|digits:11',
-    'phone_number' => 'required|digits:10'
-
-])
-->messages([
-    'required' => 'Il campo è richiesto.',
-    'min' => 'Numero insufficiente di caratteri.',
-    'max' => 'Hai inserito troppi caratteri.',
-    'digits' => 'Inserisci il numero esatto di caratteri.'
-  ])
-}}
-
-
-
-
-
-
-
+    ->route('restaurants.update', $restaurant)
+    ->rules([
+        'name' => 'required|max:20',
+        'address' => 'required|min:3',
+        'vat' => 'required|digits:11',
+        'phone_number' => 'required|digits:10'
+    
+    ])
+    ->messages([
+        'required' => 'Il campo è richiesto.',
+        'min' => 'Numero insufficiente di caratteri.',
+        'max' => 'Hai inserito troppi caratteri.',
+        'digits' => 'Inserisci il numero esatto di caratteri.'
+      ])
+    }}
 @else
 {{ Aire::open()
     ->route('restaurants.store', $restaurant)
@@ -246,7 +239,6 @@
 
 
 
-{{ Aire::close() }}
 
 {{-- @else
     <h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>

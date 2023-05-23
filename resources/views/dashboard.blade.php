@@ -105,11 +105,9 @@
 
                                     {{-- * disponibilità --}}
                                     {{-- <td class="d-none d-xl-table-cell">{{$dish->available}}</td> --}}
-                                    @if($dish->available == 1) 
-                                        <td class="d-none d-xl-table-cell">Si</td>
-                                    @else
-                                        <td class="d-none d-xl-table-cell">No</td>
-                                    @endif
+                                    
+                                        <td class="d-none d-xl-table-cell">{{$dish->available == 1 ? 'Disponibile' : 'Non disponibile'}}</td>
+                                    
 
                                     {{-- * azioni - vedi, modifica, elimina --}}
                                     <td class="d-flex justify-content-between align-items-center">

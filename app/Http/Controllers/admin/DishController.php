@@ -96,7 +96,7 @@ class DishController extends Controller
         else{
             $data['image'] = '';
         }
-
+        $data["available"] = $request->has("available") ? 1 : 0;
         $this->validation($data);
         $dish->update($data);
 
@@ -146,7 +146,7 @@ class DishController extends Controller
                 "description" => "required|string",
                 "image" => "string",
                 "price" => "required|numeric|min:0.5|max:100", // TODO: la virgola!
-                // "available" => "boolean",
+                "available" => "boolean",
                 // "restaurant_id" => "required|string",
             ],
             [
