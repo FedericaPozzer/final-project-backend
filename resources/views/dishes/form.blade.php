@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($dish->id)
+    <h2 class="mt-5 mb-3">Modifica il piatto</h2>
+@else
+    <h2 class="mt-5 mb-3">Crea il tuo piatto</h2>
+@endif
 
 {{-- @php 
 $restaurant = auth()->user()->restaurant;
@@ -12,45 +17,73 @@ $restaurant = auth()->user()->restaurant;
 
 
 {{-- * UPDATE / EDIT title --}}
-@if ($dish->id)
-    <h2 class="mt-5 mb-3">Modifica il piatto</h2>
-@else
-    <h2 class="mt-5 mb-3">Crea il tuo piatto</h2>
-@endif
 
 @include('layouts.partials.errors')
 
 {{-- * se il piatto esiste già form edit / se il piatto non esiste già form create --}}
 @if ($dish->id)
-    <form action="{{route('dishes.update', $dish)}}" method="POST" enctype="multipart/form-data" class="row">
-    @method('PUT')
+{{ Aire::open()
+    ->route('dishes.update', $dish)
+    ->rules([
+        'name' => 'required|max:20',
+        'description' => 'required',
+        'price' => 'required|min:0.5|max:100',    
+    ])
+    ->messages([
+        'required' => 'Il campo è richiesto.',
+        'min' => 'Numero insufficiente di caratteri.',
+        'max' => 'Hai inserito troppi caratteri.',
+      ])
+    }}
 @else
-    <form action="{{route('dishes.store')}}" method="POST" enctype="multipart/form-data" class="row">
-@endif
-    @csrf
+{{ Aire::open()
+    ->route('dishes.store', $dish)
+    ->rules([
+        'name' => 'required|max:20',
+        'description' => 'required',
+        'price' => 'required|min:0.5|max:100',    
+    ])
+    ->messages([
+        'required' => 'Il campo è richiesto.',
+        'min' => 'Numero insufficiente di caratteri.',
+        'max' => 'Hai inserito troppi caratteri.',
+      ])
+    }}
+    @endif
 
     {{-- * nome piatto --}}
     <div class="col-8 my-4">
-        <label class="form-label" for="name">Nome Piatto</label>
-        <input type="text" name="name" id="name" placeholder="Pizza" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $dish->name }}">
+        {{ Aire::input('name', 'Nome')
+        ->id('name')
+        ->value( old("name") ?? $dish->name)
+        ->helpText('Nome del piatto.')
+        }}
         @error("name")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
+        
     </div>
     
     {{-- * descrizione --}}
     <div class="col-8 my-4">
-        <label class="form-label" for="description">Descrizione</label>
-        <textarea type="text" name="description" id="description" placeholder="Ingredienti: ..." class="form-control @error("description") is-invalid @enderror" rows="5">{{ old("description") ?? $dish->description }} </textarea>
+        {{ Aire::input('description', 'Descrizione')
+        ->id('description')
+        ->value( old("description") ?? $dish->description)
+        ->helpText('Descrizione del piatto.')
+    }}
         @error("description")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
+        
     </div>
   
     {{-- * prezzo --}}
     <div class="col-8 my-4">
-        <label class="form-label" for="price">Prezzo</label>
-        <input type=number step=0.01 name="price" id="price" placeholder="quanto costa?" class="form-control @error("price") is-invalid @enderror" value="{{ old("price") ?? $dish->price }}">
+        
+        {{Aire::number('price', 'Prezzo')
+        ->step(0.01)
+        ->value( old("price") ?? $dish->price)}}
+
         @error("price")
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror
@@ -169,7 +202,7 @@ $restaurant = auth()->user()->restaurant;
         @endif
     </div>
 
-</form>
+{{ Aire::close() }}
 
 
 
