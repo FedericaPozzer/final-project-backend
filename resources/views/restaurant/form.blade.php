@@ -170,7 +170,7 @@
         <div class="row row-cols-4 ms-1">
         @foreach ($types as $type)
             <div class="form-check col me-4 input-control">
-                <input class="form-check-input @error('types') is-invalid @enderror"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" required
+                <input class="form-check-input @error('types') is-invalid @enderror"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" 
                 @if ($restaurant->containsType($type->id))
                     checked    
                 @endif>
@@ -194,7 +194,7 @@
 </form>
 
 {{-- script per la validazione client-side --}}
-{{-- 
+
 <script>
     const nameEl = document.getElementById('name');
     const addressEl = document.getElementById('address');
@@ -203,55 +203,20 @@
     const typesEl = document.getElementById('types');
     const formEl = document.querySelector('#restaurant-form')
 
-    nameEl.addEventListener('blur', () => {
-    searchResultsEl.classList.add('border-danger');
-    searchResultsEl.classList.add('text-danger');
-    nameEl.classList.add('is-invalid');
-    form.classList.remove('was-validated');
-})
-</script> --}}
+    document.addEventListener("focus", changeValidation){
+        function changeValidation(){
+      if(nameEl.value == ""){
+        nameEl.classList.add = ("is-invalid");
+      }
+        else if(nameEl.value != ""){
+            nameEl.classList.add = ("is-valid")
+      }
+    }
 
-{{-- <script>
+    }
 
-    // checkbox validation
-    const typeCheckbox = document.querySelectorAll("[id^='type-']");
+</script>
 
-    function checkBoxValidation(checkBoxArray) {
-    let checkedBoxes = false;
-    checkBoxArray.forEach(type => {
-      for (let i = 0; i < checkBoxArray.length; i++) {
-          const checkBox = checkBoxArray[i]
-          if (checkBox.checked == true) {
-            checkedBoxes = true;
-            break;
-          } else checkedBoxes = false;
-        }
-          if(checkedBoxes) {
-            checkBoxArray.forEach(type => { 
-              type.required = false;
-            })
-          } else {
-            checkBoxArray.forEach(type =>{
-              type.required = true;
-            })
-          }
-        
-      })}
-
-      checkBoxValidation(typeCheckbox);
-
-      typeCheckbox.forEach(type => {
-        type.addEventListener('change', () => {
-            checkBoxValidation(typeCheckbox);
-        })
-      })
-    
-</script> --}}
-
-
-{{-- @else
-<h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>
-@endif --}}
 
 @endsection
   
