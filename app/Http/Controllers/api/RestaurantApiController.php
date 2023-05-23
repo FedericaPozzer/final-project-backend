@@ -12,6 +12,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 
+use function GuzzleHttp\Promise\all;
 
 class RestaurantApiController extends Controller
 {
@@ -146,5 +147,10 @@ class RestaurantApiController extends Controller
         return Container::getInstance()->makeWith(LengthAwarePaginator::class, compact(
             'items', 'total', 'perPage', 'currentPage', 'options'
         ));
+    }
+
+    public function homeRestaurants(){
+        $restaurants = Restaurant::with('dishes')->get()->random(5);
+        return $restaurants;
     }
 }
