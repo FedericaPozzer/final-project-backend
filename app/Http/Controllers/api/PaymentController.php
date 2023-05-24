@@ -26,8 +26,8 @@ class PaymentController extends Controller
             $order->restaurant()->associate($dbDish->restaurant);
         }
 
-        $dbDish->restaurant->sendMailToCustomer($data['user_email']);
-        $dbDish->restaurant->sendMailToRestaurant();
+        $dbDish->restaurant->sendMailToCustomer($data['user_email'], $order->dishes, $order->amount);
+        $dbDish->restaurant->sendMailToRestaurant($order->dishes, $order->amount);
 
         $order->save();
 

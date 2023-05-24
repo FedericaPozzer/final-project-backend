@@ -9,8 +9,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 
-
-
 class Restaurant extends Model
 {
     use HasFactory;
@@ -67,19 +65,25 @@ class Restaurant extends Model
         return $number;
     }
 
-    public function sendMailToCustomer($customer_mail){
+    public function sendMailToCustomer($customer_mail, $dishes, $amount){
         $details = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => "L'ordine è andato bene."
+            'title' => 'DeliveBoo - conferma ordine inviato',
+            'body' => 'Grazie per aver ordinato da DeliveBoo!',
+            'dishes' => $dishes,
+            'amount' => $amount,
+            'endMail' => 'Buon Appetito!'
         ];
-       
+
         \Mail::to($customer_mail)->send(new \App\Mail\MyTestMail($details));
     }
 
-    public function sendMailToRestaurant(){
+    public function sendMailToRestaurant($dishes, $amount){
         $details = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => "Hai ricevuto un ordine."
+            'title' => 'DeliveBoo - conferma ordine ricevuto',
+            'body' => 'Hai ricevuto un ordine su DeliveBoo!',
+            'dishes' => $dishes,
+            'amount' => $amount,
+            'endMail' => 'Prepara e Consegna l\'ordine!'
         ];
         $mail = $this->owner->email;
         \Mail::to($mail)->send(new \App\Mail\MyTestMail($details));
