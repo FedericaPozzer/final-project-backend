@@ -1,6 +1,15 @@
-@import '~bootstrap/scss/bootstrap';
+$white: #f4f4f8;
 
-$primary: white;
+$theme-colors: (
+    "light":      #f4f4f8,
+    "primary":    #ff724c,
+    "dark":       #2a2c41,
+    "secondary":  #58a2a4,
+    "info":       #9feaef,
+    "success":    #37b170,
+    "warning":    #e5cf33,
+    "danger":     #f32a1c,
+);
 
 // ******* Navbar ******* //
 
