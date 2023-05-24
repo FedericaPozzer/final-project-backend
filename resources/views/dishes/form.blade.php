@@ -203,7 +203,7 @@ $restaurant = auth()->user()->restaurant;
         @else
             <button type="submit" class="btn btn-primary">Crea il tuo piatto</button>
         @endif
-    </div>
+    </div> 
 
 {{ Aire::close() }}
 
