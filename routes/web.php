@@ -32,6 +32,26 @@ Route::get('orders', [RestaurantController::class, 'orders'])->name('restaurants
 Route::get("orders/shipped/{id}", [OrderController::class, "shipped"])->name("order.shipped")->middleware(['auth', 'verified']);
 
 
+Route::get('send-customer_mail', function ($user_customer) {
+   
+    $details = [
+        'title' => 'Mail from ItSolutionStuff.com',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to($user_customer)->send(new \App\Mail\MyTestMail($details));
+   
+    dd("Email is Sent.");
+})->name('customer.mail');
+
+
+
+Route::get('send-restaurant', function ($email_restaurant) {
+   
+    dd("Email is Sent.");
+})->name('restaurant.mail');
+
+
 
 
 

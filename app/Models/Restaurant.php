@@ -67,4 +67,22 @@ class Restaurant extends Model
         return $number;
     }
 
+    public function sendMailToCustomer($customer_mail){
+        $details = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => "L'ordine è andato bene."
+        ];
+       
+        \Mail::to($customer_mail)->send(new \App\Mail\MyTestMail($details));
+    }
+
+    public function sendMailToRestaurant(){
+        $details = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => "Hai ricevuto un ordine."
+        ];
+        $mail = $this->owner->email;
+        \Mail::to($mail)->send(new \App\Mail\MyTestMail($details));
+    }
+
 }
