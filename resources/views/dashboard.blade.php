@@ -6,47 +6,61 @@
 {{-- * IF 1 - se sei registrato --}}
 @if (auth()->user())
 
-    {{-- * IF 2 - se hai già un ristorante --}}
-    @if (auth()->user()->restaurant)
+{{-- * IF 2 - se hai già un ristorante --}}
+@if (auth()->user()->restaurant)
 
-        <div class="row">
-
-            {{-- Restaurant info --}}
-            <div class="col-12 col-md-4 mt-5 pt-3 bg-prova">
-                {{-- * immagine --}}
-                <div class="restaurant-img-cage">
-                    <img src="{{'http://127.0.0.1:8000/' . auth()->user()->restaurant->image}}" alt="img">
-                </div>
-                {{-- * nome ristorante --}}
-                <h1 class="fw-bold mt-3">{{auth()->user()->restaurant->name}}</h1>
+<div class="row">
+    
+    {{-- Restaurant info --}}
+    <div class="col-12 col-md-4 bg-prova">
+        {{-- * immagine --}}
+        <div class="restaurant-img-cage">
+            <img src="{{'http://127.0.0.1:8000/' . auth()->user()->restaurant->image}}" alt="img">
+            {{-- BUTTONS --}}
+            <div class="buttons">
+                {{-- * Modifica il tuo ristorante --}}
+                <a type="button" class="btn btn-success" href="{{route('restaurants.edit', auth()->user()->restaurant)}}"title="Modifica">
+                    <i class="bi bi-pencil-square"></i>
+                </i></a>
+            
+                {{-- * Elimina il tuo ristorante --}}
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" rel="tooltip" title="Elimina">
+                    <i class="bi bi-trash"></i>            
+                </button>
+                {{-- * delete modal --}}
+                @include('layouts.partials.deleteRestaurant')   
+            </div>
+        </div>
+        {{-- * nome ristorante --}}
+        <h1>
+            {{auth()->user()->restaurant->name}}
+                </h1>
                 {{-- * owner --}}
-                <h3>di {{auth()->user()->restaurant->owner->name}}</h3>
                 {{-- * tipo ristorante --}}
                 <div class="d-flex flex-wrap">
                     @foreach (auth()->user()->restaurant->types as $type)
-                        <div class="text-secondary me-2">{{$type->name}}</div>
+                        <div class="category me-2 badge">{{$type->name}}</div>
                     @endforeach
                 </div>
                 {{-- * indirizzo --}}
-                <p class="mt-2">{{auth()->user()->restaurant->address}}</p>
-                {{-- * p.iva --}}
-                <p>Partita Iva {{auth()->user()->restaurant->vat}}</p>
-                {{-- * telefono --}}
-                <p>Tel. {{auth()->user()->restaurant->phone_number}}</p>
+                <div class="items d-flex flex-wrap gap-3">
+                    <div class="item">
+                        <i class="bi bi-signpost-split"></i>
+                        <p>{{auth()->user()->restaurant->address}}</p>
+                    </div>
+                    {{-- * p.iva --}}
+                    <div class="item">
+                        <i class="bi bi-info-circle"></i>
+                        <p>{{auth()->user()->restaurant->vat}}</p>
+                    </div>
+                    {{-- * telefono --}}
+                    <div class="item">
+                        <i class="bi bi-phone"></i>
+                        <p>{{auth()->user()->restaurant->phone_number}}</p>
+                    </div>
+                </div>
 
             
-                {{-- BUTTONS --}}
-                <div class="mt-5">
-                    {{-- * Modifica il tuo ristorante --}}
-                    <a type="button" class="btn btn-success border my-md-3 me-2" href="{{route('restaurants.edit', auth()->user()->restaurant)}}"title="Modifica">Modifica ristorante</i></a>
-                
-                    {{-- * Elimina il tuo ristorante --}}
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" rel="tooltip" title="Elimina">
-                        Elimina ristorante            
-                    </button>
-                    {{-- * delete modal --}}
-                    @include('layouts.partials.deleteRestaurant')   
-                </div>
             </div>
 
             <hr class="d-md-none mt-5">
@@ -57,14 +71,15 @@
 
                     <div class="col-12 d-flex justify-content-between">
                         {{-- * Titolo --}}
-                        <h2 class="my-3 my-md-5">Menu:</h2>
+                        <h2 class="my-2">Il mio menu:</h2>
     
                         {{-- * Buttons --}}
                         <div class="d-flex align-items-center">
                             {{-- * Crea un piatto --}}
-                            <a href="{{route('dishes.create')}}" class="btn btn-success border" rel="tooltip" title="Crea">Crea Piatto</a>
+                            <a href="{{route('dishes.create')}}" class="btn btn-success border" rel="tooltip" title="Crea"><i class="bi bi-plus-square"></i> Aggiungi Piatto</a>
                             {{-- * Cestino Piatti --}}
-                            <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}" rel="tooltip" title="Cestino">Cestino piatti</a>
+                            <a type="button" class="btn btn-primary border ms-2" href="{{route('restaurants.trash', auth()->user()->restaurant->id)}}" rel="tooltip" title="Cestino"> <i class="bi bi-recycle"></i>
+                                Cestino piatti</a>
                         </div>
                     </div>
                     

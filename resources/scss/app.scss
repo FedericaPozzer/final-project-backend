@@ -4,13 +4,24 @@ $primary: white;
 
 // ******* Navbar ******* //
 
+.navbar{
+    background-color: #ffc032;
+    .nav-link{
+
+        color: white;
+        background-color: #ee6a33;
+        border-radius: 10px;
+    }
+}
+
+
 // Badge ordini
 
 .orders-badge {
     position: absolute;
-    transform: translate(100%, 0);
+    transform: translate(40%, 0);
     top: 0;
-    left: 100;
+    right: 0;
     background-color: rgb(205, 45, 45);
     color: white;
     border-radius: 50%;
@@ -22,20 +33,26 @@ $primary: white;
 
 // Tabella con scroll con intestazione fixed
 
-.dashboard-menu-height {
-    height: 65vh;
-    overflow: scroll;
-}
 
 .thead {
     position: sticky;
     top: 0px;
     z-index: 2;
-    background-color: #ffffff;
+    background-color: #ffc032;
+    color: white;
 }
 
-.restaurant-img-cage img {
-    max-width: 100%;
+.restaurant-img-cage {
+    position: relative;
+    img{
+        max-width: 100%;
+    }
+    .buttons{
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 20px;
+    }
 }
 
 
@@ -133,5 +150,36 @@ $primary: white;
 // SCHIFEZZE DI PROVA
 
 .bg-prova {
-    background-color: #faebd7;
+    background-color: #ffc032;
+    box-shadow: 2px 2px 30px rgba($color: black, $alpha: .3);
+    color: #ee6a33;
+    border-radius: 20px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    margin-top: 10px;
+    height: min-content;
+    img{
+        border-radius: 20px;
+    }
+    .category{
+        background: #ee6a33;
+        padding: 5px;
+        border-radius: 10px;
+    }
+
+    .item{
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        background: #ee6a33;
+        color: white;
+        padding: 5px;
+        border-radius: 10px;
+        p{
+            margin: 0;
+        }
+    }
 }
+
