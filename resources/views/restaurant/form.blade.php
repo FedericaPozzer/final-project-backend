@@ -113,7 +113,7 @@
     
     
     {{-- * immagine --}} 
-    {{-- TODO: image! --}}
+<div clss="">
     <div class="col-12 my-2">
         <label class="form-label" for="image">Immagine</label>
     </div>
@@ -122,79 +122,80 @@
     @enderror --}}
     
     @php
-            $default_images = ['restaurant_images/1.jpg', 'restaurant_images/3.jpg', 'restaurant_images/4.jpg', 'restaurant_images/5.jpg']
-            @endphp
+        $default_images = ['restaurant_images/1.jpg', 'restaurant_images/3.jpg', 'restaurant_images/4.jpg', 'restaurant_images/5.jpg']
+    @endphp
 
-<div class="row gap-2">
+    <div class="row row-cols-5 d-flex flex-wrap">
     
-    <div class="col d-flex align-items-center justify-content-center ratio ratio-4x3 imageBox
-    @if ($restaurant->image != null)
-    choosen
-    @endif
-    "onclick="uploadImage()" id="image_0">
+        <div class="col d-flex flex-wrap align-items-center justify-content-center imageBox upload-bg
+            @if ($restaurant->image != null)
+                choosen
+            @endif
+            "onclick="uploadImage()" id="image_0">
     
-    <div class="d-flex h-max w-max justify-content-center align-items-center uploadImage">
-        <i class="bi bi-cloud-upload"></i>
-        <span class="fw-bold">
-            Carica un'immagine
-        </span>
+            <div class="d-flex flex-column text-center align-items-center uploadImage">
+                <i class="bi bi-cloud-upload fs-4 fs-md-2 fs-lg-1"></i>
+                <span class="">
+                    Carica un'immagine
+                </span>
+            </div>
+    
+            <img id="preview" 
+            @if ($restaurant->image != null)
+            src = '{{$restaurant->image}}'
+            @else
+            src = '#' style = 'display:none;'
+            @endif 
+            alt="" class=""/>
+        </div>
+
+        @foreach ($default_images as $key=>$default_image)
+        <div class="col imageBox d-flex justify-content-center" 
+        onclick="chooseImage( {{$key + 1}}, '{{$default_image}}')" id="image_{{$key + 1}}">
+            <img class="rounded" src="{{ asset($default_image) }}" alt="description of myimage">
+        </div>
+        @endforeach
+
     </div>
+
+
+    <input type="file" class="d-none" name="image" @error('image') is-invalid @enderror     id="selectImage" autocomplete="false">
+    <input type="text" name="defaultImage" id="selectDefaultImage" autocomplete="false"     class="d-none" value="{{ old("image") ??  $restaurant->image }}">
+
+    <script>
+        let selectedImage = 0;
+        let selectedBox = document.getElementById('image_' + selectedImage)
     
-    <img id="preview" 
-    @if ($restaurant->image != null)
-    src = '{{$restaurant->image}}'
-    @else
-    src = '#' style = 'display:none;'
-    @endif 
-    alt="your image" class="img-fluid object-fit-cover"/>
-</div>
-
-@foreach ($default_images as $key=>$default_image)
-<div class="col ratio ratio-4x3 imageBox" onclick="chooseImage( {{$key + 1}}, '{{$default_image}}')" id="image_{{$key + 1}}">
-    <img class="" src="{{ asset($default_image) }}" alt="description of myimage">
-</div>
-@endforeach
-
-</div>
-
-
-<input type="file" class="d-none" name="image" @error('image') is-invalid @enderror id="selectImage" autocomplete="false">
-<input type="text" name="defaultImage" id="selectDefaultImage" autocomplete="false" class="d-none" value="{{ old("image") ??  $restaurant->image }}">
-
-<script>
-    let selectedImage = 0;
-    let selectedBox = document.getElementById('image_' + selectedImage)
+        function chooseImage(key, img_path){
+            let input = document.getElementById('selectDefaultImage');
+            console.log(key)
+            selectedImage = key
+            selectedBox.classList.remove('choosen')
+            selectedBox = document.getElementById('image_' + selectedImage)
+            selectedBox.classList.add('choosen')
+        
+            input.value = img_path
+        
+            document.getElementById('selectImage').value = null
+        }
     
-    function chooseImage(key, img_path){
-        let input = document.getElementById('selectDefaultImage');
-        console.log(key)
-        selectedImage = key
-        selectedBox.classList.remove('choosen')
-        selectedBox = document.getElementById('image_' + selectedImage)
-        selectedBox.classList.add('choosen')
+        function uploadImage(){           
+            document.getElementById('selectDefaultImage').value = null
+            selectedBox.classList.remove('choosen')
+            selectedBox = document.getElementById('image_0')
+            selectedBox.classList.add('choosen')
         
-        input.value = img_path
+            let input = document.getElementById('selectImage');
         
-        document.getElementById('selectImage').value = null
-    }
-    
-    function uploadImage(){           
-        document.getElementById('selectDefaultImage').value = null
-        selectedBox.classList.remove('choosen')
-        selectedBox = document.getElementById('image_0')
-        selectedBox.classList.add('choosen')
-        
-        let input = document.getElementById('selectImage');
-        
-        input.click()
-    }
+            input.click()
+        }
     </script>
 
-@error('image')
-<span class="invalid-feedback" role="alert">
-    <strong>{{ $message }}</strong>
-</span>
-@enderror
+    @error('image')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+    @enderror
 
 <script>
     selectImage.onchange = evt => {

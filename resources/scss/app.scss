@@ -39,7 +39,7 @@ $primary: white;
     }
 
 
-// ******* Restaurant Form ******* //
+// ******* Restaurant e Dish Form ******* //
     
     // Immagini Restaurant form
 
@@ -48,36 +48,34 @@ $primary: white;
     }
     .imageBox{
         border-radius: 10px;
+        width: 120px;
+        
         img{
-            border-radius: 5px;
             cursor: pointer;
+            width: 100px;
         };
+        
         .uploadImage{
-            background-color: rgba($color: black, $alpha: 0);
-            transition: all .1s linear;
-            font-size: 3rem;
-            span{
-                font-size: 1rem;
-            }
             z-index: 2;
-            font-size: 4rem;
-            color: white;
-            background-color: rgba($color: black, $alpha: .3);
             cursor: pointer;
         }
+        
         border: 5px solid white;        /* Opera/IE 8+ */
         transition: all .1s linear;
         &.choosen, &:hover {
             border: 5px solid #0d6efd;
         }
+
     }
 
+    .upload-bg {
+        background-color: lightgrey;
+    }
 
 // ******* Card-Dish ******* //
 
 .dish-card{
     background-color: antiquewhite;
-    
 }
     
 
