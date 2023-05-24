@@ -17,6 +17,7 @@ class PaymentController extends Controller
         $order->guest_name = $data['user_name'];
         $order->guest_address = $data['user_address'];
         $order->guest_mail = $data['user_email'];
+
         $order->guest_phone_number = $data['user_phone'];
         $order->amount = $data['amount'];
         foreach($data['dishes'] as $dish){
@@ -24,6 +25,9 @@ class PaymentController extends Controller
             $dbDish->orders()->save($order, ['quantity' => $dish['quantity']]);
             $order->restaurant()->associate($dbDish->restaurant);
         }
+
+        $dbDish->restaurant->sendMailToCustomer($data['user_email']);
+        $dbDish->restaurant->sendMailToRestaurant();
 
         $order->save();
 
@@ -43,5 +47,9 @@ class PaymentController extends Controller
         ]);
         $order->success = 1;
         return $result;
-        }
+    }
+
+    public function SendMail($customer_mail){
+        return to_route('customer.mail', $customer_mail);
+    }
 }
