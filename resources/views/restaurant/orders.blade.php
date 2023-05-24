@@ -12,11 +12,18 @@
     
 @foreach (auth()->user()->restaurant->orders as $order)
 @if ($order->shipped != 1)
-<div class="col">
+<div class="col mb-4">
         
     <div class="card h-100">
         <div class="card-body">
-          <h5 class="card-title">ORDINE #{{$order->id}}</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="card-title">ORDINE #{{$order->id}}</h2>
+                <a class="btn btn-success" src="{{route('orders/shipped')}}"> 
+                    <i class="bi bi-check-square-fill"></i>
+
+                    Completato
+                </a>
+            </div>
           <h6 class="card-subtitle my-2 text-muted">Dati cliente:</h6>
           <div class="card-text">
               <table>
@@ -94,12 +101,12 @@
         
     @foreach (auth()->user()->restaurant->orders as $order)
     @if ($order->shipped != 0)
-    <div class="col">
+    <div class="col mb-4">
             
-        <div class="card h-100">
+        <div class="card h-100 ">
             <div class="card-body">
-              <h5 class="card-title">ORDINE #{{$order->id}}</h5>
-              <h6 class="card-subtitle my-2 text-muted">Dati cliente:</h6>
+                <h2 class="card-title">ORDINE #{{$order->id}}</h2>
+                <h6 class="card-subtitle my-2 text-muted">Dati cliente:</h6>
               <div class="card-text">
                   <table>
                       <tbody>
