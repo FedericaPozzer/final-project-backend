@@ -142,7 +142,7 @@
     
     <img id="preview" 
     @if ($restaurant->image != null)
-    src = '{{'http://127.0.0.1:8000/' . $restaurant->image}}'
+    src = '{{$restaurant->image}}'
     @else
     src = '#' style = 'display:none;'
     @endif 
@@ -227,16 +227,16 @@
         @endforeach
     </div>
 </div>
-
-{{-- * EDIT / CREATE submit --}}
 <div class="col-4 d-flex mt-5 mt-md-null justify-content-end align-items-end">
     @if ($restaurant->id)
     {{ Aire::submit('Modifica il tuo ristorante') }}
     @else
-    <button type="submit" class="btn btn-primary">Crea il tuo ristorante</button>
+    {{ Aire::submit('Crea il tuo ristorante') }}
     @endif
 </div>
 
+{{-- * EDIT / CREATE submit --}}
+{{Aire::close()}}
 
 
 

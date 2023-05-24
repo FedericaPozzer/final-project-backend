@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Restaurant;
 
 class OrderController extends Controller
 {
@@ -83,5 +84,11 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+    }
+    public function shipped($id){
+        $order = Order::where('id', '=', $id)->first();
+        $order->shipped = 1;
+        $order->save();
+        return redirect()->back();
     }
 }
