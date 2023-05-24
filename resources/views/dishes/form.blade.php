@@ -52,7 +52,7 @@ $restaurant = auth()->user()->restaurant;
     @endif
 
     {{-- * nome piatto --}}
-    <div class="col-8 my-4">
+    <div class="col-12 col-md-8 my-4">
         {{ Aire::input('name', 'Nome')
         ->id('name')
         ->value( old("name") ?? $dish->name)
@@ -65,7 +65,7 @@ $restaurant = auth()->user()->restaurant;
     </div>
     
     {{-- * descrizione --}}
-    <div class="col-8 my-4">
+    <div class="col-12 col-md-8 my-4">
         {{ Aire::input('description', 'Descrizione')
         ->id('description')
         ->value( old("description") ?? $dish->description)
@@ -78,7 +78,7 @@ $restaurant = auth()->user()->restaurant;
     </div>
   
     {{-- * prezzo --}}
-    <div class="col-8 my-4">
+    <div class="col-12 col-md-8 my-4">
         
         {{Aire::number('price', 'Prezzo')
         ->step(0.01)
@@ -90,7 +90,7 @@ $restaurant = auth()->user()->restaurant;
     </div>
   
     {{-- * immagine --}} 
-        {{-- TODO: image! --}}
+    <div class="">
         <div class="col-12 my-2">
             <label class="form-label" for="image" >Immagine</label>
         </div>
@@ -98,36 +98,36 @@ $restaurant = auth()->user()->restaurant;
             <div class="invalid-feedback"> {{ $message }} </div>
         @enderror --}}
     
-        @php
-            $default_images = ['restaurant_images/1.jpg', 'restaurant_images/3.jpg', 'restaurant_images/4.jpg', 'restaurant_images/5.jpg']
+        @php 
+            $default_images = ['dish_images/1.png', 'dish_images/2.png', 'dish_images/3.png', 'dish_images/4.png', 'dish_images/5.png', 'dish_images/6.png', 'dish_images/7.png', 'dish_images/8.png', 'dish_images/9.png', 'dish_images/10.png', 'dish_images/11.png', 'dish_images/12.png', 'dish_images/13.png']
         @endphp
 
-        <div class="row gap-2">
+        <div class="row row-cols-5 d-flex flex-wrap">
 
-            <div class="col d-flex align-items-center justify-content-center ratio ratio-4x3 imageBox
+            <div class="col d-flex flex-wrap align-items-center justify-content-center imageBox upload-bg
                 @if ($dish->image != null)
                     choosen
                 @endif
                 "onclick="uploadImage()" id="image_0">
             
-                <div class="d-flex h-max w-max justify-content-center align-items-center uploadImage">
-                    <i class="bi bi-cloud-upload"></i>
-                    <span>
+                <div class="d-flex flex-column text-center align-items-center uploadImage">
+                    <i class="bi bi-cloud-upload fs-4 fs-md-2 fs-lg-1"></i>
+                    <span class="">
                         Carica un'immagine
                     </span>
                 </div>
             
                 <img id="preview" 
                 @if ($dish->image != null)
-                src = '{{$dish->image}}'
+                src='{{$dish->image}}'
                 @else
-                src = '#' style = 'display:none;'
+                src='#' style = 'display:none;'
                 @endif 
-                alt="your image" class="img-fluid object-fit-cover"/>
+                alt="" class=""/>
             </div>
         
             @foreach ($default_images as $key=>$default_image)
-            <div class="col ratio ratio-4x3 imageBox" onclick="chooseImage( {{$key + 1}}, '{{$default_image}}')" id="image_{{$key + 1}}">
+            <div class="col imageBox d-flex justify-content-center" onclick="chooseImage( {{$key + 1}}, '{{$default_image}}')" id="image_{{$key + 1}}">
                 <img class="" src="{{ asset($default_image) }}" alt="description of myimage">
             </div>
             @endforeach
@@ -167,11 +167,14 @@ $restaurant = auth()->user()->restaurant;
             }
         </script>
 
-    @error('image')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
+        @error('image')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+        @enderror
+    
+    </div>
+
 
     <script>
         selectImage.onchange = evt => {
