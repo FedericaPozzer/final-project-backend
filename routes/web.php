@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DishController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\RestaurantController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,7 +40,7 @@ Route::get('send-customer_mail', function ($user_customer) {
         'body' => 'This is for testing email using smtp'
     ];
    
-    \Mail::to($user_customer)->send(new \App\Mail\MyTestMail($details));
+    Mail::to($user_customer)->send(new \App\Mail\MyTestMail($details));
    
     dd("Email is Sent.");
 })->name('customer.mail');
