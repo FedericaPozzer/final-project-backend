@@ -179,7 +179,7 @@ class RestaurantController extends Controller
         )->validate();
     }
 
-    public function trash(){
+    public function trash(Request $request){
         $dishes = Dish::onlyTrashed()->where('restaurant_id', '=', auth()->user()->restaurant->id)->get();
         return view('restaurant.trash', compact('dishes'));
     }
