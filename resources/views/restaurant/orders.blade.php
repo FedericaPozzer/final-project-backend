@@ -69,7 +69,7 @@
             <td></td>
             <td></td>
             <th scope="row">
-                {{$order->totalPrice()}}
+                {{$order->totalPrice()}} &euro;
             </th>
         </tr>
 
@@ -142,7 +142,7 @@
             <td></td>
             <td></td>
             <th scope="row">
-                {{$order->totalPrice()}}
+                {{$order->totalPrice()}} &euro;
             </th>
         </tr>
 
