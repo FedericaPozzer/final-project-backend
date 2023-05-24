@@ -135,3 +135,15 @@ $primary: white;
 .bg-prova {
     background-color: #faebd7;
 }
+
+.trash-stile-delete:hover{
+    background-color: $danger !important;
+    color:$light !important;
+    border-radius: 25%;
+}
+.trash-stile-restore:hover{
+    background-color: $success !important;
+    color:$light !important;
+    border-radius: 25%;
+
+}

@@ -30,12 +30,9 @@
                 <td> &euro; {{$dish->price}}</td>
                 <td class="d-none d-md-table-cell">{{$dish->available}}</td>
                 <td>
-                    <a class="text-success me-2" href="{{ route('dishes.restore', $dish->id) }}">
-                        Ripristina
-                    </a>
-                    <a class="text-success" href="{{ route('dishes.delete', $dish->id) }}">
-                        Elimina
-                    </a>
+                    <button class="bi bi-trash text-danger trash-stile-delete border-0 bg-transparent fs-4 {{route('restaurants.trash')}}?sort=" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$dish->id}}"></button>
+
+                    <button class="bi bi-arrow-up-left-square trash-stile-restore text-success border-0 bg-transparent fs-4 {{route('restaurants.trash')}}?sort=" data-bs-toggle="modal" data-bs-target="#restore-modal-{{$dish->id}}"></button>
                 </td>
             </tr>
             @endforeach
@@ -45,6 +42,58 @@
     </div>
 </div>
 
+@foreach ($dishes as $dish)
+    
+{{-- modale cancellazione --}}
 
+<div class="modal fade" id="delete-modal-{{$dish->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attenzione</h1>
+              
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fs-2 fw-bold">
+                Sei sicuro di voler cancellare definitivamente il piatto {{$dish->name}}?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
+                <form class="" action="{{ route('dishes.force-delete', $dish )}}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger border fw-bold">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+{{-- modale ripristino --}}
+  <div class="modal fade" id="restore-modal-{{$dish->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attenzione</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body fs-2 fw-bold">
+          Vuoi ripristinare il piatto {{$dish->name}}?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
+          <form class="" action="{{ route('dishes.restore',$dish)}}" method="POST">
+            @csrf
+            @method('PUT')
+            <button type="submit" class="btn btn-success border fw-bold">Restore</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @endforeach
 @endsection
+  
+  
+  
