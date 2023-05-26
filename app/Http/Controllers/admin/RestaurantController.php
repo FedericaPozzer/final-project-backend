@@ -40,14 +40,14 @@ class RestaurantController extends Controller
         $data=$request->all();
 
         if(isset($data['image'])){
-            $img_path = Storage::disk('public')->put('uploads', $data['image']);
-            $data['image'] = asset('storage/' . $img_path);
-        }
-        else if(isset($data['defaultImage'])) {
-            $data['image'] = $data['defaultImage'];
-        }
-        else{
-            $data['image'] = '';
+
+            if($data['image'] == 'upload_file'){
+                $img_path = Storage::disk('public')->put('uploads', $data['uploaded_file']);
+                $data['image'] = 'storage/' . $img_path;
+            }
+            else{
+                $data['image'] = substr($data['image'], 1);
+            }
         }
 
         /* Valido i dati inseriti*/
@@ -96,17 +96,18 @@ class RestaurantController extends Controller
     public function update(Request $request, Restaurant $restaurant)
     {
         $data = $request->all();
-
+        
         if(isset($data['image'])){
-            $img_path = Storage::disk('public')->put('uploads', $data['image']);
-            $data['image'] = 'storage/' . $img_path;
+
+            if($data['image'] == 'upload_file'){
+                $img_path = Storage::disk('public')->put('uploads', $data['uploaded_file']);
+                $data['image'] = 'storage/' . $img_path;
+            }
+            else{
+                $data['image'] = substr($data['image'], 1);
+            }
         }
-        else if(isset($data['defaultImage'])) {
-            $data['image'] = $data['defaultImage'];
-        }
-        else{
-            $data['image'] = '';
-        }
+        
         /* Valido */
         $this->validation($data);
 

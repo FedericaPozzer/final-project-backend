@@ -1,250 +1,300 @@
 @extends('layouts.app')
 
 @section('content')
- 
-{{-- * if che controlla che il ristoratore possa vedere solo le sue cose --}}
-{{-- @if(isset($restaurant) && $restaurant->owner->id == auth()->user()->id)
- --}}
-
-
-{{-- * UPDATE / EDIT title --}}
-@if ($restaurant->id)
-    <h2 class="mt-3 mb-3">Modifica il ristorante</h2>
-   @else
-    <h2 class="mt-3 mb-3">Crea il tuo ristorante</h2>
-@endif
 
 @include('layouts.partials.errors')
 
-{{-- Validazione Client Side --}}
 
 
-{{-- * se il ristorante esiste già form edit / se il ristorante non esiste già form create --}}
-@if ($restaurant->id)
-{{ Aire::open()
-    ->route('restaurants.update', $restaurant)
-    ->rules([
-        'name' => 'required|max:20',
-        'address' => 'required|min:3',
-        'vat' => 'required|digits:11',
-        'phone_number' => 'required|digits:10'
-    
-    ])
-    ->messages([
-        'required' => 'Il campo è richiesto.',
-        'min' => 'Numero insufficiente di caratteri.',
-        'max' => 'Hai inserito troppi caratteri.',
-        'digits' => 'Inserisci il numero esatto di caratteri.'
-      ])
-    }}
-@else
-{{ Aire::open()
-    ->route('restaurants.store', $restaurant)
-    ->rules([
-        'name' => 'required|max:20',
-        'address' => 'required|min:3',
-        'vat' => 'required|digits:11',
-        'phone_number' => 'required|digits:10'
-    
-    ])
-    ->messages([
-        'required' => 'Il campo è richiesto.',
-        'min' => 'Numero insufficiente di caratteri.',
-        'max' => 'Hai inserito troppi caratteri.',
-        'digits' => 'Inserisci il numero esatto di caratteri.'
-      ])
-    }}
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 col-md-11">
+            @if ($restaurant->id)
+            
+            {{-- FORM MODIFICA --}}
+            {{ Aire::open()
+                ->enctype('multipart/form-data')
+                ->route('restaurants.update', $restaurant)
+                ->rules([
+                    'name' => 'required|max:20',
+                    'address' => 'required|min:3',
+                    'vat' => 'required|digits:11',
+                    'phone_number' => 'required|digits:10'
+                    
+                    ])
+                    ->messages([
+                        'required' => 'Il campo è richiesto.',
+                        'min' => 'Numero insufficiente di caratteri.',
+                        'max' => 'Hai inserito troppi caratteri.',
+                        'digits' => 'Inserisci il numero esatto di caratteri.'
+                        ])
+                    }}
         
-    @endif
-    @csrf
-    {{-- * nome ristorante --}}
-    <div class="col-12 my-2">
-        {{ Aire::input('name', 'Nome') 
-        ->value( old("name") ?? $restaurant->name)
-        ->helpText('Nome del ristorante. Max 20 caratteri.')
-    }} {{-- Creates a text input --}}
-        {{--         <input type="text" name="name" id="name" placeholder="Da Mario" class="form-control @error("name") is-invalid @enderror" value="{{ old("name") ?? $restaurant->name }}">
-        --}}        
-        @error("name")
-        <div class="invalid-feedback"> {{ $message }} </div>
-        @enderror
-    </div>
-    
-    {{-- * indirizzo --}}
-    <div class="col-12 my-2">
-        {{ Aire::input('address', 'Indirizzo')
-        ->id('address')
-        ->value( old("address") ?? $restaurant->address)
-        ->helpText('Indirizzo del ristorante.')
-        }}
-        @error("address")
-            <div class="invalid-feedback"> {{ $message }} </div>
-        @enderror
-    </div>
-    
-    <div class="row">
-        {{-- * partita iva --}}
-        <div class="col-6 col-md-4 my-2">
-            {{ Aire::input('vat', 'Partita IVA')
-            ->value( old("vat") ?? $restaurant->vat)
-
-                ->helpText('11 caratteri.')
-                 }} {{-- Creates a text input --}}
-            {{--             <input type="number" name="vat" id="vat" placeholder="es. 86334519757" class="form-control @error("vat") is-invalid @enderror" value="{{ old("vat") ?? $restaurant->vat }}">
-            --}}            @error("vat")
-            <div class="invalid-feedback"> {{ $message }} </div>
-            @enderror
-        </div>
-        
-        {{-- * numero di telefono --}}
-        <div class="col-6 col-md-4 my-2">
-            {{ Aire::input('phone_number', 'Numero di Tel.') 
-                        ->value( old("phone_number") ?? $restaurant->phone_number)
-
-                        ->helpText('10 caratteri.')
-}} {{-- Creates a text input --}}
-            {{--             <input type="tel" name="phone_number" id="phone_number" pattern="+?[0-9]{10}" placeholder="0123456789" class="form-control @error("phone_number") is-invalid @enderror" value="{{ old("phone_number") ?? $restaurant->phone_number }}">
-            --}}            @error("phone_number")
-            <div class="invalid-feedback"> {{ $message }} </div>
-            @enderror
-        </div>
-        
-    </div>
-    
-    
-    {{-- * immagine --}} 
-<div clss="">
-    <div class="col-12 my-2">
-        <label class="form-label" for="image">Immagine</label>
-    </div>
-    {{-- @error("image")
-    <div class="invalid-feedback"> {{ $message }} </div>
-    @enderror --}}
-    
-    @php
-        $default_images = ['restaurant_images/1.jpg', 'restaurant_images/3.jpg', 'restaurant_images/4.jpg', 'restaurant_images/5.jpg']
-    @endphp
-
-    <div class="row row-cols-5 d-flex flex-wrap">
-    
-        <div class="col d-flex flex-wrap align-items-center justify-content-center imageBox upload-bg
-            @if ($restaurant->image != null)
-                choosen
-            @endif
-            "onclick="uploadImage()" id="image_0">
-    
-            <div class="d-flex flex-column text-center align-items-center uploadImage">
-                <i class="bi bi-cloud-upload fs-4 fs-md-2 fs-lg-1"></i>
-                <span class="">
-                    Carica un'immagine
-                </span>
-            </div>
-    
-            <img id="preview" 
-            @if ($restaurant->image != null)
-            src = '{{$restaurant->image}}'
             @else
-            src = '#' style = 'display:none;'
-            @endif 
-            alt="" class=""/>
-        </div>
+        
+            {{-- FORM CREAZIONE --}}
+            {{ Aire::open()
+                ->route('restaurants.store', $restaurant)
+                ->rules([
+                    'name' => 'required|max:20',
+                    'address' => 'required|min:3',
+                    'vat' => 'required|digits:11',
+                    'phone_number' => 'required|digits:10'
+                
+                ])
+                ->messages([
+                    'required' => 'Il campo è richiesto.',
+                    'min' => 'Numero insufficiente di caratteri.',
+                    'max' => 'Hai inserito troppi caratteri.',
+                    'digits' => 'Inserisci il numero esatto di caratteri.'
+                ])
+            }}
+                
+            @endif
+                
+            @csrf
+        
+                {{-- riga immagine preview - form --}}
+                <div class="row mt-3">
+                    
+                    {{-- preview immagine --}}
+                    <div class="col-12 col-lg-4 my-2">
+                        <div class="preview">
+                            <div class="choose_image">
+                                <img src="/restaurant.svg" alt="" srcset="">
+                            </div>
+                            <img id="preview" 
+                            @if ($restaurant->image != null)
+                            src = '{{'/' . $restaurant->image}}'
+                            @else
+                            src = '#'
+                            @endif 
+                            alt="" class="img-fluid"/>
+                        </div>
+                    </div>
+        
+                    {{-- nome - indirizzo - vat - tel --}}
+                    <div class="col-12 col-lg-8 my-2">
+        
+                        <div class="col-12">
+                            <h2 class="title">
+                                @if ($restaurant->id)
+                                    Modifica il tuo ristorante
+                                @else
+                                    Parlaci del tuo ristorante
+                                @endif
+                            </h2>
+                        </div>
+        
+                        @if ($restaurant->id)
+                            <div class="subtitle my-2">
+                                E' periodo di cambiamenti? Modifica qui i dati del tuo ristorante, così che i tuoi clienti possano sapere che il tuo business si sta evolvendo!
+                            </div>
+                            
+                        @else
+                            <div class="subtitle my-2">
+                                Pronto per entrare nella community di Ristoratori di DeliveBoo? Inserisci un po' di dati sul tuo ristorante, li useremo per consigliarti ai nostri clienti! 
+                            </div>
+                        @endif
+        
+                        {{-- Nome --}}
+                        <div class="col-12 my-2">
+                            {{ Aire::input('name', 'Nome') 
+                                ->value( old("name") ?? $restaurant->name)
+                                ->helpText('Nome del ristorante. Max 20 caratteri.')
+                            }}  
+                    
+                            @error("name")
+                            <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        
+                        {{-- Indirizzo --}}
+                        <div class="col-12 my-2">
+                            {{ Aire::input('address', 'Indirizzo')
+                                ->value( old("address") ?? $restaurant->address)
+                                ->helpText('Indirizzo del ristorante.')
+                            }}
+                            @error("address")
+                                <div class="invalid-feedback"> {{ $message }} </div>
+                            @enderror
+                        </div>
+                        
+                        {{-- riga partita iva e numero di telefono --}}
+                        <div class="col-12">
+                            <div class="row">
+                                {{-- partita iva --}}
+                                <div class="col-6 my-2">
+                                    {{ Aire::input('vat', 'Partita IVA')
+                                        ->value( old("vat") ?? $restaurant->vat)
+                                        ->helpText('11 caratteri.')
+                                    }} 
+                                    
+                                    @error("vat")
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
+                                </div>
+                                
+                                {{-- numero di telefono --}}
+                                <div class="col-6 my-2">
+                                    {{ Aire::input('phone_number', 'Numero di Tel.') 
+                                        ->value( old("phone_number") ?? $restaurant->phone_number)
+                                        ->helpText('10 caratteri.')
+                                    }} 
+                        
+                                    @error("phone_number")
+                                    <div class="invalid-feedback"> {{ $message }} </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            
+            <div class="row mt-3">
+                <div class="col-12">
+                    <h2 class="title" @error('image') is-invalid @enderror">
+                        Scegli un'immagine per il tuo ristorante
+                    </h2>
+        
+                    <div class="subtitle my-3">
+                        Anche se l'abito non fa il monaco, una bella immagine ti aiuterà a distinguerti tra i tuoi colleghi Ristoratori della community. Scegli tra le nostre immagini stock, oppure caricane una a tuo piacimento.
+                    </div>
+        
+                    @error("image")
+                    <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
+                </div>
+            </div>
+            
+            {{-- scelta immagine --}} 
+            <div class="shade">
 
-        @foreach ($default_images as $key=>$default_image)
-        <div class="col imageBox d-flex justify-content-center" 
-        onclick="chooseImage( {{$key + 1}}, '{{$default_image}}')" id="image_{{$key + 1}}">
-            <img class="rounded" src="{{ asset($default_image) }}" alt="description of myimage">
-        </div>
-        @endforeach
+                <div class="images_cont">
+            
+                    {{-- bottone upload immagine --}}
+            
+            
+            
+            
+                    <div class=" img_card" 
+                    @error('image') is-invalid @enderror
+                    onclick="document.getElementById('uploadImage').click()">
+                
+                        <input type="radio" class="input-hidden" name="image" id="0">
+                        <label for="0" class="h-100 w-100 d-flex align-items-center justify-content-center bg-deliveboo">
+            
+                            <div class="d-flex flex-column align-items-center">
+                                <span>
+                                    <h1>
+                                        <i class="bi bi-upload"></i>
+                                    </h1>
+                                </span>
+                                <span class="badge text-dark">
+                                    Carica un'immagine 
+                                </span>
+                                <input type="file" name="uploaded_file" class="d-none" id="uploadImage">
+                                <script>
+                                uploadImage.onchange = evt => {
+                                    const [file] = uploadImage.files
+                                    if (file) {
+                                        preview.src = URL.createObjectURL(file)
+                                        document.getElementById('0').checked = true
+                                        document.getElementById('0').value = 'upload_file'
+                                    }
+                                }
+                                </script>
+                            </div>
+                        </label>
+                    </div>
+            
+                    {{-- Index per ID input / label --}}
+            
+                    {{-- Immagini di default --}}
+            
+                    @php
+                        $i = 1
+                    @endphp
+            
+                    @foreach(File::glob(public_path('restaurant_images').'/*') as $path)
+                        <div class=" img_card" onclick="preview.src = '{!! str_replace(public_path(), '', $path)  !!}'">
+                            <input type="radio" class="input-hidden" name="image" id="{{$i}}" value="{{str_replace(public_path(), '', $path)}}">
+                            <label for="{{$i}}">
+                                <img class="img-fluid" src="{{ str_replace(public_path(), '', $path) }}" alt="default images">
+                            </label>
+                        </div>
+            
+                        @php
+                            $i++
+                        @endphp
+                    @endforeach
+            
+            
+            
+            
+                    @error('image')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
+        
+        
+            {{-- scelta tipologie ristorante --}}
+            <div class="row my-3">
+                <div class="col-12">
+                    <label class="form-label  @error('types') is-invalid @enderror" for="image">
+                        <div class="row my-2">
+                            <div class="col-12">
+                                <h2 class="title">
+                                    Seleziona una o più tipologie del tuo ristorante
+                                </h2>
+                                <div class="subtitle my-2">
+                                    I nostri clienti scelgono i ristoranti più disparati: carne, sushi, pizza! Seleziona una o più tipologie che rispecchiano il tuo locale, così che DeliveBoo possa consigliarti meglio agli utenti.
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    @error("types")
+                    <div class="invalid-feedback"> {{ $message }} </div>
+                    @enderror
+                </div>
+                <div class="shade">
+                    <div class="d-flex types_cont">
+                        @foreach ($types as $type)
+                        <div class="form-check type_form">
+                            <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="type_{{$type->id}}" name="types[]" 
+                            @if ($restaurant->containsType($type->id))
+                            checked    
+                            @endif>
+                            <label for="type_{{$type->id}}" class="form-check-label">
+                                <img src="{{$type->image}}" alt="">
+                                {{$type->name}}
+                            </label>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        
+            {{-- Bottone invio form --}}
+            <div class="send-cont">
+                @if ($restaurant->id)
+                {{ Aire::submit('Modifica il tuo ristorante') }}
+                @else
+                {{ Aire::submit('Crea il tuo ristorante') }}
+                @endif
+            </div>
+        
+            {{-- chiusura form --}}
+            {{Aire::close()}}
 
+        </div>
     </div>
-
-
-    <input type="file" class="d-none" name="image" @error('image') is-invalid @enderror     id="selectImage" autocomplete="false">
-    <input type="text" name="defaultImage" id="selectDefaultImage" autocomplete="false"     class="d-none" value="{{ old("image") ??  $restaurant->image }}">
-
-    <script>
-        let selectedImage = 0;
-        let selectedBox = document.getElementById('image_' + selectedImage)
+    {{-- * se il ristorante è da modificare / se il ristorante è da creare --}}
     
-        function chooseImage(key, img_path){
-            let input = document.getElementById('selectDefaultImage');
-            console.log(key)
-            selectedImage = key
-            selectedBox.classList.remove('choosen')
-            selectedBox = document.getElementById('image_' + selectedImage)
-            selectedBox.classList.add('choosen')
-        
-            input.value = img_path
-        
-            document.getElementById('selectImage').value = null
-        }
-    
-        function uploadImage(){           
-            document.getElementById('selectDefaultImage').value = null
-            selectedBox.classList.remove('choosen')
-            selectedBox = document.getElementById('image_0')
-            selectedBox.classList.add('choosen')
-        
-            let input = document.getElementById('selectImage');
-        
-            input.click()
-        }
-    </script>
 
-    @error('image')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
-
-<script>
-    selectImage.onchange = evt => {
-        preview = document.getElementById('preview');
-        preview.style.display = 'block';
-        const [file] = selectImage.files
-        if (file) {
-            preview.src = URL.createObjectURL(file)
-        }
-    }
-    </script>
-
-{{-- * tipi di ristorante - checkboxes --}}
-<div class="col-12 col-md-8 mt-4">
-    <label class="form-label  @error('types') is-invalid @enderror" for="image">Tipo</label>
-    @error("types")
-    <div class="invalid-feedback"> {{ $message }} </div>
-    @enderror
-    <div class="row row-cols-4 ms-1">
-        @foreach ($types as $type)
-        <div class="form-check col me-4">
-            <input class="form-check-input"  type="checkbox" value="{{$type->id}}" id="types[]" name="types[]" 
-            @if ($restaurant->containsType($type->id))
-            checked    
-            @endif>
-            <label class="form-check-label" for="types[]">
-                {{$type->name}}
-            </label>
-        </div>
-        @endforeach
-    </div>
-</div>
-<div class="col-4 d-flex mt-5 mt-md-null justify-content-end align-items-end">
-    @if ($restaurant->id)
-    {{ Aire::submit('Modifica il tuo ristorante') }}
-    @else
-    {{ Aire::submit('Crea il tuo ristorante') }}
-    @endif
-</div>
-
-{{-- * EDIT / CREATE submit --}}
-{{Aire::close()}}
-
-
-
-{{-- @else
-    <h2 class="my-5">Non sei autorizzato a visualizzare ciò che cerchi!</h2>
-    @endif --}}
-    
     @endsection
     
     
