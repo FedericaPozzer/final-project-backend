@@ -18,9 +18,8 @@
         <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="card-title">ORDINE #{{$order->id}}</h2>
-                <a class="btn btn-success" src="{{route('orders/shipped')}}"> 
+                <a class="btn btn-success" href="{{route('order.shipped', $order->id)}}"> 
                     <i class="bi bi-check-square-fill"></i>
-
                     Completato
                 </a>
             </div>
