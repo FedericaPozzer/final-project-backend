@@ -5,5 +5,5 @@ Show del ristorante
 
     <h3>Dettaglio ristorante - show</h3>  
 
-
+    &hearts;
 @endsection

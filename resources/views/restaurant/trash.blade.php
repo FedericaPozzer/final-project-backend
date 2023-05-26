@@ -58,11 +58,11 @@
                 Sei sicuro di voler cancellare definitivamente il piatto {{$dish->name}}?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Chiudi</button>
                 <form class="" action="{{ route('dishes.force-delete', $dish )}}" method="POST">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-danger border fw-bold">Delete</button>
+                    <button type="submit" class="btn btn-danger border fw-bold">Elimina</button>
                 </form>
             </div>
         </div>
@@ -81,11 +81,11 @@
           Vuoi ripristinare il piatto {{$dish->name}}?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Chiudi</button>
           <form class="" action="{{ route('dishes.restore',$dish)}}" method="POST">
             @csrf
             @method('PUT')
-            <button type="submit" class="btn btn-success border fw-bold">Restore</button>
+            <button type="submit" class="btn btn-success border fw-bold">Ripristina</button>
           </form>
         </div>
       </div>
