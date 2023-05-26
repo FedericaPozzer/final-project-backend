@@ -6,6 +6,7 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Restaurant;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -85,10 +86,18 @@ class OrderController extends Controller
     {
         //
     }
-    public function shipped($id){
-        $order = Order::where('id', '=', $id)->first();
-        $order->shipped = 1;
-        $order->save();
-        return redirect()->back();
+    public function shipped(Request $request, $id){
+        if($request->user()->name){
+            $order = Order::where('id', '=', $id)->first();
+            if($order->restaurant->owner->id == Auth::user()->id){
+                $order->shipped = 1;
+                $order->save();
+                return redirect()->back();
+            }
+            else{
+                $order->shipped = 0;
+                return redirect()->back();
+            }
+        }
     }
 }
