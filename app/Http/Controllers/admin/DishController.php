@@ -55,7 +55,7 @@ class DishController extends Controller
         $dish->fill($data);
         $dish->save();
 
-        return to_route('dishes.show', compact('dish'))->with('message_content', "Creato Piatto $dish->name");
+        return to_route('dishes.show', compact('dish'))->with('message_content', "Creato $dish->name");
     }
 
     /**
@@ -100,7 +100,7 @@ class DishController extends Controller
         $this->validation($data);
         $dish->update($data);
 
-        return to_route('dishes.show', compact('dish'))->with('message_content', "Modificato Piatto $dish->name");
+        return to_route('dishes.show', compact('dish'))->with('message_content', "$dish->name modificato");
     }
 
     /**
@@ -112,7 +112,7 @@ class DishController extends Controller
         $dish->delete();
         return to_route('dashboard')
         ->with('message_type', "danger")
-        ->with('message_content', "Piatto $name_dish inserito nel cestino");
+        ->with('message_content', "$name_dish inserito nel cestino");
     }
 
     /* 
@@ -120,19 +120,27 @@ class DishController extends Controller
     */
     public function restore(Int $id)
     {
-        Dish::withTrashed()->find($id)->restore();
+        $dish = Dish::where('id',$id)->onlyTrashed()->first();
+         $dish->restore();
 
-        return to_route('dashboard')->with('message_content',"Piatto ripristinato");
+        return to_route('dashboard')->with('message_content',"$dish->name ripristinato");
     }
 
     /* 
     * Rimuove definitivamente la risorsa 'piatto'.
     */
-    public function delete($id)
-    {
-        Dish::withTrashed()->find($id)->forceDelete();
-        return redirect()->back();
+    public function forceDelete(Int $id)
+    {   
+        $dish = Dish::where('id',$id)->onlyTrashed()->first();
+        $name_dish = $dish->name;
+        $dish->forceDelete();
+        return redirect()->route('dashboard')
+        ->with('message_type', 'danger')
+        ->with('message_content', "$name_dish rimosso definitivamente");
     }
+
+
+
 
     /* 
     * Validazione dati TOP!!

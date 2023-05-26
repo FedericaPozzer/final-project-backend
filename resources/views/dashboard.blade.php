@@ -127,7 +127,9 @@
                                     {{-- * azioni - vedi, modifica, elimina --}}
                                     <td class="d-flex justify-content-between align-items-center">
                                         <a href="{{route('dishes.show', $dish)}}" rel="tooltip" title="Visualizza"><i class="bi bi-eye"></i></a>
+                                        
                                         <a href="{{route('dishes.edit', $dish)}}" rel="tooltip" title="Modifica"><i class="bi bi-pencil"></i></a>
+
                                         <button type="button" class="text-danger border-0 bg-transparent" data-bs-toggle="modal" data-bs-target="#delete-modal-{{ $dish->id }}" rel="tooltip" title="Elimina">
                                             <i class="bi bi-trash"></i>            
                                         </button>

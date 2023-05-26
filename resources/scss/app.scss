@@ -319,5 +319,18 @@ input[type=radio]:checked + label {
         width: 30px;
         height: 100%;
         background-image: linear-gradient(to right, rgba(0,0,0,0) , rgba(0,0,0,.1));
+        background-color: #faebd7;
     }
   }
+
+.trash-stile-delete:hover{
+    background-color: $danger !important;
+    color:$light !important;
+    border-radius: 25%;
+}
+.trash-stile-restore:hover{
+    background-color: $success !important;
+    color:$light !important;
+    border-radius: 25%;
+
+}

@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\DishController;
 use App\Http\Controllers\admin\OrderController;
 use App\Http\Controllers\admin\RestaurantController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,13 +25,8 @@ Route::get('restaurant/trash', [RestaurantController::class, 'trash'])->name('re
 
 // * Dishes
 Route::resource('dishes', DishController::class);
-Route::get("dishes/restore/{id}", [DishController::class, "restore"])->name("dishes.restore");
-Route::get("dishes/delete/{id}", [DishController::class, "delete"])->name("dishes.delete");
-
-/* Orders */
-Route::get('orders', [RestaurantController::class, 'orders'])->name('restaurants.orders')->middleware(['auth', 'verified']);
-Route::get("orders/shipped/{id}", [OrderController::class, "shipped"])->name("order.shipped")->middleware(['auth', 'verified']);
-
+Route::put("dishes/{dish}/restore", [DishController::class, "restore"])->name("dishes.restore");
+Route::delete("dishes/{dish}/force-delete", [DishController::class, "forceDelete"])->name("dishes.force-delete");
 
 Route::get('send-customer_mail', function ($user_customer) {
    
@@ -39,7 +35,7 @@ Route::get('send-customer_mail', function ($user_customer) {
         'body' => 'This is for testing email using smtp'
     ];
    
-    \Mail::to($user_customer)->send(new \App\Mail\MyTestMail($details));
+    Mail::to($user_customer)->send(new \App\Mail\MyTestMail($details));
    
     dd("Email is Sent.");
 })->name('customer.mail');
@@ -54,6 +50,11 @@ Route::get('send-restaurant', function ($email_restaurant) {
 
 
 
+// * Orders 
+Route::middleware('auth','verified')->group(function () {
+    Route::get('orders', [RestaurantController::class, 'orders'])->name('restaurants.orders');
+    Route::get('orders/shipped/{id}', [OrderController::class, 'shipped'])->name('order.shipped');
+});
 
 Route::get('/', function () {
     return view('welcome');
