@@ -44,8 +44,8 @@ class RestaurantSeeder extends Seeder
             $restaurant = new Restaurant;
             $restaurant->name = $name;
             $restaurant->address = $prefix . ' ' . $street . ' ' . $number;
-            $restaurant->vat = $faker->randomNumber(9, true);
-            $restaurant->phone_number = $faker->phoneNumber();
+            $restaurant->vat = $faker->randomNumber(9, true) . $faker->randomNumber(2, true);
+            $restaurant->phone_number = '380' . $faker->randomNumber(7, true);
 
             /* Se l'utente non ha ristoranti gliene associo uno */
             if (!(User::first()->restaurant)){
