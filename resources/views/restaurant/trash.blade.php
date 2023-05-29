@@ -15,9 +15,9 @@
         <thead class="fs-4 thead">
             <tr>
                 <th scope="col">Nome Piatto</th>
-                <th scope="col" class="d-none d-lg-table-cell">Descrizione</th>
+                <th scope="col" class="d-none d-md-table-cell">Descrizione</th>
                 <th scope="col">Prezzo</th>
-                <th scope="col" class="d-none d-lg-table-cell">Disponibilità</th>
+                {{-- <th scope="col" class="d-none d-lg-table-cell">Disponibilità</th> --}}
                 <th scope="col">Azioni</th>
             </tr>
         </thead>
@@ -28,7 +28,7 @@
                 <th scope="row">{{$dish->name}}</th>
                 <td class="d-none d-md-table-cell">{{$dish->description}}</td>
                 <td> &euro; {{$dish->price}}</td>
-                <td class="d-none d-md-table-cell">{{$dish->available}}</td>
+                {{-- <td class="d-none d-md-table-cell">{{$dish->available == 1 ? 'Disponibile' : 'Non disponibile'}}</td> --}}
                 <td>
                     <button class="bi bi-trash text-danger trash-stile-delete border-0 bg-transparent fs-4 {{route('restaurants.trash')}}?sort=" data-bs-toggle="modal" data-bs-target="#delete-modal-{{$dish->id}}"></button>
 
