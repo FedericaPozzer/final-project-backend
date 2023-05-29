@@ -54,11 +54,11 @@
               
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body fs-2 fw-bold">
+            <div class="modal-body fs-3 fw-bold">
                 Sei sicuro di voler cancellare definitivamente il piatto {{$dish->name}}?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Chiudi</button>
+                <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Annulla</button>
                 <form class="" action="{{ route('dishes.force-delete', $dish )}}" method="POST">
                     @csrf
                     @method('delete')
@@ -77,11 +77,11 @@
           <h1 class="modal-title fs-4  fw-bold" id="exampleModalLabel">Attenzione</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body fs-2 fw-bold">
+        <div class="modal-body fs-3 fw-bold">
           Vuoi ripristinare il piatto {{$dish->name}}?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Chiudi</button>
+          <button type="button" class="btn btn-info text-light border fw-bold" data-bs-dismiss="modal">Annulla</button>
           <form class="" action="{{ route('dishes.restore',$dish)}}" method="POST">
             @csrf
             @method('PUT')

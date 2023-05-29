@@ -24,7 +24,7 @@
                 </i></a>
             
                 {{-- * Elimina il tuo ristorante --}}
-                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal" rel="tooltip" title="Elimina">
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete-modal-restaurant" rel="tooltip" title="Elimina">
                     <i class="bi bi-trash"></i>            
                 </button>
                 {{-- * delete modal --}}
@@ -150,7 +150,7 @@
 
         {{-- * la modal per eliminare i piatti --}}
         @include('layouts.partials.deleteDishes')
-
+        @include('layouts.partials.deleteRestaurant')
     {{-- * ELSE 2 - se non hai già un ristorante --}}
     @else
         <div class="container my-5">
