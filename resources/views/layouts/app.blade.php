@@ -53,12 +53,12 @@
                         </li>
                         @else
                         <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link" href="{{url('/dashboard') }}">{{ __('Dashboard') }}</a>
+                            <a class="nav-link button-fix" href="{{url('/dashboard') }}">{{ __('Dashboard') }}</a>
                         </li>
                         @if (auth()->user()->restaurant != null)     
                         <li class=" nav-item">
                             <button type="button" class=" btn position-relative">
-                                <a class="nav-link" href="{{url('/orders') }}">{{ __('Ordini') }}</a>
+                                <a class="nav-link button-fix" href="{{url('/orders') }}">{{ __('Ordini') }}</a>
                                 <span class="orders-badge rounded-pill px-2">
                                   {{auth()->user()->restaurant->unshippedOrders()}}
                                   <span class="visually-hidden">unread messages</span>
@@ -81,9 +81,10 @@
                             <a class="nav-link ms-2" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                         @endif
+
                         @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle button-fix" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>
 
