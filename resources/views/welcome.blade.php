@@ -30,10 +30,6 @@
 
         </section>
 
-
-
-
-
     </div>
 
 @endsection
