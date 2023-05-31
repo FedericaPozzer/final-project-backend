@@ -168,4 +168,5 @@
         <h2 class="my-5">Registrati al sito per usufruire dei servizi!</h2>
     @endif
 
+    
 @endsection
