@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 {{-- * IF 1 - se sei registrato --}}
 @if (auth()->user())
 
